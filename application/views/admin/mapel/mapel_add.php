@@ -23,6 +23,13 @@
         <?php endforeach; ?>
     </select>
   </div>
+  <div class="form-group">
+    <label class="">Status Aktif</label>
+    <select name="status_aktif" class="form-control border-primary shadow-sm" required>
+        <option value="aktif">Aktif</option>
+        <option value="nonaktif">Nonaktif</option>
+    </select>
+  </div>
 
   <div class="modal-footer bg-light">
     <button type="submit" class="btn btn-primary">

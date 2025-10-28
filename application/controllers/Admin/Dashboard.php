@@ -1,65 +1,84 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller {
-
     public function __construct()
     {
         parent::__construct();
-        // Load models
-        $this->load->model('Model_guru');
-        $this->load->model('Model_murid');
-        $this->load->model('Model_kelas');
-        $this->load->model('Model_mapel');
-        // You might want to add authentication check here
+        // TODO: Add authentication check here
     }
 
     public function index()
     {
-        $data['total_guru'] = $this->Model_guru->count_all_guru();
-        $data['total_murid'] = $this->Model_murid->count_all_murid();
-        $data['total_kelas'] = $this->Model_kelas->count_all_kelas();
-        $data['total_mapel'] = $this->Model_mapel->count_all_mapel();
+        $data['title'] = 'Dashboard';
 
-        // Placeholder for more complex data
-        $data['progress_per_kelas'] = $this->get_progress_per_kelas();
-        $data['absensi_guru_stats'] = $this->get_absensi_guru_stats();
-        $data['top_productive_murid'] = $this->get_top_productive_murid();
+        // 1. Get counts
+        $this->load->model('Model_guru');
+        $this->load->model('Model_murid');
+        $this->load->model('Model_kelas');
+        $this->load->model('Model_mapel');
+        $this->load->model('Model_dashboard');
 
-        $this->load->view('admin/dashboard_view', $data);
-    }
+        $data['total_guru'] = $this->Model_guru->total_guru();
+        $data['total_murid'] = $this->Model_murid->total_murid();
+        $data['total_kelas'] = $this->Model_kelas->total_kelas();
+        $data['total_mapel'] = $this->Model_mapel->total_mapel();
 
-    // Placeholder functions for data retrieval
-    private function get_progress_per_kelas()
-    {
-        // Implement logic to fetch average progress per class
-        // For now, return dummy data
-        return [
-            ['class' => 'Kelas A', 'progress' => 85],
-            ['class' => 'Kelas B', 'progress' => 70],
-            ['class' => 'Kelas C', 'progress' => 90],
+        // 2. Get real data for Graph
+        $progress_kelas = $this->Model_dashboard->get_average_progress_per_class();
+        $chart_labels = [];
+        $chart_data = [];
+        foreach ($progress_kelas as $row) {
+            $chart_labels[] = $row['nama_kelas'];
+            $chart_data[] = round($row['rata_rata_nilai'], 2);
+        }
+        $data['chart_labels'] = $chart_labels;
+        $data['chart_data'] = $chart_data;
+
+        // 3. Get real data for Teacher Attendance
+        $absensi_raw = $this->Model_dashboard->get_statistik_absensi();
+        $statistik_absensi = [
+            'hadir' => 0,
+            'sakit' => 0,
+            'izin' => 0,
+            'alpa' => 0,
         ];
-    }
+        $total_absensi = 0;
+        foreach ($absensi_raw as $row) {
+            $statistik_absensi[strtolower($row['status'])] = (int)$row['jumlah'];
+            $total_absensi += (int)$row['jumlah'];
+        }
 
-    private function get_absensi_guru_stats()
-    {
-        // Implement logic to fetch teacher attendance statistics
-        // For now, return dummy data
-        return [
-            'present' => 95,
-            'absent' => 5,
-            'late' => 10,
-        ];
-    }
+        $data['statistik_absensi_persen'] = [];
+        if ($total_absensi > 0) {
+            foreach ($statistik_absensi as $status => $jumlah) {
+                $data['statistik_absensi_persen'][$status] = round(($jumlah / $total_absensi) * 100);
+            }
+        } else {
+            foreach ($statistik_absensi as $status => $jumlah) {
+                $data['statistik_absensi_persen'][$status] = 0;
+            }
+        }
 
-    private function get_top_productive_murid()
-    {
-        // Implement logic to fetch top 3 productive students
-        // For now, return dummy data
-        return [
-            ['name' => 'Budi Santoso', 'score' => 98],
-            ['name' => 'Siti Aminah', 'score' => 95],
-            ['name' => 'Joko Susilo', 'score' => 92],
-        ];
+        $data['statistik_absensi'] = $statistik_absensi;
+
+        // 4. Get real data for Top 3 Students
+        $murid_produktif = $this->Model_dashboard->get_top_productive_students(3);
+        $data['murid_produktif'] = [];
+        foreach ($murid_produktif as $row) {
+            $data['murid_produktif'][] = [
+                'nama' => $row['nama_murid'],
+                'progress' => round($row['rata_rata_nilai'], 2)
+            ];
+        }
+
+        // 5. Get recent teacher absences
+        $data['recent_absensi_guru'] = $this->Model_dashboard->get_recent_absensi_guru(5);
+
+        // Load view through template
+        $this->load->view('templates/admin/head', $data);
+        $this->load->view('templates/admin/navbar', $data);
+        $this->load->view('templates/admin/topbar', $data);
+        $this->load->view('admin/dashboard', $data);
+        $this->load->view('templates/admin/footer');
     }
 }

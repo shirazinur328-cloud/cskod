@@ -20,6 +20,23 @@
                 </div>
             </div>
         </div>
+
+        <!-- Statistik Jumlah Murid per Kelas -->
+        <?php foreach ($list as $kelas_stat) : ?>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card bg-light border-left-info shadow h-100 py-2">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Murid di Kelas <?= $kelas_stat->nama_kelas; ?></div>
+                            <div class="h5 mb-0 font-weight-bold text-dark"><?= $kelas_stat->jumlah_murid; ?></div>
+                        </div>
+                        <div class="rounded-circle bg-info text-white p-2">
+                            <i class="fas fa-users fa-lg"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -57,6 +74,8 @@
                             <th>No</th>
                             <th>Nama Kelas</th>
                             <th>Tahun Ajaran</th>
+                            <th>Jumlah Murid</th>
+                            <th>Guru Wali</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -92,6 +111,8 @@ $(document).ready(function() {
       { data: 'no' },
       { data: 'nama_kelas' },
       { data: 'tahun_ajaran' },
+      { data: 'jumlah_murid' },
+      { data: 'guru_wali' },
       { data: 'aksi' }
     ]
   });
@@ -174,6 +195,14 @@ $(document).ready(function() {
         toastr.error("Gagal menyimpan data");
       }
     }, 'json');
+  });
+
+  // Detail Murid from Kelas Detail
+  $(document).on("click", ".btn-murid-detail", function() {
+    var id = $(this).data('id');
+    $('#modal_content').load("<?= site_url('admin/murid/murid_detail/'); ?>" + id, function() {
+      $('#modal_frame').modal('show');
+    });
   });
 });
 </script>

@@ -1,60 +1,52 @@
-# Project Overview
+# Gemini Code Assistant Context
 
-This project is a web application built using the **CodeIgniter 3** PHP framework. It leverages **Composer** for PHP dependency management and **npm/Gulp** for frontend asset management. The administrative interface is styled with the **SB Admin 2** Bootstrap theme. The application is designed to interact with a **MySQL** database.
+## Project Overview
 
-## Technologies Used
+This is a web application built using the **CodeIgniter 3** framework for PHP. Based on the database models (`Model_guru`, `Model_murid`, `Model_kelas`, `Model_mapel`, `Model_absensi_guru`, `Model_sertifikat`), the application appears to be a **School Management System** for managing teachers, students, classes, subjects, attendance, and certificates.
 
-*   **Backend:** PHP (5.6+), CodeIgniter 3
-*   **Database:** MySQL (configured for `cskod` database)
-*   **Frontend:** HTML, CSS (Bootstrap 4 / SB Admin 2), JavaScript, jQuery, Chart.js, DataTables
-*   **Dependency Management:** Composer (PHP), npm (Node.js)
-*   **Task Runner:** Gulp (for frontend assets)
-*   **PDF Generation:** Dompdf
+The project uses a standard MVC (Model-View-Controller) architecture.
+
+### Key Technologies
+
+*   **Backend:** PHP 7.x, CodeIgniter 3
+*   **Database:** MySQL (MariaDB)
+*   **Frontend:** Bootstrap (via the SB Admin 2 template), JavaScript, CSS
+*   **PHP Dependencies:**
+    *   `dompdf/dompdf`: For generating PDF files from HTML content.
+*   **Development:**
+    *   `phpunit/phpunit`: For unit testing.
 
 ## Building and Running
 
-### Backend Setup (PHP/CodeIgniter)
+This project runs on a standard PHP web server stack (like XAMPP, WAMP, or MAMP). There is no compilation or build step required for the main application.
 
-1.  **PHP Version:** Ensure PHP 5.6 or newer is installed.
-2.  **Composer Dependencies:** Navigate to the project root (`C:\xampp\htdocs\cskod\`) and install PHP dependencies:
+### 1. Environment Setup
+
+1.  **Web Server:** Ensure you have a local web server (e.g., Apache) with PHP (v5.6 or newer recommended) and a MySQL database server.
+2.  **Project Files:** Place the project folder `cskod` inside your web server's document root (e.g., `C:\xampp\htdocs\`).
+3.  **PHP Dependencies:** Install the required PHP libraries using Composer.
     ```bash
     composer install
     ```
-3.  **Database Configuration:**
-    *   The application expects a MySQL database named `cskod`.
-    *   Database connection settings are located in `application/config/database.php`.
-    *   Default credentials: `hostname: localhost`, `username: root`, `password: (empty)`.
-4.  **Web Server:** Configure your web server (e.g., Apache with XAMPP) to point to the project's root directory. The base URL is configured as `http://localhost/cskod/`.
 
-### Frontend Setup (SB Admin 2 / Gulp)
+### 2. Database Setup
 
-1.  **Node.js Dependencies:** Navigate to the `assets/` directory (`C:\xampp\htdocs\cskod\assets\`) and install Node.js dependencies:
-    ```bash
-    npm install
-    ```
-2.  **Compile Assets:** To watch for changes in frontend files (SCSS, JS) and compile them, run the Gulp watch task:
-    ```bash
-    npm start
-    ```
-    (This executes `node_modules/.bin/gulp watch`)
+1.  **Create Database:** Using a tool like phpMyAdmin, create a new MySQL database named `cskod`.
+2.  **Import Schema:** The database connection is configured in `application/config/database.php` to use the `cskod` database with user `root` and no password.
+    *   **TODO:** The database schema and initial data source are not present in the repository. You will need to find the `.sql` file and import it into the `cskod` database.
+
+### 3. Running the Application
+
+1.  **Start Server:** Start your Apache and MySQL services via the XAMPP/WAMP control panel.
+2.  **Access URL:** Open your web browser and navigate to:
+    [http://localhost/cskod/](http://localhost/cskod/)
 
 ## Development Conventions
 
-*   **MVC Architecture:** Follows the Model-View-Controller pattern as enforced by CodeIgniter.
-*   **Coding Style:** Adheres to CodeIgniter's recommended PHP coding standards.
-*   **Frontend Styling:** Uses Bootstrap 4 with the SB Admin 2 theme. Custom styles are likely in `assets/css/custom_theme.css` or SCSS files under `assets/scss/`.
-*   **Color Scheme:**
-    *   Primary: `#2C3E50` (Blue Navy)
-    *   Accent (Success): `#28A745` (Green)
-    *   Background (Light): `#F8F9FA`
-    *   Main Text: `#343A40`
-    *   Secondary Text/Gray: `#858796`
-*   **Testing:** PHPUnit is used for running tests, as indicated by the `composer.json` script `test:coverage`.
-
-## Key Directories
-
-*   `application/`: Contains the core application logic (controllers, models, views, configurations).
-*   `system/`: CodeIgniter system files (do not modify directly).
-*   `assets/`: Frontend assets including CSS, JavaScript, images, and vendor libraries (Bootstrap, FontAwesome, Chart.js).
-*   `vendor/`: PHP dependencies managed by Composer.
-*   `kategori/`: Contains view files related to 'kategori' (category) functionality.
+*   **Framework:** All development should follow CodeIgniter 3 conventions and best practices.
+*   **Models:** Database interactions are handled by models located in `application/models/`.
+*   **Views:** Frontend templates are located in `application/views/`. The main admin panel UI is based on the SB Admin 2 theme.
+*   **Controllers:** Application logic resides in controllers found in `application/controllers/`.
+*   **Frontend Assets:** All CSS, JavaScript, and image files are stored in the `assets/` directory and are managed manually (not via npm/yarn).
+*   **Testing:** A test script is defined in `composer.json` (`"test:coverage"`), but it appears configured for a CI environment.
+    *   **TODO:** Clarify the standard procedure for running unit tests in a local development environment.

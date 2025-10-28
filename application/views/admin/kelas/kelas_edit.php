@@ -20,6 +20,15 @@
            placeholder="Masukkan tahun ajaran (contoh: 2023/2024)..." 
            required>
   </div>
+  <div class="form-group">
+    <label class="">Guru Wali</label>
+    <select name="id_guru_wali" class="form-control border-warning shadow-sm">
+        <option value="">-- Pilih Guru Wali --</option>
+        <?php foreach ($guru_list as $guru) : ?>
+            <option value="<?= $guru->id_guru; ?>" <?= ($guru->id_guru == $kelas->id_guru_wali) ? 'selected' : '' ?>><?= $guru->nama_guru; ?></option>
+        <?php endforeach; ?>
+    </select>
+  </div>
 
   <div class="modal-footer bg-light">
     <button type="submit" class="btn btn-warning">

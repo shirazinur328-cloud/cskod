@@ -19,8 +19,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item <?= (empty($segment2)) ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('admin'); ?>">
+            <li class="nav-item <?= ($segment2 == 'dashboard' || empty($segment2)) ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -59,6 +59,36 @@
                 <a class="nav-link" href="<?= base_url('admin/kelas'); ?>">
                     <i class="fas fa-fw fa-chalkboard"></i>
                     <span>Kelas</span></a>
+            </li>
+
+            <!-- Nav Item - Sertifikat -->
+            <li class="nav-item <?= ($segment2 == 'sertifikat') ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= base_url('admin/sertifikat'); ?>">
+                    <i class="fas fa-fw fa-certificate"></i>
+                    <span>Sertifikat</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Laporan
+            </div>
+
+            <!-- Nav Item - Absensi -->
+            <li class="nav-item <?= ($segment2 == 'absensi') ? 'active' : '' ?>">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbsensi" aria-expanded="true" aria-controls="collapseAbsensi">
+                    <i class="fas fa-fw fa-calendar-check"></i>
+                    <span>Absensi Guru</span>
+                </a>
+                <div id="collapseAbsensi" class="collapse <?= ($segment2 == 'absensi') ? 'show' : '' ?>" aria-labelledby="headingAbsensi" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Menu Absensi:</h6>
+                        <a class="collapse-item" href="<?= base_url('admin/absensi'); ?>">Form Absensi</a>
+                        <a class="collapse-item" href="<?= base_url('admin/absensi/statistik'); ?>">Statistik Absensi</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->

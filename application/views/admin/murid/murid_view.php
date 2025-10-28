@@ -53,6 +53,7 @@
                             <th>Email</th>
                             <th>No. Telp</th>
                             <th>Kelas</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -96,6 +97,7 @@ $(document).ready(function() {
       { data: 'email' },
       { data: 'no_telp' },
       { data: 'nama_kelas' },
+      { data: 'status' },
       { data: 'aksi' }
     ]
   });

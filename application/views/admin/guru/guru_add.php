@@ -23,6 +23,13 @@
                 <label class="">Password</label>
                 <input type="password" name="password" class="form-control border-primary shadow-sm" placeholder="Masukkan password..." required>
             </div>
+            <div class="form-group">
+                <label class="">Status</label>
+                <select name="status" class="form-control border-primary shadow-sm" required>
+                    <option value="aktif">Aktif</option>
+                    <option value="nonaktif">Nonaktif</option>
+                </select>
+            </div>
         </div>
     </div>
 

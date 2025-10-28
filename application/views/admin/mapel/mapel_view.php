@@ -52,6 +52,8 @@
                             <th>Nama Mata Pelajaran</th>
                             <th>Deskripsi</th>
                             <th>Guru Pengampu</th>
+                            <th>Total Pertemuan</th>
+                            <th>Status Aktif</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -94,6 +96,8 @@ $(document).ready(function() {
       { data: 'nama_mapel' },
       { data: 'deskripsi' },
       { data: 'guru' },
+      { data: 'total_pertemuan' },
+      { data: 'status_aktif' },
       { data: 'aksi' }
     ]
   });

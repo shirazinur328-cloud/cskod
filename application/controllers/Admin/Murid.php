@@ -45,6 +45,12 @@ class Murid extends CI_Controller {
             $row['email'] = isset($murid->email) ? $murid->email : '';
             $row['no_telp'] = isset($murid->no_telp) ? $murid->no_telp : '';
             $row['nama_kelas'] = isset($murid->nama_kelas) ? $murid->nama_kelas : 'Belum Ada Kelas';
+
+            // Status
+            $status_value = isset($murid->status) ? $murid->status : 'aktif'; // Default to 'aktif' if status column doesn't exist
+            $status = ($status_value == 'aktif') ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-info">Lulus</span>';
+            $row['status'] = $status;
+
             $row['aksi'] = '<button class="btn btn-info btn-sm btn-murid-detail" data-id="'.$id_murid.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
                            <button class="btn btn-warning btn-sm btn-murid-edit" data-id="'.$id_murid.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
                            <button class="btn btn-danger btn-sm btn-murid-hapus" data-id="'.$id_murid.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
@@ -68,7 +74,8 @@ class Murid extends CI_Controller {
             'email' => $this->input->post('email'),
             'no_telp' => $this->input->post('no_telp'),
             'username' => $this->input->post('username'),
-            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+            'status' => $this->input->post('status')
         );
         $id_kelas = $this->input->post('id_kelas');
 
@@ -112,7 +119,8 @@ class Murid extends CI_Controller {
             'nama_murid'   => $this->input->post('nama_murid'),
             'email'       => $this->input->post('email'),
             'no_telp' => $this->input->post('no_telp'),
-            'username' => $this->input->post('username')
+            'username' => $this->input->post('username'),
+            'status' => $this->input->post('status')
         );
 
         // Check if password is provided
@@ -176,6 +184,9 @@ class Murid extends CI_Controller {
         }
 
         $data['murid'] = $check_murid;
+        $data['progress_per_mapel'] = $this->Model_murid->get_progress_per_mapel($id_murid);
+        $data['daftar_nilai'] = $this->Model_murid->get_daftar_nilai($id_murid);
+        $data['sertifikat_murid'] = $this->Model_murid->get_sertifikat($id_murid);
         $this->load->view('admin/murid/murid_detail', $data);
     }
 

@@ -8,10 +8,17 @@ class Model_guru extends CI_Model {
         return $this->db->count_all('guru');
     }
 
-    public function list_guru()
+    public function list_guru($id_mapel = null)
     {
-        $this->db->order_by('id_guru', 'desc');
-        $query = $this->db->get('guru');
+        $this->db->select('guru.*');
+        $this->db->from('guru');
+        $this->db->join('mapel', 'mapel.id_guru = guru.id_guru', 'left');
+        if ($id_mapel) {
+            $this->db->where('mapel.id_mapel', $id_mapel);
+        }
+        $this->db->group_by('guru.id_guru');
+        $this->db->order_by('guru.id_guru', 'desc');
+        $query = $this->db->get();
         return $query->result();
     }
 
@@ -40,5 +47,33 @@ class Model_guru extends CI_Model {
         $this->db->where('id_guru', $id_guru);
         $this->db->delete('guru');
         $this->db->reset_query();
+    }
+
+    public function get_all_guru()
+    {
+        $this->db->where('status', 'aktif');
+        $this->db->order_by('nama_guru', 'asc');
+        $query = $this->db->get('guru');
+        return $query->result();
+    }
+
+    public function get_performa_kelas($id_guru)
+    {
+        $this->db->select(
+            'mapel.id_mapel, 
+            mapel.nama_mapel, 
+            COUNT(DISTINCT tugas.id_tugas) as jumlah_tugas, 
+            COUNT(DISTINCT submission.id_submission) as jumlah_submission, 
+            AVG(nilai.nilai) as rata_rata_nilai'
+        );
+        $this->db->from('mapel');
+        $this->db->join('tugas', 'mapel.id_mapel = tugas.id_mapel', 'left');
+        $this->db->join('submission', 'tugas.id_tugas = submission.id_tugas', 'left');
+        $this->db->join('nilai', 'submission.id_submission = nilai.id_submission', 'left');
+        $this->db->where('mapel.id_guru', $id_guru);
+        $this->db->group_by('mapel.id_mapel');
+        $this->db->order_by('mapel.nama_mapel', 'asc');
+        $query = $this->db->get();
+        return $query->result();
     }
 }

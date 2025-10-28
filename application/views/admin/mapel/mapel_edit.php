@@ -27,6 +27,13 @@
         <?php endforeach; ?>
     </select>
   </div>
+  <div class="form-group">
+    <label class="">Status Aktif</label>
+    <select name="status_aktif" class="form-control border-warning shadow-sm" required>
+        <option value="aktif" <?= ($mapel->status_aktif == 'aktif') ? 'selected' : '' ?>>Aktif</option>
+        <option value="nonaktif" <?= ($mapel->status_aktif == 'nonaktif') ? 'selected' : '' ?>>Nonaktif</option>
+    </select>
+  </div>
 
   <div class="modal-footer bg-light">
     <button type="submit" class="btn btn-warning">

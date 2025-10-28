@@ -24,6 +24,13 @@
                 <label class="">Password</label>
                 <input type="password" name="password" class="form-control border-warning shadow-sm" placeholder="Kosongkan jika tidak ingin diubah">
             </div>
+            <div class="form-group">
+                <label class="">Status</label>
+                <select name="status" class="form-control border-warning shadow-sm" required>
+                    <option value="aktif" <?= $guru->status == 'aktif' ? 'selected' : '' ?>>Aktif</option>
+                    <option value="nonaktif" <?= $guru->status == 'nonaktif' ? 'selected' : '' ?>>Nonaktif</option>
+                </select>
+            </div>
         </div>
     </div>
 

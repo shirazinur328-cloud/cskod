@@ -32,6 +32,13 @@
                     <?php endforeach; ?>
                 </select>
             </div>
+            <div class="form-group">
+                <label class="">Status</label>
+                <select name="status" class="form-control border-primary shadow-sm" required>
+                    <option value="aktif">Aktif</option>
+                    <option value="lulus">Lulus</option>
+                </select>
+            </div>
         </div>
     </div>
 

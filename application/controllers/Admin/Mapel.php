@@ -48,6 +48,9 @@ class Mapel extends CI_Controller {
             $row['nama_mapel'] = isset($mapel->nama_mapel) ? $mapel->nama_mapel : '';
             $row['deskripsi'] = isset($mapel->deskripsi) ? $mapel->deskripsi : '';
             $row['guru'] = isset($mapel->guru) ? $mapel->guru : '';
+            $row['total_pertemuan'] = isset($mapel->total_pertemuan) ? $mapel->total_pertemuan : 0;
+            $status_aktif_value = isset($mapel->status_aktif) ? $mapel->status_aktif : 'nonaktif';
+            $row['status_aktif'] = ($status_aktif_value == 'aktif') ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-danger">Nonaktif</span>';
             $row['aksi'] = '<button class="btn btn-info btn-sm btn-mapel-detail" data-id="'.$id_mapel.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
                            <button class="btn btn-warning btn-sm btn-mapel-edit" data-id="'.$id_mapel.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
                            <button class="btn btn-danger btn-sm btn-mapel-hapus" data-id="'.$id_mapel.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
@@ -68,8 +71,8 @@ class Mapel extends CI_Controller {
     {
         $data = array(
             'nama_mapel' => $this->input->post('nama_mapel'),
-            'deskripsi' => $this->input->post('deskripsi'),
-            'id_guru' => $this->input->post('id_guru')
+            'id_guru' => $this->input->post('id_guru'),
+            'status_aktif' => $this->input->post('status_aktif')
         );
 
         $this->Model_mapel->add_mapel($data);
@@ -104,7 +107,8 @@ class Mapel extends CI_Controller {
         $data = array(
             'nama_mapel'   => $this->input->post('nama_mapel'),
             'deskripsi'       => $this->input->post('deskripsi'),
-            'id_guru' => $this->input->post('id_guru')
+            'id_guru' => $this->input->post('id_guru'),
+            'status_aktif' => $this->input->post('status_aktif')
         );
 
         $this->Model_mapel->update_mapel($id_mapel, $data);
@@ -140,7 +144,7 @@ class Mapel extends CI_Controller {
     {
         if(!$id_mapel) exit;
 
-        $check_mapel = $this->Model_mapel->single_mapel($id_mapel);
+        $check_mapel = $this->Model_mapel->single_mapel_detail($id_mapel);
 
         if(!$check_mapel) {
             echo '<div class="modal-body"><p class="text-center">Data mata pelajaran tidak ditemukan!</p></div>';
@@ -148,6 +152,11 @@ class Mapel extends CI_Controller {
         }
 
         $data['mapel'] = $check_mapel;
+        $data['pertemuan_list'] = $this->Model_mapel->get_pertemuan_by_mapel($id_mapel);
+        $data['tugas_list'] = $this->Model_mapel->get_tugas_by_mapel($id_mapel);
+        $data['average_progress'] = $this->Model_mapel->get_average_progress_by_mapel($id_mapel);
+        $data['daftar_murid'] = $this->Model_mapel->get_daftar_murid($id_mapel);
+        $data['statistik_nilai'] = $this->Model_mapel->get_statistik_nilai($id_mapel);
         $this->load->view('admin/mapel/mapel_detail', $data);
     }
 

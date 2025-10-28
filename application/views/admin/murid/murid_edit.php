@@ -33,6 +33,13 @@
                     <?php endforeach; ?>
                 </select>
             </div>
+            <div class="form-group">
+                <label class="">Status</label>
+                <select name="status" class="form-control border-warning shadow-sm" required>
+                    <option value="aktif" <?= $murid->status == 'aktif' ? 'selected' : '' ?>>Aktif</option>
+                    <option value="lulus" <?= $murid->status == 'lulus' ? 'selected' : '' ?>>Lulus</option>
+                </select>
+            </div>
         </div>
     </div>
 

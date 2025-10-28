@@ -7,6 +7,7 @@ class Guru extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Model_guru');
+        $this->load->model('Model_mapel');
     }
 
     private function set_output($data)
@@ -23,6 +24,7 @@ class Guru extends CI_Controller {
     {
         $data['title'] = 'Data Guru';
         $data['total_guru'] = $this->Model_guru->total_guru();
+        $data['mapel_list'] = $this->Model_mapel->list_mapel(); // Fetch all subjects
         $this->load->view('templates/admin/head', $data);
         $this->load->view('templates/admin/navbar');
         $this->load->view('templates/admin/topbar');
@@ -32,7 +34,8 @@ class Guru extends CI_Controller {
 
     public function guru_daftar()
     {
-        $list = $this->Model_guru->list_guru();
+        $id_mapel = $this->input->get('id_mapel');
+        $list = $this->Model_guru->list_guru($id_mapel);
         $data = array();
         $no = 1;
         foreach ($list as $guru) {
@@ -43,6 +46,15 @@ class Guru extends CI_Controller {
             $row['nama_guru'] = isset($guru->nama_guru) ? $guru->nama_guru : '';
             $row['email'] = isset($guru->email) ? $guru->email : '';
             $row['no_telp'] = isset($guru->no_telp) ? $guru->no_telp : '';
+
+            // Mapel
+            $row['mapel'] = isset($guru->mapel_diajarkan) ? $guru->mapel_diajarkan : '-';
+
+            // Status
+            $status_value = isset($guru->status) ? $guru->status : 'nonaktif'; // Default to 'nonaktif' if status column doesn't exist
+            $status = ($status_value == 'aktif') ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-danger">Nonaktif</span>';
+            $row['status'] = $status;
+
             $row['aksi'] = '<button class="btn btn-info btn-sm btn-guru-detail" data-id="'.$id_guru.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
                            <button class="btn btn-warning btn-sm btn-guru-edit" data-id="'.$id_guru.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
                            <button class="btn btn-danger btn-sm btn-guru-hapus" data-id="'.$id_guru.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
@@ -65,7 +77,8 @@ class Guru extends CI_Controller {
             'email' => $this->input->post('email'),
             'no_telp' => $this->input->post('no_telp'),
             'username' => $this->input->post('username'),
-            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT)
+            'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+            'status' => $this->input->post('status')
         );
 
         $this->Model_guru->add_guru($data);
@@ -100,7 +113,8 @@ class Guru extends CI_Controller {
             'nama_guru'   => $this->input->post('nama_guru'),
             'email'       => $this->input->post('email'),
             'no_telp' => $this->input->post('no_telp'),
-            'username' => $this->input->post('username')
+            'username' => $this->input->post('username'),
+            'status' => $this->input->post('status')
         );
 
         // Check if password is provided
@@ -141,6 +155,8 @@ class Guru extends CI_Controller {
     {
         if(!$id_guru) exit;
 
+        $this->load->model('Model_absensi_guru'); // Assuming this model exists or will be created
+
         $check_guru = $this->Model_guru->single_guru($id_guru);
 
         if(!$check_guru) {
@@ -149,6 +165,8 @@ class Guru extends CI_Controller {
         }
 
         $data['guru'] = $check_guru;
+        $data['absensi_data'] = $this->Model_absensi_guru->get_absensi_by_guru($id_guru); // Assuming this method exists
+        $data['performa_kelas'] = $this->Model_guru->get_performa_kelas($id_guru); // New line for class performance
         $this->load->view('admin/guru/guru_detail', $data);
     }
 
