@@ -5,7 +5,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; CSKod 2021 - Platform Belajar Programming untuk Pelajar</span>
                     </div>
                 </div>
             </footer>
@@ -42,22 +42,24 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Bootstrap 5 JS Bundle (tanpa jQuery) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<?php echo base_url('assets/vendor/jquery-easing/jquery.easing.min.js') ?>"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="<?php echo base_url('assets/js/sb-admin-2.min.js') ?>"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="<?php echo base_url('assets/vendor/chart.js/Chart.min.js') ?>"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="<?php echo base_url('assets/js/demo/chart-area-demo.js') ?>"></script>
+    <script src="<?php echo base_url('assets/js/demo/chart-pie-demo.js') ?>"></script>
 
 </body>
 
