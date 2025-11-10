@@ -76,4 +76,32 @@ class Model_guru extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function total_mapel_by_guru($id_guru)
+    {
+        $this->db->from('guru_mapel_kelas');
+        $this->db->where('id_guru', $id_guru);
+        return $this->db->count_all_results();
+    }
+    
+    public function get_mapel_by_guru($id_guru)
+    {
+        $this->db->select('mapel.*');
+        $this->db->from('guru_mapel_kelas');
+        $this->db->join('mapel', 'guru_mapel_kelas.id_mapel = mapel.id_mapel');
+        $this->db->where('guru_mapel_kelas.id_guru', $id_guru);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
+    public function get_mapel_kelas_by_guru($id_guru)
+    {
+        $this->db->select('mapel.id_mapel, mapel.nama_mapel, kelas.id_kelas, kelas.nama_kelas');
+        $this->db->from('guru_mapel_kelas');
+        $this->db->join('mapel', 'guru_mapel_kelas.id_mapel = mapel.id_mapel');
+        $this->db->join('kelas', 'guru_mapel_kelas.id_kelas = kelas.id_kelas');
+        $this->db->where('guru_mapel_kelas.id_guru', $id_guru);
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
