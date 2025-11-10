@@ -40,7 +40,10 @@ class Model_mapel_kelas extends CI_Model {
     
     public function get_pertemuan_by_id($id_pertemuan)
     {
-        $query = $this->db->get_where('pertemuan', array('id_pertemuan' => $id_pertemuan));
+        $this->db->select('id_pertemuan, id_mapel, id_kelas, nama_pertemuan, tanggal');
+        $this->db->from('pertemuan');
+        $this->db->where('id_pertemuan', $id_pertemuan);
+        $query = $this->db->get();
         return $query->row();
     }
     

@@ -3,7 +3,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Detail Pertemuan: <?= $pertemuan->judul_pertemuan ?></h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Pertemuan: <?= $pertemuan->nama_pertemuan ?></h1>
     </div>
 
     <!-- Content Row -->
@@ -16,8 +16,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <p><strong>Nama Pertemuan:</strong> <?= $pertemuan->judul_pertemuan ?></p>
-                            <p><strong>Tanggal:</strong> <?= date('d M Y', strtotime($pertemuan->waktu_mulai)) ?></p>
+                            <p><strong>Nama Pertemuan:</strong> <?= $pertemuan->nama_pertemuan ?></p>
+                            <p><strong>Tanggal:</strong> <?= date('d M Y', strtotime($pertemuan->tanggal)) ?></p>
                         </div>
                     </div>
                 </div>
