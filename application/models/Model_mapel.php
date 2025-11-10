@@ -51,7 +51,7 @@ class Model_mapel extends CI_Model {
     public function get_pertemuan_by_mapel($id_mapel)
     {
         $this->db->where('id_mapel', $id_mapel);
-        $this->db->order_by('tanggal', 'asc');
+        $this->db->order_by('id_pertemuan', 'asc'); // Assuming id_pertemuan is the correct column
         $query = $this->db->get('pertemuan');
         return $query->result();
     }
