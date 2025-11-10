@@ -13,8 +13,7 @@ class Mapel extends CI_Controller {
     public function index()
     {
         // sementara pakai id_guru = 1
-        $id_guru = 1;
-        //$id_guru = $this->session->userdata('id_guru');
+        $id_guru = $this->session->userdata('id_guru');
         $data['title'] = 'Daftar Mata Pelajaran';
         $this->load->model('Model_guru');
         $data['mapel_kelas_list'] = $this->Model_guru->get_mapel_kelas_by_guru($id_guru);
@@ -44,11 +43,11 @@ class Mapel extends CI_Controller {
     {
         if ($this->input->post()) {
             $data = [
-                'nama_pertemuan' => $this->input->post('nama_pertemuan'),
-                'tanggal' => $this->input->post('tanggal'),
-                'id_mapel' => $id_mapel,
-                'id_kelas' => $id_kelas
-            ];
+    'judul_pertemuan' => $this->input->post('judul_pertemuan'),
+    'waktu_mulai' => $this->input->post('waktu_mulai'),
+    'id_mapel' => $this->input->post('id_mapel'),
+    'id_kelas' => $this->input->post('id_kelas')
+];
             
             $id_pertemuan = $this->Model_mapel_kelas->create_pertemuan($data);
             
