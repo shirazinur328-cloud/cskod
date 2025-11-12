@@ -112,7 +112,7 @@
                                     ?>
                                     <div class="progress mb-3" style="height: 20px;">
                                         <div class="progress-bar progress-bar-animated-gradient" role="progressbar" style="width: <?= $overall_progress_percentage ?>%;" aria-valuenow="<?= $overall_progress_percentage ?>" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="font-weight-bold text-white"><?= $overall_progress_percentage ?>% Selesai</span>
+                                            <span class="font-weight-bold text-white"><?= $overall_progress_percentage ?>% Selesai 🎉</span>
                                         </div>
                                     </div>
                                     <p class="small text-right mb-0" style="color: var(--text-secondary-color);">Progres rata-rata dari semua mata pelajaran.</p>

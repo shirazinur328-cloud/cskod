@@ -218,8 +218,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Progress Bars */
+.progress {
+    background-color: #E5E7EB; /* Track color */
+    border-radius: 999px; /* Pill style */
+}
 .progress-bar {
     background-color: var(--primary-color);
+    border-radius: 999px; /* Pill style */
 }
 
 /* Animated Gradient Progress Bar for Card Progress */
