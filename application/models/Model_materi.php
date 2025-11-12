@@ -133,7 +133,7 @@ class Model_materi extends CI_Model {
         $this->db->join('murid_mapel mm', 'm.id_mapel = mm.id_mapel');
         $this->db->where('mm.id_murid', $id_murid);
         $this->db->where("m.id_materi NOT IN (SELECT id_materi FROM materi_murid WHERE id_murid = $id_murid AND status = 'Selesai')", NULL, FALSE);
-        $this->db->order_by('m.created_at', 'ASC');
+        $this->db->order_by('m.id_materi', 'ASC'); // Order by ID as 'urutan' is missing
         $this->db->limit(1);
         $query = $this->db->get();
         return $query->row();

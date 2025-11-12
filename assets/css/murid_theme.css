@@ -23,6 +23,94 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-color);
 }
 
+/* Sidebar */
+.sidebar {
+    background-color: var(--primary-color); /* Hijau emerald */
+    background-image: none;
+    border-top-right-radius: 15px; /* Rounded corner kanan */
+    border-bottom-right-radius: 15px; /* Rounded corner kanan */
+    box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.075)!important; /* Subtle shadow */
+}
+
+/* Sidebar Brand */
+.sidebar .sidebar-brand {
+    color: #FFFFFF;
+}
+
+/* Sidebar Text & Icons */
+.sidebar .nav-item .nav-link {
+    color: #FFFFFF; /* Putih */
+    transition: all 0.2s ease-in-out;
+    font-size: 1rem; /* Medium text */
+}
+
+.sidebar .nav-item .nav-link i {
+    color: #FFFFFF; /* Putih */
+    font-size: 22px; /* Large icons (20-24px) */
+    margin-right: 10px;
+}
+
+/* Sidebar Hover/Active Item */
+.sidebar .nav-item .nav-link:hover {
+    background-color: #16A34A; /* Lebih gelap sedikit */
+    color: #FFFFFF;
+    border-radius: 0 15px 15px 0; /* Rounded corner kanan on hover */
+}
+
+.sidebar .nav-item .nav-link:hover i {
+    color: #FFFFFF;
+}
+
+.sidebar .nav-item.active .nav-link {
+    background-color: #16A34A; /* Lebih gelap sedikit */
+    color: #FFFFFF;
+    font-weight: 600;
+    border-radius: 0 15px 15px 0; /* Rounded corner kanan on active */
+}
+
+.sidebar .nav-item.active .nav-link i {
+    color: #FFFFFF;
+}
+
+.sidebar .sidebar-heading {
+    color: rgba(255, 255, 255, 0.7); /* Light white for heading */
+}
+
+/* Topbar */
+.topbar {
+    background-color: #FFFFFF; /* Putih */
+    box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.075)!important; /* Shadow halus */
+    border-bottom: 3px solid var(--primary-color); /* Accent line */
+}
+
+/* Topbar Text */
+.topbar .nav-item .nav-link {
+    color: var(--text-color); /* #1E293B */
+}
+
+.topbar .nav-item .nav-link:hover {
+    color: var(--primary-color); /* Primary color on hover */
+}
+
+/* Topbar Search Bar */
+.topbar .navbar-search input {
+    background-color: var(--background-color); /* Putih keabu-an */
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.topbar .navbar-search input::placeholder {
+    color: var(--text-secondary-color);
+}
+
+/* Topbar Profile Picture */
+.topbar .img-profile {
+    height: 2.5rem; /* Adjust as needed */
+    width: 2.5rem; /* Adjust as needed */
+    border-radius: 50%; /* Bundar */
+    object-fit: cover;
+}
+
 /* Buttons */
 .btn-primary {
     background-color: var(--primary-color);
@@ -63,19 +151,36 @@ h1, h2, h3, h4, h5, h6 {
 /* Cards */
 .card {
     background-color: #FFFFFF; /* White for card background */
-    border: 1px solid var(--border-color);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid var(--border-color); /* E2E8F0 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md equivalent */
     border-radius: 8px;
     transition: all 0.2s ease-in-out;
 }
 .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-3px) scale(1.02); /* Slight lift and scale */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* slightly more pronounced shadow on hover */
+}
+.card-mapel-header-text {
+    color: var(--primary-color); /* Green text as requested for card header */
+}
+.card-mapel-header-icon {
+    color: #3B82F6; /* Icon color as requested for card header */
 }
 .card-header {
-    background-color: var(--secondary-color);
+    background-color: #FFFFFF; /* Keep header background white */
     color: var(--text-color);
     border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 1.25rem; /* Standard Bootstrap padding */
+    margin-bottom: 0;
+    border-top-left-radius: calc(8px - 1px);
+    border-top-right-radius: calc(8px - 1px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card-body h6.card-title { /* For specific card titles */
+    font-weight: 700;
+    margin-bottom: 0.5rem;
 }
 
 /* Forms */
@@ -115,6 +220,22 @@ h1, h2, h3, h4, h5, h6 {
 /* Progress Bars */
 .progress-bar {
     background-color: var(--primary-color);
+}
+
+/* Animated Gradient Progress Bar for Card Progress */
+.progress-bar-animated-gradient {
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color)); /* Green to Blue */
+    background-size: 200% 100%;
+    animation: progress-gradient-animation 2s linear infinite;
+}
+
+@keyframes progress-gradient-animation {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
 }
 
 /* Badges */

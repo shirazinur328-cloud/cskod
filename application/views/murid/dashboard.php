@@ -95,18 +95,27 @@
                     <div class="row">
                         <!-- Left Column -->
                         <div class="col-lg-8">
-                            <!-- Lanjutkan Belajar -->
+                            <!-- Progres Keseluruhan -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Lanjutkan Belajar</h6>
+                                    <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Progres Keseluruhan</h6>
                                 </div>
                                 <div class="card-body">
-                                    <h5 style="color: var(--text-color);">Dasar-Dasar HTML</h5>
-                                    <p style="color: var(--text-secondary-color);">Mengenal tag-tag dasar untuk membangun struktur website.</p>
-                                    <div class="progress mb-3" style="height: 10px;">
-                                        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="text-center mb-3">
+                                        <i class="fas fa-chart-line fa-3x" style="color: var(--accent-color);"></i>
+                                        <h5 class="mt-3" style="color: var(--text-color);">Pencapaian Belajarmu</h5>
+                                        <p class="small text-muted">Terus semangat belajar untuk mencapai tujuanmu!</p>
                                     </div>
-                                    <a href="#" class="btn btn-primary">Lanjutkan <i class="fas fa-arrow-right fa-sm"></i></a>
+                                    <?php
+                                        // Placeholder for overall progress
+                                        $overall_progress_percentage = 75; // Example value
+                                    ?>
+                                    <div class="progress mb-3" style="height: 20px;">
+                                        <div class="progress-bar progress-bar-animated-gradient" role="progressbar" style="width: <?= $overall_progress_percentage ?>%;" aria-valuenow="<?= $overall_progress_percentage ?>" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="font-weight-bold text-white"><?= $overall_progress_percentage ?>% Selesai</span>
+                                        </div>
+                                    </div>
+                                    <p class="small text-right mb-0" style="color: var(--text-secondary-color);">Progres rata-rata dari semua mata pelajaran.</p>
                                 </div>
                             </div>
 
@@ -138,10 +147,10 @@
 
                         <!-- Right Column -->
                         <div class="col-lg-4">
-                            <!-- Progres Saya -->
+                            <!-- Daftar Mapel Saya -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Progres Saya</h6>
+                                    <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Daftar Mapel Saya</h6>
                                 </div>
                                 <div class="card-body">
                                     <?php if (!empty($mapel_murid)): ?>
@@ -152,13 +161,24 @@
                                                     $percentage = round(($mapel->materi_selesai / $mapel->total_materi) * 100);
                                                 }
                                             ?>
-                                            <h4 class="small font-weight-bold"><?= htmlspecialchars($mapel->nama_mapel) ?> <span class="float-right"><?= $percentage ?>%</span></h4>
-                                            <div class="progress mb-4">
-                                                <div class="progress-bar" role="progressbar" style="width: <?= $percentage ?>%;" aria-valuenow="<?= $percentage ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                            <a href="<?= base_url('murid/dashboard/subject_detail/' . $mapel->id_mapel) ?>" class="card mb-3 text-decoration-none text-dark">
+                                                <div class="card-body">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <i class="fas fa-book fa-2x mr-3 card-mapel-header-icon"></i>
+                                                        <div>
+                                                            <h6 class="card-title card-mapel-header-text mb-0"><?= htmlspecialchars($mapel->nama_mapel) ?></h6>
+                                                            <p class="small text-muted mb-0">Guru: <?= htmlspecialchars($mapel->nama_guru) ?></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="progress" style="height: 8px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: <?= $percentage ?>%; background-color: var(--primary-color);" aria-valuenow="<?= $percentage ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    <p class="small text-right mb-0 mt-1" style="color: var(--text-secondary-color);"><?= $percentage ?>% Selesai</p>
+                                                </div>
+                                            </a>
                                         <?php endforeach; ?>
                                     <?php else: ?>
-                                        <p class="text-center small" style="color: var(--text-secondary-color);">Belum ada progres.</p>
+                                        <p class="text-center small" style="color: var(--text-secondary-color);">Belum ada mata pelajaran yang diikuti.</p>
                                     <?php endif; ?>
                                 </div>
                             </div>
