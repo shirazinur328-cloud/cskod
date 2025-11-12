@@ -1,9 +1,6 @@
 <?php $this->load->view('templates/siswa/head', ['title' => 'Kerjakan Tugas']); ?>
 
-<body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
 
         <?php $this->load->view('templates/siswa/navbar'); ?>
 
@@ -22,7 +19,8 @@
                     <h1 class="h3 mb-4 text-gray-800">Kerjakan Tugas: <?= htmlspecialchars($tugas['judul_tugas']); ?></h1>
 
                     <div class="row">
-                        <div class="col-lg-8">
+                        <!-- Left Column: Task Details -->
+                        <div class="col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Detail Tugas</h6>
@@ -52,7 +50,10 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
+                        </div>
 
+                        <!-- Right Column: Submission Form -->
+                        <div class="col-lg-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Form Jawaban</h6>
