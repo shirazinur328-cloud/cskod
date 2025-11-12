@@ -160,38 +160,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #FFFFFF;
 }
 
-/* CodeMirror Light Theme Customization (Green-Blue Syntax) */
-.CodeMirror {
-    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; /* Use a monospaced font */
-    background-color: #FFFFFF; /* Ensure light background */
-    color: var(--text-color); /* Default text color */
-}
 
-.cm-s-default .cm-keyword { color: var(--accent-color); } /* Blue for keywords */
-.cm-s-default .cm-atom { color: #88F; }
-.cm-s-default .cm-number { color: #16A34A; } /* Green for numbers */
-.cm-s-default .cm-def { color: var(--text-color); }
-.cm-s-default .cm-variable,
-.cm-s-default .cm-variable-2,
-.cm-s-default .cm-variable-3 { color: var(--text-color); } /* Default text color for variables */
-.cm-s-default .cm-property { color: var(--accent-color); } /* Blue for properties */
-.cm-s-default .cm-operator { color: var(--text-color); }
-.cm-s-default .cm-comment { color: #6C757D; font-style: italic; } /* Gray italic for comments */
-.cm-s-default .cm-string { color: var(--primary-color); } /* Green for strings */
-.cm-s-default .cm-string-2 { color: #f50; }
-.cm-s-default .cm-meta { color: #555; }
-.cm-s-default .cm-qualifier { color: #555; }
-.cm-s-default .cm-builtin { color: #30a; }
-.cm-s-default .cm-tag { color: var(--accent-color); } /* Blue for HTML/XML tags */
-.cm-s-default .cm-attribute { color: var(--primary-color); } /* Green for attributes */
-.cm-s-default .cm-header { color: blue; }
-.cm-s-default .cm-quote { color: #090; }
-.cm-s-default .cm-hr { color: #999; }
-.cm-s-default .cm-link { color: #00c; }
-.cm-s-default .cm-error { color: #f00; }
-.cm-s-default .cm-tab { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAg5Kx4AAAALUlEQVRIx2NgYGBgYJ3MwMDCgKEAZGQY/R4IAzJsxIAaFCSxXgCKzBLIwAQAMiEBAAW4F0oAAAAASUVORK5CYII=) no-repeat; width: 1em; height: 1em; }
-.cm-s-default .CodeMirror-activeline-background { background: #e8f2ff; }
-.cm-s-default .CodeMirror-matchingbracket { border: 1px solid #ccc; }
 
 /* Cards */
 .card {

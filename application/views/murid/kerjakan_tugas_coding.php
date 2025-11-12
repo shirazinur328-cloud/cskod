@@ -2,8 +2,7 @@
 
 <!-- CodeMirror CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
-<!-- Using a light theme, will customize syntax highlighting in murid_theme.css -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/default.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/dracula.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/show-hint.min.css">
 
 <style>
@@ -173,14 +172,15 @@
             var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
                 lineNumbers: true,
                 mode: selectedLang.mode,
-                theme: "default", // Changed to default light theme
+                theme: "dracula", // Reverted to dracula dark theme
                 indentUnit: 4,
                 extraKeys: {"Ctrl-Space": "autocomplete"},
                 hintOptions: { completeSingle: false }
             });
             editor.setSize("100%", 400);
 
-            var initialCode = editor.getValue();
+            // Ensure initialCode correctly captures the original content from the PHP variable
+            var initialCode = `<?= html_escape($submission['kode_jawaban'] ?? ''); ?>`;
 
             document.getElementById('reset-btn').addEventListener('click', function() {
                 editor.setValue(initialCode);
