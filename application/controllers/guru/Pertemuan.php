@@ -7,7 +7,6 @@ class Pertemuan extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Model_mapel_kelas');
-        $this->load->model('Model_guru');
     }
 
     public function detail($id_pertemuan)
@@ -83,6 +82,8 @@ class Pertemuan extends CI_Controller {
                 'judul_tugas' => $this->input->post('judul_tugas'),
                 'deskripsi' => $this->input->post('deskripsi'),
                 'deadline' => $this->input->post('deadline'),
+                'tipe_tugas' => $this->input->post('tipe_tugas'),
+                'bahasa' => $this->input->post('bahasa'), // Add this line
                 'id_pertemuan' => $id_pertemuan,
                 'id_mapel' => $this->input->post('id_mapel')
             ];

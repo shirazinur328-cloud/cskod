@@ -67,11 +67,11 @@ class Model_mapel extends CI_Model {
     public function get_average_progress_by_mapel($id_mapel)
     {
         $this->db->select(
-            '(COUNT(DISTINCT s.id_submission) / COUNT(DISTINCT t.id_tugas)) * 100 as average_progress'
+            '(COUNT(DISTINCT tm.id_tugas_murid) / COUNT(DISTINCT t.id_tugas)) * 100 as average_progress'
         );
         $this->db->from('tugas t');
         $this->db->join('murid_mapel mm', 'mm.id_mapel = t.id_mapel', 'inner');
-        $this->db->join('submission s', 's.id_tugas = t.id_tugas AND s.id_murid = mm.id_murid AND s.status = "submitted"', 'left');
+        $this->db->join('tugas_murid tm', 'tm.id_tugas = t.id_tugas AND tm.id_murid = mm.id_murid AND tm.status = "Selesai"', 'left');
         $this->db->where('t.id_mapel', $id_mapel);
         $query = $this->db->get();
         return $query->row()->average_progress;
@@ -102,8 +102,8 @@ class Model_mapel extends CI_Model {
     {
         $this->db->select('AVG(nilai.nilai) as rata_rata, MAX(nilai.nilai) as tertinggi, MIN(nilai.nilai) as terendah');
         $this->db->from('nilai');
-        $this->db->join('submission', 'nilai.id_submission = submission.id_submission');
-        $this->db->join('tugas', 'submission.id_tugas = tugas.id_tugas');
+        $this->db->join('tugas_murid', 'nilai.id_tugas_murid = tugas_murid.id_tugas_murid');
+        $this->db->join('tugas', 'tugas_murid.id_tugas = tugas.id_tugas');
         $this->db->where('tugas.id_mapel', $id_mapel);
         $query = $this->db->get();
         return $query->row();

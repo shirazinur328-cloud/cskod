@@ -25,10 +25,10 @@
     <p class="mb-4 text-muted">Kelola data murid.</p>
 
     <div class="card shadow mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold">Daftar Murid</h6>
             <div>
-                <button class="btn btn-light btn-sm text-primary" id="btnTambah" data-toggle="modal" data-target="#modal_frame">
+                <button class="btn btn-outline-primary btn-sm" id="btnTambah" data-toggle="modal" data-target="#modal_frame">
                     <i class="fas fa-plus"></i> <span class="d-none d-md-inline">Tambah Murid</span>
                 </button>
                 <div class="btn-group">
@@ -42,6 +42,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="card-subheader">
+            <p class="mb-0">Kelola data murid yang terdaftar dalam sistem.</p>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -62,7 +65,7 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="modal_frame" tabindex="-1">
+            <div class="modal" id="modal_frame" tabindex="-1">
               <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                   <div class="modal-header bg-primary text-white">

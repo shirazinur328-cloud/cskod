@@ -68,15 +68,15 @@ class Model_kelas extends CI_Model {
         $this->db->select(
             'm.id_mapel,'
             . 'm.nama_mapel,'
-            . 'COUNT(DISTINCT t.id_tugas) as total_tugas_mapel,'
-            . 'COUNT(DISTINCT s.id_submission) as completed_tugas_mapel,'
+            . 'COUNT(DISTINCT tugas.id_tugas) as total_tugas_mapel,'
+            . 'COUNT(DISTINCT tm.id_tugas_murid) as completed_tugas_mapel,'
             . 'COUNT(DISTINCT mk.id_murid) as total_murid_in_mapel'
         );
         $this->db->from('mapel m');
         $this->db->join('tugas t', 't.id_mapel = m.id_mapel', 'left');
         $this->db->join('murid_mapel mm', 'mm.id_mapel = m.id_mapel', 'left');
         $this->db->join('murid_kelas mk', 'mk.id_murid = mm.id_murid AND mk.id_kelas = ' . $id_kelas, 'left');
-        $this->db->join('submission s', 's.id_tugas = t.id_tugas AND s.id_murid = mm.id_murid AND s.status = "submitted" AND mk.id_kelas = ' . $id_kelas, 'left');
+        $this->db->join('tugas_murid tm', 'tm.id_tugas = t.id_tugas AND tm.id_murid = mm.id_murid AND tm.status = "Selesai" AND mk.id_kelas = ' . $id_kelas, 'left');
         $this->db->where('mk.id_kelas', $id_kelas); // Ensure we only consider students from this class
         $this->db->group_by('m.id_mapel, m.nama_mapel');
         $query = $this->db->get();
@@ -92,5 +92,43 @@ class Model_kelas extends CI_Model {
         $this->db->order_by('murid.nama_murid', 'asc');
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function get_mapel_ids_by_kelas($id_kelas)
+    {
+        $this->db->select('id_mapel');
+        $this->db->from('kelas_mapel');
+        $this->db->where('id_kelas', $id_kelas);
+        $query = $this->db->get();
+        
+        $ids = array();
+        foreach ($query->result() as $row) {
+            $ids[] = $row->id_mapel;
+        }
+        return $ids;
+    }
+
+    public function update_kelas_mapel($id_kelas, $mapel_ids)
+    {
+        $this->db->trans_start();
+
+        // First, delete existing relations for this class
+        $this->db->where('id_kelas', $id_kelas);
+        $this->db->delete('kelas_mapel');
+
+        // Then, insert the new relations if any are provided
+        if (!empty($mapel_ids)) {
+            $data_to_insert = array();
+            foreach ($mapel_ids as $id_mapel) {
+                $data_to_insert[] = array(
+                    'id_kelas' => $id_kelas,
+                    'id_mapel' => $id_mapel
+                );
+            }
+            $this->db->insert_batch('kelas_mapel', $data_to_insert);
+        }
+
+        $this->db->trans_complete();
+        return $this->db->trans_status();
     }
 }

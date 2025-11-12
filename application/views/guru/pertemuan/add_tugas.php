@@ -29,6 +29,30 @@
                             <label>Deadline</label>
                             <input type="datetime-local" name="deadline" class="form-control" required>
                         </div>
+
+                        <div class="form-group">
+                            <label for="tipe_tugas">Tipe Tugas</label>
+                            <select class="form-control" id="tipe_tugas" name="tipe_tugas" required>
+                                <option value="file">Upload File</option>
+                                <option value="coding">Coding</option>
+                                <option value="text">Jawaban Teks</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="bahasa_group" style="display: none;">
+                            <label for="bahasa">Bahasa Pemrograman</label>
+                            <select class="form-control" id="bahasa" name="bahasa">
+                                <option value="">Pilih Bahasa</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="javascript">JavaScript</option>
+                                <option value="python">Python</option>
+                                <option value="java">Java</option>
+                                <option value="cpp">C++</option>
+                                <option value="c">C</option>
+                                <option value="php">PHP</option>
+                            </select>
+                        </div>
                         
                         <input type="hidden" name="id_pertemuan" value="<?= $id_pertemuan ?>">
                         <input type="hidden" name="id_mapel" value="<?= $pertemuan->id_mapel ?>">
@@ -44,3 +68,23 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tipeTugasSelect = document.getElementById('tipe_tugas');
+    const bahasaGroup = document.getElementById('bahasa_group');
+
+    function toggleBahasaGroup() {
+        if (tipeTugasSelect.value === 'coding') {
+            bahasaGroup.style.display = 'block';
+        } else {
+            bahasaGroup.style.display = 'none';
+        }
+    }
+
+    tipeTugasSelect.addEventListener('change', toggleBahasaGroup);
+
+    // Initial call to set visibility based on default selected option
+    toggleBahasaGroup();
+});
+</script>

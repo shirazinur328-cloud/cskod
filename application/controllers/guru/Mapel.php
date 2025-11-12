@@ -13,9 +13,9 @@ class Mapel extends CI_Controller {
     public function index()
     {
         // sementara pakai id_guru = 1
-        $id_guru = $this->session->userdata('id_guru');
+        $id_guru = 2;
+        // $id_guru = $this->session->userdata('id_guru');
         $data['title'] = 'Daftar Mata Pelajaran';
-        $this->load->model('Model_guru');
         $data['mapel_kelas_list'] = $this->Model_guru->get_mapel_kelas_by_guru($id_guru);
         
         $this->load->view('templates/guru/head', $data);
@@ -30,6 +30,11 @@ class Mapel extends CI_Controller {
         $data['id_mapel'] = $id_mapel;
         $data['id_kelas'] = $id_kelas;
         $data['mapel'] = $this->Model_mapel_kelas->get_mapel_by_id($id_mapel);
+
+        if (!$data['mapel'] || $data['mapel']->status_aktif !== 'aktif') {
+            show_404();
+        }
+
         $data['kelas'] = $this->Model_mapel_kelas->get_kelas_by_id($id_kelas);
         $data['pertemuan_list'] = $this->Model_mapel_kelas->get_pertemuan_by_mapel_kelas($id_mapel, $id_kelas);
         
@@ -43,8 +48,8 @@ class Mapel extends CI_Controller {
     {
         if ($this->input->post()) {
             $data = [
-    'judul_pertemuan' => $this->input->post('judul_pertemuan'),
-    'waktu_mulai' => $this->input->post('waktu_mulai'),
+    'nama_pertemuan' => $this->input->post('nama_pertemuan'),
+    'tanggal' => $this->input->post('tanggal'),
     'id_mapel' => $this->input->post('id_mapel'),
     'id_kelas' => $this->input->post('id_kelas')
 ];

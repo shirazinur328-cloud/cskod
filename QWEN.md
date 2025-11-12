@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a **School Management System** built using the **CodeIgniter 3** framework for PHP. Based on the existing code structure, database schema information, and configuration files, this application manages teachers, students, classes, subjects, attendance, and certificates. The project follows the traditional MVC (Model-View-Controller) architecture of CodeIgniter.
+This is a **School Management System** built using the **CodeIgniter 3** framework for PHP. Based on the existing code structure, database schema information, and the GEMINI.md file, this application manages teachers, students, classes, subjects, attendance, and certificates. The project follows the traditional MVC (Model-View-Controller) architecture of CodeIgniter.
 
 The system includes:
 - User management for teachers and students
@@ -17,7 +17,7 @@ The system includes:
 
 - **Backend:** PHP 7.x, CodeIgniter 3
 - **Database:** MySQL (MariaDB)
-- **Frontend:** Bootstrap (based on SB Admin 2 template), JavaScript, CSS
+- **Frontend:** Bootstrap (via the SB Admin 2 template), JavaScript, CSS
 - **PDF Generation:** dompdf/dompdf library for generating PDF certificates and reports
 - **Development:** Composer for dependency management, PHPUnit for testing
 
@@ -28,13 +28,8 @@ cskod/
 ├── application/          # CodeIgniter application directory
 │   ├── config/          # Configuration files
 │   ├── controllers/     # Application controllers
-│   │   ├── Admin/       # Admin-specific controllers
-│   │   └── murid/       # Student-specific controllers
 │   ├── models/          # Data models
 │   ├── views/           # Frontend templates
-│   │   ├── admin/       # Admin panel views
-│   │   ├── murid/       # Student panel views
-│   │   └── templates/   # Template components
 │   ├── libraries/       # Custom libraries
 │   ├── helpers/         # Helper functions
 │   └── ...              # Other CodeIgniter directories

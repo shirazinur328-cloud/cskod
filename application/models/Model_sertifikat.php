@@ -57,4 +57,22 @@ class Model_sertifikat extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function count_sertifikat_by_murid($id_murid)
+    {
+        $this->db->where('id_murid', $id_murid);
+        return $this->db->count_all_results('sertifikat_murid');
+    }
+
+    public function get_sertifikat_terbaru($id_murid)
+    {
+        $this->db->select('s.nama_sertifikat, sm.tanggal_dikeluarkan');
+        $this->db->from('sertifikat_murid sm');
+        $this->db->join('sertifikat s', 'sm.id_sertifikat = s.id_sertifikat');
+        $this->db->where('sm.id_murid', $id_murid);
+        $this->db->order_by('sm.tanggal_dikeluarkan', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->row();
+    }
 }

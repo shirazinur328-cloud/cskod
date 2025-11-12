@@ -3,11 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_mapel_kelas extends CI_Model {
 
-    public function get_mapel_kelas_by_guru($id_guru)
-    {
-        $this->load->model('Model_guru');
-        return $this->Model_guru->get_mapel_kelas_by_guru($id_guru);
-    }
+
     
     public function get_mapel_by_id($id_mapel)
     {
@@ -81,10 +77,5 @@ class Model_mapel_kelas extends CI_Model {
         return $this->db->insert_id();
     }
     
-    public function total_mapel_by_guru($id_guru)
-    {
-        $this->db->from('guru_mapel_kelas');
-        $this->db->where('id_guru', $id_guru);
-        return $this->db->count_all_results();
-    }
+
 }

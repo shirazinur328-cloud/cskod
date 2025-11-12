@@ -25,8 +25,8 @@
     <p class="mb-4 text-muted">Kelola data guru.</p>
 
     <div class="card shadow mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
-            <h6 class="m-0 font-weight-bold">Daftar Guru</h6>
+        <div class="card-header d-flex justify-content-between align-items-center bg-primary text-light">
+            <h6 class="m-0 font-weight-bold text-white">Daftar Guru</h6>
             <div class="d-flex align-items-center">
                 <div class="form-group mb-0 mr-2">
                     <select id="filterMapel" class="form-control form-control-sm">

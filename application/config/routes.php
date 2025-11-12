@@ -58,8 +58,9 @@ $route['admin/(:any)'] = 'admin/$1';
 
 // murid routes
 $route['murid'] = 'murid/dashboard';
-$route['murid/(:any)'] = 'murid/$1';
 
-// guru routes
-$route['guru'] = 'guru/dashboard';
-$route['guru/(:any)'] = 'guru/$1';
+// New, simplified route for debugging
+$route['mapel/(:num)'] = 'murid/Dashboard/subject_detail/$1';
+
+// The problematic route is disabled for debugging
+// $route['murid/(:any)'] = 'murid/$1';

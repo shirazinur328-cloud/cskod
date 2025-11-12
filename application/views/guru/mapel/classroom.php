@@ -4,6 +4,12 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Ruang Pembelajaran: <?= $mapel->nama_mapel ?> - <?= $kelas->nama_kelas ?></h1>
+        <a href="javascript:history.back()" class="btn btn-secondary btn-icon-split btn-sm">
+            <span class="icon text-white-50">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+            <span class="text">Kembali</span>
+        </a>
     </div>
 
     <!-- Content Row -->

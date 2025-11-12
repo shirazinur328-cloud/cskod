@@ -1,0 +1,132 @@
+/*
+ * Learn & Grow - Student Theme
+ * Tema: cerah, semangat, fun tapi tetap fokus.
+ */
+
+:root {
+    --primary-color: #22C55E; /* Hijau emerald cerah (energi & pertumbuhan) */
+    --secondary-color: #DCFCE7; /* Hijau muda lembut untuk background */
+    --accent-color: #3B82F6; /* Biru cerah (konsisten dengan branding utama sistem) */
+    --background-color: #F9FAFB; /* Putih keabu-an */
+    --text-color: #1E293B; /* Abu tua */
+    --text-secondary-color: #64748B; /* Abu netral untuk subtitle/deskripsi */
+    --border-color: #E2E8F0; /* Pembatas halus antar komponen */
+}
+
+body {
+    font-family: 'Nunito', sans-serif; /* Assuming Nunito is used elsewhere */
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.btn-primary:hover {
+    background-color: #1EAE54; /* Darkened primary */
+    border-color: #1EAE54; /* Darkened primary */
+    color: #FFFFFF;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--text-color);
+    transition: all 0.2s ease-in-out;
+}
+.btn-secondary:hover {
+    background-color: #C8E7D3; /* Darkened secondary */
+    border-color: #C8E7D3; /* Darkened secondary */
+    color: var(--text-color);
+}
+
+.btn-accent { /* For important actions, badges */
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.btn-accent:hover {
+    background-color: #306ACB; /* Darkened accent */
+    border-color: #306ACB; /* Darkened accent */
+    color: #FFFFFF;
+}
+
+/* Cards */
+.card {
+    background-color: #FFFFFF; /* White for card background */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.card-header {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Forms */
+.form-control {
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    background-color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.25); /* Primary color with transparency */
+}
+.form-control::placeholder {
+    color: var(--text-secondary-color);
+    opacity: 1;
+}
+
+/* Tables */
+.table thead th {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-color);
+}
+.table tbody tr:nth-of-type(odd) {
+    background-color: #FFFFFF;
+}
+.table tbody tr:nth-of-type(even) {
+    background-color: var(--background-color);
+}
+.table tbody tr:hover {
+    background-color: var(--secondary-color);
+    cursor: pointer;
+}
+
+/* Progress Bars */
+.progress-bar {
+    background-color: var(--primary-color);
+}
+
+/* Badges */
+.badge-primary {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+}
+.badge-secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+.badge-accent {
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+}

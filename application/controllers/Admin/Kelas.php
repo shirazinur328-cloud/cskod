@@ -8,6 +8,7 @@ class Kelas extends CI_Controller {
         parent::__construct();
         $this->load->model('Model_kelas');
         $this->load->model('Model_guru');
+        $this->load->model('Model_mapel');
     }
 
     private function set_output($data)
@@ -59,6 +60,7 @@ class Kelas extends CI_Controller {
     public function kelas_add()
     {
         $data['guru_list'] = $this->Model_guru->list_guru();
+        $data['all_mapel'] = $this->Model_mapel->list_mapel();
         $this->load->view('admin/kelas/kelas_add', $data);
     }
 
@@ -70,7 +72,13 @@ class Kelas extends CI_Controller {
             'id_guru_wali' => $this->input->post('id_guru_wali')
         );
 
-        $this->Model_kelas->add_kelas($data);
+        $new_kelas_id = $this->Model_kelas->add_kelas($data);
+
+        // Save the associated mapel
+        $mapel_ids = $this->input->post('mapel_ids');
+        if ($new_kelas_id && !empty($mapel_ids)) {
+            $this->Model_kelas->update_kelas_mapel($new_kelas_id, $mapel_ids);
+        }
 
         $response = array(
             'status' => 'sukses',
@@ -92,6 +100,8 @@ class Kelas extends CI_Controller {
 
         $data['kelas'] = $check_kelas;
         $data['guru_list'] = $this->Model_guru->list_guru();
+        $data['all_mapel'] = $this->Model_mapel->list_mapel();
+        $data['kelas_mapel_ids'] = $this->Model_kelas->get_mapel_ids_by_kelas($id_kelas);
         $this->load->view('admin/kelas/kelas_edit', $data);
     }
 
@@ -106,6 +116,10 @@ class Kelas extends CI_Controller {
         );
 
         $this->Model_kelas->update_kelas($id_kelas, $data);
+
+        // Save the associated mapel
+        $mapel_ids = $this->input->post('mapel_ids');
+        $this->Model_kelas->update_kelas_mapel($id_kelas, $mapel_ids);
 
         $response = array(
             'status' => 'sukses',

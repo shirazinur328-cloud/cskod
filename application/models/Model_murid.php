@@ -13,7 +13,7 @@ class Model_murid extends CI_Model {
         $this->db->select(
             'murid.*, kelas.nama_kelas, '
             . '(SELECT COUNT(DISTINCT t.id_tugas) FROM tugas t JOIN murid_mapel mm ON t.id_mapel = mm.id_mapel WHERE mm.id_murid = murid.id_murid) as total_tugas, '
-            . '(SELECT COUNT(DISTINCT s.id_tugas) FROM submission s WHERE s.id_murid = murid.id_murid AND s.status = "submitted") as completed_tugas'
+            . '(SELECT COUNT(DISTINCT tm.id_tugas) FROM tugas_murid tm WHERE tm.id_murid = murid.id_murid AND tm.status = "Selesai") as completed_tugas'
         );
         $this->db->from('murid');
         $this->db->join('murid_kelas', 'murid_kelas.id_murid = murid.id_murid', 'left');
@@ -84,7 +84,7 @@ class Model_murid extends CI_Model {
         $this->db->select(
             'm.id_mapel, m.nama_mapel, '
             . '(SELECT COUNT(t.id_tugas) FROM tugas t WHERE t.id_mapel = m.id_mapel) as total_tugas_mapel, '
-            . '(SELECT COUNT(s.id_submission) FROM submission s JOIN tugas t ON s.id_tugas = t.id_tugas WHERE s.id_murid = '.$id_murid.' AND t.id_mapel = m.id_mapel AND s.status = "submitted") as completed_tugas_mapel'
+            . '(SELECT COUNT(tm.id_tugas_murid) FROM tugas_murid tm JOIN tugas t ON tm.id_tugas = t.id_tugas WHERE tm.id_murid = '.$id_murid.' AND t.id_mapel = m.id_mapel AND tm.status = "Selesai") as completed_tugas_mapel'
         );
         $this->db->from('murid_mapel mm');
         $this->db->join('mapel m', 'mm.id_mapel = m.id_mapel');
@@ -97,10 +97,10 @@ class Model_murid extends CI_Model {
     {
         $this->db->select('mapel.nama_mapel, tugas.judul_tugas, nilai.nilai, nilai.tanggal_nilai');
         $this->db->from('nilai');
-        $this->db->join('submission', 'nilai.id_submission = submission.id_submission');
-        $this->db->join('tugas', 'submission.id_tugas = tugas.id_tugas');
+        $this->db->join('tugas_murid', 'nilai.id_tugas_murid = tugas_murid.id_tugas_murid');
+        $this->db->join('tugas', 'tugas_murid.id_tugas = tugas.id_tugas');
         $this->db->join('mapel', 'tugas.id_mapel = mapel.id_mapel');
-        $this->db->where('submission.id_murid', $id_murid);
+        $this->db->where('tugas_murid.id_murid', $id_murid);
         $this->db->order_by('mapel.nama_mapel', 'asc');
         $this->db->order_by('nilai.tanggal_nilai', 'desc');
         $query = $this->db->get();
@@ -114,6 +114,45 @@ class Model_murid extends CI_Model {
         $this->db->join('sertifikat s', 'sm.id_sertifikat = s.id_sertifikat');
         $this->db->where('sm.id_murid', $id_murid);
         $this->db->order_by('sm.tanggal_dikeluarkan', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_mapel_by_kelas($id_murid)
+    {
+        $this->db->select('map.id_mapel, map.nama_mapel, map.status_aktif, g.nama_guru, COUNT(m.id_materi) as total_materi, SUM(CASE WHEN mm.status = "Selesai" THEN 1 ELSE 0 END) as materi_selesai');
+        $this->db->from('murid_kelas mk');
+        $this->db->join('kelas_mapel km', 'mk.id_kelas = km.id_kelas');
+        $this->db->join('mapel map', 'km.id_mapel = map.id_mapel');
+        $this->db->join('guru g', 'map.id_guru = g.id_guru', 'left');
+        $this->db->join('materi m', 'map.id_mapel = m.id_mapel', 'left');
+        $this->db->join('materi_murid mm', 'm.id_materi = mm.id_materi AND mm.id_murid = ' . $id_murid, 'left');
+        $this->db->where('mk.id_murid', $id_murid);
+        $this->db->where('map.status_aktif', 'aktif'); // Filter for active subjects
+        $this->db->group_by('map.id_mapel, map.nama_mapel, map.status_aktif, g.nama_guru');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_all_grades_by_murid($id_murid)
+    {
+        $this->db->select('
+            t.judul_tugas,
+            m.nama_mapel,
+            k.nama_kelas,
+            tm.nilai,
+            tm.status,
+            tm.komentar_guru,
+            tm.submitted_at
+        ');
+        $this->db->from('tugas_murid tm');
+        $this->db->join('tugas t', 'tm.id_tugas = t.id_tugas');
+        $this->db->join('mapel m', 't.id_mapel = m.id_mapel');
+        $this->db->join('pertemuan p', 't.id_pertemuan = p.id_pertemuan');
+        $this->db->join('kelas k', 'p.id_kelas = k.id_kelas');
+        $this->db->where('tm.id_murid', $id_murid);
+        $this->db->where_in('tm.status', ['Dinilai', 'Revisi']); // Only show graded or revised assignments
+        $this->db->order_by('tm.submitted_at', 'DESC');
         $query = $this->db->get();
         return $query->result();
     }

@@ -229,18 +229,32 @@ class Sertifikat extends CI_Controller {
         $output = fopen('php://output', 'w');
         fputcsv($output, array('ID Sertifikat Murid', 'ID Murid', 'Nama Murid', 'Email Murid', 'Tanggal Dikeluarkan', 'Status Validasi'));
 
-        foreach ($issued_certificates as $cert) {
-            fputcsv($output, array($cert->id_sertifikat_murid, $cert->id_murid, $cert->nama_murid, $cert->email, $cert->tanggal_dikeluarkan, $cert->status_validasi));
+                foreach ($issued_certificates as $cert) {
+
+                    fputcsv($output, array($cert->id_sertifikat_murid, $cert->id_murid, $cert->nama_murid, $cert->email, $cert->tanggal_dikeluarkan, $cert->status_validasi));
+
+                }
+
+                fclose($output);
+
+            }
+
+        
+
+            // Placeholder for certificate issuance (e.g., from murid_detail or mapel_detail)
+
+            public function issue_certificate()
+
+            {
+
+                // Logic to issue a certificate to a student for a specific mapel
+
+                // Requires id_sertifikat (template), id_murid, and potentially other data
+
+                // Insert into sertifikat_murid table
+
+            }
+
+        
+
         }
-        fclose($output);
-    }
-
-    // Placeholder for certificate issuance (e.g., from murid_detail or mapel_detail)
-    public function issue_certificate()
-    {
-        // Logic to issue a certificate to a student for a specific mapel
-        // Requires id_sertifikat (template), id_murid, and potentially other data
-        // Insert into sertifikat_murid table
-    }
-
-}

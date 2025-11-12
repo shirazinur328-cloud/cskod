@@ -40,6 +40,13 @@
                     <span>Mapel & Kelas</span></a>
             </li>
 
+            <!-- Nav Item - Penilaian -->
+            <li class="nav-item <?= ($segment2 == 'penilaian') ? 'active' : '' ?>">
+                <a class="nav-link" href="<?= base_url('guru/penilaian'); ?>">
+                    <i class="fas fa-fw fa-edit"></i>
+                    <span>Tugas & Penilaian</span></a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

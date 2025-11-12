@@ -7,19 +7,41 @@ class Dashboard extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Model_guru');
-        $this->load->model('Model_mapel_kelas');
+        $this->load->model('Model_kelas');
+        $this->load->model('Model_mapel');
+        $this->load->model('Model_tugas');
+        // $this->load->model('Model_jadwal'); // Assuming a schedule model exists or will be created
     }
 
     public function index()
     {
         $data['title'] = 'Dashboard Guru';
-        $id_guru = $this->session->userdata('id_guru');
-        if ($id_guru) {
-            $data['total_mapel'] = $this->Model_guru->total_mapel_by_guru($id_guru);
-        } else {
-            $data['total_mapel'] = 0;
-        }
+        $id_guru = 2; // Hardcoded for now
+        // $id_guru = $this->session->userdata('id_guru');
+
+        // --- 1. Fetch data for Statistic Cards ---
+        $data['jumlah_kelas'] = $this->Model_guru->total_kelas_by_guru($id_guru);
+        $data['jumlah_mapel'] = $this->Model_guru->total_mapel_by_guru($id_guru);
+        $data['tugas_belum_dinilai'] = $this->Model_tugas->count_tugas_belum_dinilai($id_guru);
+        // For "Jadwal Hari Ini", we'll count the results from the schedule fetch
         
+        // --- 2. Fetch data for "Jadwal Mengajar" ---
+        // Assuming a method get_jadwal_hari_ini exists
+        $data['jadwal_hari_ini'] = $this->Model_guru->get_jadwal_hari_ini($id_guru);
+        $data['jumlah_jadwal_hari_ini'] = count($data['jadwal_hari_ini']);
+
+        // --- 3. Fetch data for "Progres Siswa" ---
+        // This is complex, using placeholder data for now.
+        // This would likely involve getting all classes, then for each class, calculating the average progress.
+        $data['progres_siswa'] = [
+            ['nama_kelas' => 'XI RPL 1', 'progress' => 75],
+            ['nama_kelas' => 'XI RPL 2', 'progress' => 60],
+            ['nama_kelas' => 'XII TKJ 1', 'progress' => 85],
+        ];
+
+        // --- 4. Fetch data for "Tugas Belum Dinilai" ---
+        $data['list_tugas_belum_dinilai'] = $this->Model_tugas->get_tugas_belum_dinilai($id_guru, 5); // Get top 5
+
         $this->load->view('templates/guru/head', $data);
         $this->load->view('templates/guru/navbar');
         $this->load->view('guru/dashboard', $data);

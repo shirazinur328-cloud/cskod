@@ -33,7 +33,7 @@ This project runs on a standard PHP web server stack (like XAMPP, WAMP, or MAMP)
 
 1.  **Create Database:** Using a tool like phpMyAdmin, create a new MySQL database named `cskod`.
 2.  **Import Schema:** The database connection is configured in `application/config/database.php` to use the `cskod` database with user `root` and no password.
-    *   **TODO:** The database schema and initial data source are not present in the repository. You will need to find the `.sql` file and import it into the `cskod` database.
+    *   **TODO:** The database schema and initial data source are not present in the repository. You will need to find the `.sql` file and import it into the `c-skod` database.
 
 ### 3. Running the Application
 
@@ -50,3 +50,16 @@ This project runs on a standard PHP web server stack (like XAMPP, WAMP, or MAMP)
 *   **Frontend Assets:** All CSS, JavaScript, and image files are stored in the `assets/` directory and are managed manually (not via npm/yarn).
 *   **Testing:** A test script is defined in `composer.json` (`"test:coverage"`), but it appears configured for a CI environment.
     *   **TODO:** Clarify the standard procedure for running unit tests in a local development environment.
+
+    nah kemarin kita garap sampai yang tugas habis itu kita mau buat pengerjaan  │
+│   tugas yang coding bukan yang upload file nah terus kamu kasih di database
+    table tugas jadi ada type tugas coding atau bukan nah kalo gitu penilaiian   │
+│   otomatis nya gimana nanti dinilai berdasarkan output dan nanti ada button    │
+│   reset code tampilkan output terus kirim tugas terus di bagian pertemuan kan  │
+│   ada materi dan tugas nah ditugas dikasih button kerjakan yang menuju         │
+│   halaman pengerjaan masing masing contoh tugas coding ya kehalaman            │
+│   pengerjaan coding . terus di bagian materi itu kan isi nya itu bukan         │
+│   deskripsi materi ditugas tapi isi file materi contoh kalo vidio youtube ya   │
+│   vidio youtube nya di tonton disitu kalo file pdf materi isi nya di baca      │
+│   disitu jadi g perlu buka file nya tapi tetep di tampilin judul materi dan    │
+│   deskripsinya

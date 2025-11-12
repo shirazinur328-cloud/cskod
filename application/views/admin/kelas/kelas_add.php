@@ -25,6 +25,20 @@
     </select>
   </div>
 
+  <div class="form-group">
+    <label class="">Mata Pelajaran</label>
+    <select name="mapel_ids[]" multiple class="form-control border-primary shadow-sm" style="height: 150px;">
+        <option value="" disabled>-- Pilih Mata Pelajaran --</option>
+        <?php /* Controller perlu mengirimkan $all_mapel */ ?>
+        <?php if (!empty($all_mapel)) : ?>
+            <?php foreach ($all_mapel as $mapel) : ?>
+                <option value="<?= $mapel->id_mapel; ?>"><?= $mapel->nama_mapel; ?></option>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </select>
+    <small class="form-text text-muted">Tahan tombol Ctrl (atau Cmd di Mac) untuk memilih lebih dari satu.</small>
+  </div>
+
   <div class="modal-footer bg-light">
     <button type="submit" class="btn btn-primary">
       <i class="fas fa-save"></i> <span class="d-none d-md-inline">Simpan</span>

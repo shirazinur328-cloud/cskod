@@ -1,0 +1,355 @@
+/*
+ * Inspire & Guide - Teacher Theme
+ * Primary: #0EA5E9 (toska lembut)
+ * Accent: #F97316 (oranye semangat)
+ * Background: #F8FAFC (abu muda lembut)
+ * Text: #1E293B
+ */
+
+/* General Body */
+body {
+    background-color: #F8FAFC; /* Background */
+    color: #1E293B;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #E2E8F0; /* Sidebar Background */
+    background-image: none;
+}
+
+/* Sidebar Text & Icons */
+.sidebar .nav-item .nav-link {
+    color: #475569; /* Text & Icon Default */
+    transition: background-color 0.2s ease, color 0.2s ease; /* Ensure smooth transition */
+}
+
+.sidebar .nav-item .nav-link i {
+    color: #475569; /* Text & Icon Default */
+}
+
+.sidebar .nav-item .nav-link:hover {
+    background-color: transparent; /* Tanpa background */
+    color: #0EA5E9; /* Biru muda yang nyala */
+}
+.sidebar .nav-item .nav-link:hover i {
+    color: #0EA5E9; /* Biru muda yang nyala */
+}
+
+.sidebar .nav-item.active .nav-link {
+    background-color: #0EA5E9; /* Biru muda yang nyala */
+    color: #FFFFFF; /* White text for active item */
+    border-left: 3px solid #F97316; /* Accent Orange for left border */
+}
+
+.sidebar .nav-item.active .nav-link i {
+    color: #FFFFFF;
+}
+
+.sidebar .sidebar-brand {
+    color: #1E293B; /* Text Utama for brand text */
+}
+
+/* Topbar (Navbar) */
+#content-wrapper .topbar {
+    background-color: #FFFFFF; /* White for Navbar background */
+    background-image: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Bottom shadow */
+}
+
+/* Topbar Text & Icons */
+.topbar .nav-item .nav-link {
+    color: #1E293B; /* Text Utama for Navbar text and icons */
+}
+
+.topbar .nav-item .nav-link:hover {
+    color: #0EA5E9; /* Primary on hover */
+}
+
+.topbar .navbar-search input {
+    background-color: #F8FAFC; /* Card / Box Background for search input */
+    border-color: #CBD5E1; /* Border / Divider */
+    color: #1E293B; /* Text Utama */
+}
+
+.topbar .navbar-search input::placeholder {
+    color: #64748B; /* Text Secondary */
+}
+
+/* Primary Buttons (Tambah / Buat Baru) */
+.btn-primary, .btn-add {
+    background-color: #0EA5E9; /* Button utama background */
+    border-color: #0EA5E9; /* Button utama border */
+    color: #FFFFFF; /* Button utama text */
+    transition: all 0.2s ease-in-out; /* Transisi halus */
+}
+
+.btn-primary:hover, .btn-add:hover {
+    background-color: #0284C7; /* Sedikit darken */
+    border-color: #0284C7; /* Sedikit darken */
+    color: #FFFFFF;
+}
+
+/* Secondary Outline Button */
+.btn-secondary-outline {
+    background-color: #FFFFFF; /* Background putih */
+    border: 1px solid #0EA5E9; /* Border #0EA5E9 */
+    color: #0EA5E9; /* Text #0EA5E9 */
+    transition: all 0.2s ease-in-out; /* Transisi halus */
+}
+
+.btn-secondary-outline:hover {
+    background-color: #F8F9FA; /* Sedikit darken background */
+    border-color: #0284C7; /* Sedikit darken border */
+    color: #0284C7; /* Sedikit darken text */
+}
+
+/* Edit / Koreksi Button */
+.btn-edit {
+    background-color: #0EA5E9; /* Primary */
+    border-color: #0EA5E9; /* Primary */
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out; /* Ensure transition for hover */
+}
+
+.btn-edit:hover {
+    background-color: #0284C7; /* Darken */
+    border-color: #0284C7; /* Darken */
+    color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Efek bayangan kecil */
+}
+
+/* Nilai / Beri Skor Button */
+.btn-score {
+    background-color: #F97316; /* Accent */
+    border-color: #F97316; /* Accent */
+    color: #FFFFFF;
+}
+
+.btn-score:hover {
+    background-color: #E05A00; /* Darker shade of Accent */
+    border-color: #E05A00; /* Darker shade of Accent */
+    color: #FFFFFF;
+}
+
+/* Hapus Button */
+.btn-danger, .btn-delete {
+    background-color: #F43F5E; /* Merah lembut */
+    border-color: #F43F5E; /* Merah lembut */
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out; /* Ensure transition for hover */
+}
+
+.btn-danger:hover, .btn-delete:hover {
+    background-color: #D92D4F; /* Darken */
+    border-color: #D92D4F; /* Darken */
+    color: #FFFFFF;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Efek bayangan kecil */
+}
+
+/* Kirim / Simpan Button */
+.btn-success, .btn-save { /* Re-using btn-success for save, but with accent color */
+    background-color: #0EA5E9; /* Primary */
+    border-color: #0EA5E9; /* Primary */
+    color: #FFFFFF;
+}
+
+.btn-success:hover, .btn-save:hover {
+    background-color: #0284C7; /* Darker shade of Primary */
+    border-color: #0284C7; /* Darker shade of Primary */
+    color: #FFFFFF;
+}
+
+/* Batal / Tutup Button */
+.btn-cancel {
+    background-color: #E2E8F0; /* Sidebar Background */
+    border-color: #E2E8F0; /* Sidebar Background */
+    color: #1E293B; /* Text Utama */
+}
+
+.btn-cancel:hover {
+    background-color: #D1D8E0; /* Darker shade of Sidebar Background */
+    border-color: #D1D8E0; /* Darker shade of Sidebar Background */
+    color: #1E293B; /* Text Utama */
+}
+
+/* Cards & Content Boxes */
+.card {
+    background-color: #FFFFFF; /* Background */
+    border: 1px solid #E2E8F0; /* Border / Divider (tipis, 1px) */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04); /* Shadow */
+    border-radius: 12px;
+    /* Remove default border if it was set to none */
+}
+
+.card .card-header {
+    background-color: #F1F5F9; /* Header background */
+    color: #0F172A; /* Header text (tegas) */
+    font-weight: 600;
+    border-bottom: none; /* Remove default border */
+    padding: 0.75rem 1.25rem; /* Adjust padding as needed */
+}
+
+.card .card-body {
+    color: #1E293B; /* Text Utama */
+    padding: 1.25rem;
+}
+
+/* Optional Hover Effect for Cards */
+.card:hover {
+    transform: translateY(-3px); /* Naik dikit */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Shadow lebih kuat */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Dashboard Statistic Card Specifics */
+/* Assuming .card-statistic is used for these dashboard cards */
+.card-statistic .card-body i {
+    color: #0EA5E9; /* Primary for Icon */
+}
+
+/* Chart Colors (for reference, usually set in JS) */
+/* Use #0EA5E9 (Primary) and #F97316 (Accent) for chart data series */
+
+/* Tables */
+.table {
+    color: #1E293B; /* Text Utama */
+    font-size: 14px;
+}
+
+.table thead th {
+    background-color: #F1F5F9; /* Header background */
+    color: #0F172A; /* Header text (tegas) */
+    font-weight: 600;
+    border-bottom: 2px solid #F97316; /* Accent Orange for elegant contrast */
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #FFFFFF; /* Putih bersih */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #F8FAFC; /* Alternating row */
+}
+
+.table tbody tr:hover {
+    background-color: #E0E7FF; /* Light blue hover for tables (keeping existing subtle highlight) */
+    cursor: pointer;
+    transition: all 0.2s ease-in-out; /* Row hover animation */
+}
+
+/* Input Forms */
+.form-control {
+    background-color: #FFFFFF;
+    border: 1px solid #CBD5E1; /* Border #CBD5E1 */
+    color: #1E293B; /* Text Utama */
+    font-size: 14px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* Transisi halus */
+}
+
+.form-control:focus {
+    border-color: #0EA5E9; /* Focus border #0EA5E9 */
+    box-shadow: 0 0 0 0.2rem rgba(14, 165, 233, 0.25); /* Glow kecil */
+}
+
+.form-control::placeholder {
+    color: #64748B; /* Text Secondary */
+    opacity: 1; /* Ensure placeholder is not transparent */
+}
+
+label {
+    color: #1E293B; /* Label text color */
+}
+
+/* Modals */
+.modal-header {
+    background-color: #0EA5E9; /* Primary for modal header */
+    color: #FFFFFF; /* White text for modal header */
+    border-bottom: none; /* Remove default border */
+}
+
+.modal-header .close {
+    color: #FFFFFF; /* White close button */
+    opacity: 0.8;
+}
+
+.modal-header .close:hover {
+    color: #F97316; /* Accent Orange on hover */
+    opacity: 1;
+}
+
+/* Toastr Notifications */
+#toast-container .toast-info {
+    background-color: #0EA5E9; /* Primary */
+    color: #FFFFFF;
+}
+
+#toast-container .toast-success {
+    background-color: #22C55E; /* Success Green (kept from previous, not in new palette but good for success) */
+    color: #FFFFFF;
+}
+
+#toast-container .toast-warning {
+    background-color: #F97316; /* Accent */
+    color: #1E293B; /* Text Utama for contrast */
+}
+
+#toast-container .toast-error {
+    background-color: #EF4444; /* Error Red (kept from previous, not in new palette but good for error) */
+    color: #FFFFFF;
+}
+
+/* Card Pertemuan (list di mapel) */
+.card-pertemuan {
+    background-color: #FFFFFF;
+    border-left: 5px solid #0EA5E9; /* Primary */
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: all 0.2s ease-in-out;
+}
+
+.card-pertemuan:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.card-pertemuan .card-title {
+    color: #1E293B; /* Text Utama */
+    font-weight: 600;
+}
+
+.card-pertemuan .card-subtitle {
+    color: #64748B; /* Text Secondary */
+    font-size: 0.9rem;
+}
+
+.card-pertemuan .badge-selesai {
+    background-color: #22C55E; /* Success Green */
+    color: #FFFFFF;
+}
+
+.card-pertemuan .badge-belum-dikerjakan {
+    background-color: #F97316; /* Accent */
+    color: #FFFFFF;
+}
+
+/* Chart Design (Nilai & Aktivitas Guru) */
+.chart-container {
+    background-color: #F8FAFC; /* Card / Box Background */
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.chart-container .chart-label {
+    color: #1E293B; /* Text Utama */
+}
+
+/* General grid line style, might need to be overridden in JS for Chart.js */
+.chartjs-render-monitor canvas {
+    background-color: #F8FAFC; /* Card / Box Background */
+}
+
+.chartjs-render-monitor .chartjs-grid-line {
+    stroke: #CBD5E1; /* Border / Divider */
+}
