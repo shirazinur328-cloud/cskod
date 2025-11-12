@@ -148,6 +148,51 @@ h1, h2, h3, h4, h5, h6 {
     color: #FFFFFF;
 }
 
+.btn-warning-custom {
+    background-color: #FACC15;
+    border-color: #FACC15;
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.btn-warning-custom:hover {
+    background-color: #EAB308; /* Slightly darker orange for hover */
+    border-color: #EAB308;
+    color: #FFFFFF;
+}
+
+/* CodeMirror Light Theme Customization (Green-Blue Syntax) */
+.CodeMirror {
+    font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; /* Use a monospaced font */
+    background-color: #FFFFFF; /* Ensure light background */
+    color: var(--text-color); /* Default text color */
+}
+
+.cm-s-default .cm-keyword { color: var(--accent-color); } /* Blue for keywords */
+.cm-s-default .cm-atom { color: #88F; }
+.cm-s-default .cm-number { color: #16A34A; } /* Green for numbers */
+.cm-s-default .cm-def { color: var(--text-color); }
+.cm-s-default .cm-variable,
+.cm-s-default .cm-variable-2,
+.cm-s-default .cm-variable-3 { color: var(--text-color); } /* Default text color for variables */
+.cm-s-default .cm-property { color: var(--accent-color); } /* Blue for properties */
+.cm-s-default .cm-operator { color: var(--text-color); }
+.cm-s-default .cm-comment { color: #6C757D; font-style: italic; } /* Gray italic for comments */
+.cm-s-default .cm-string { color: var(--primary-color); } /* Green for strings */
+.cm-s-default .cm-string-2 { color: #f50; }
+.cm-s-default .cm-meta { color: #555; }
+.cm-s-default .cm-qualifier { color: #555; }
+.cm-s-default .cm-builtin { color: #30a; }
+.cm-s-default .cm-tag { color: var(--accent-color); } /* Blue for HTML/XML tags */
+.cm-s-default .cm-attribute { color: var(--primary-color); } /* Green for attributes */
+.cm-s-default .cm-header { color: blue; }
+.cm-s-default .cm-quote { color: #090; }
+.cm-s-default .cm-hr { color: #999; }
+.cm-s-default .cm-link { color: #00c; }
+.cm-s-default .cm-error { color: #f00; }
+.cm-s-default .cm-tab { background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAg5Kx4AAAALUlEQVRIx2NgYGBgYJ3MwMDCgKEAZGQY/R4IAzJsxIAaFCSxXgCKzBLIwAQAMiEBAAW4F0oAAAAASUVORK5CYII=) no-repeat; width: 1em; height: 1em; }
+.cm-s-default .CodeMirror-activeline-background { background: #e8f2ff; }
+.cm-s-default .CodeMirror-matchingbracket { border: 1px solid #ccc; }
+
 /* Cards */
 .card {
     background-color: #FFFFFF; /* White for card background */
@@ -255,4 +300,54 @@ h1, h2, h3, h4, h5, h6 {
 .badge-accent {
     background-color: var(--accent-color);
     color: #FFFFFF;
+}
+
+/* Notification Cards */
+.notification-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    transition: all 0.2s ease-in-out;
+}
+.notification-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+.notification-card .notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    margin-right: 15px;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+.notification-card .notification-icon-success {
+    background-color: var(--primary-color); /* Green */
+}
+.notification-card .notification-icon-warning {
+    background-color: #FACC15; /* Orange */
+}
+.notification-card .notification-icon-info {
+    background-color: var(--accent-color); /* Blue */
+}
+.notification-card .notification-content {
+    flex-grow: 1;
+}
+.notification-card .notification-content .title {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 2px;
+}
+.notification-card .notification-content .message {
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
 }
