@@ -85,9 +85,20 @@
                                                 </div>
                                             </div>
                                             <?php endif; ?>
+
+                                            <div class="card shadow mb-4">
+                                                <div class="card-header py-3">
+                                                    <h6 class="m-0 font-weight-bold text-primary">Output</h6>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div id="output-container">
+                                                        <!-- Output will be displayed here -->
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
-                                        <!-- Right Column: Code Editor and Output -->
+                                        <!-- Right Column: Code Editor -->
                                         <div class="col-lg-6">
                                             <div class="card shadow mb-4">
                                                 <div class="card-header py-3">
@@ -109,17 +120,6 @@
                                                             </button>
                                                         </div>
                                                     </form>
-                                                </div>
-                                            </div>
-
-                                            <div class="card shadow mb-4">
-                                                <div class="card-header py-3">
-                                                    <h6 class="m-0 font-weight-bold text-primary">Output</h6>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div id="output-container">
-                                                        <!-- Output will be displayed here -->
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -188,13 +188,21 @@
                 extraKeys: {"Ctrl-Space": "autocomplete"},
                 hintOptions: { completeSingle: false }
             });
+            var textarea = document.getElementById("code-editor");
+            var initialCodeContent = textarea.value; // Capture initial content from textarea
+
+            var editor = CodeMirror.fromTextArea(textarea, {
+                lineNumbers: true,
+                mode: selectedLang.mode,
+                theme: "dracula", // Reverted to dracula dark theme
+                indentUnit: 4,
+                extraKeys: {"Ctrl-Space": "autocomplete"},
+                hintOptions: { completeSingle: false }
+            });
             editor.setSize("100%", 400);
 
-            // Ensure initialCode correctly captures the original content from the PHP variable
-            var initialCode = `<?= html_escape($submission['kode_jawaban'] ?? ''); ?>`;
-
             document.getElementById('reset-btn').addEventListener('click', function() {
-                editor.setValue(initialCode);
+                editor.setValue(initialCodeContent); // Use the captured initial content
             });
 
             document.getElementById('run-btn').addEventListener('click', function() {
