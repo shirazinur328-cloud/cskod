@@ -180,16 +180,9 @@
 
         // Function to initialize the editor
         function initEditor() {
-            var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
-                lineNumbers: true,
-                mode: selectedLang.mode,
-                theme: "dracula", // Reverted to dracula dark theme
-                indentUnit: 4,
-                extraKeys: {"Ctrl-Space": "autocomplete"},
-                hintOptions: { completeSingle: false }
-            });
             var textarea = document.getElementById("code-editor");
-            var initialCodeContent = textarea.value; // Capture initial content from textarea
+            // Capture initial content from textarea BEFORE CodeMirror transforms it
+            var initialCodeContent = textarea.value; 
 
             var editor = CodeMirror.fromTextArea(textarea, {
                 lineNumbers: true,
