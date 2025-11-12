@@ -113,38 +113,38 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Buttons */
 .btn-primary {
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* #22C55E */
     border-color: var(--primary-color);
     color: #FFFFFF;
     transition: all 0.2s ease-in-out;
 }
 .btn-primary:hover {
-    background-color: #1EAE54; /* Darkened primary */
-    border-color: #1EAE54; /* Darkened primary */
+    background-color: #16A34A; /* New hover color */
+    border-color: #16A34A; /* New hover color */
     color: #FFFFFF;
 }
 
-.btn-secondary {
-    background-color: var(--secondary-color);
-    border-color: var(--secondary-color);
-    color: var(--text-color);
-    transition: all 0.2s ease-in-out;
-}
-.btn-secondary:hover {
-    background-color: #C8E7D3; /* Darkened secondary */
-    border-color: #C8E7D3; /* Darkened secondary */
-    color: var(--text-color);
-}
-
-.btn-accent { /* For important actions, badges */
-    background-color: var(--accent-color);
+.btn-secondary { /* Formerly btn-accent */
+    background-color: var(--accent-color); /* #3B82F6 */
     border-color: var(--accent-color);
     color: #FFFFFF;
     transition: all 0.2s ease-in-out;
 }
-.btn-accent:hover {
-    background-color: #306ACB; /* Darkened accent */
-    border-color: #306ACB; /* Darkened accent */
+.btn-secondary:hover {
+    background-color: #2563EB; /* New hover color */
+    border-color: #2563EB; /* New hover color */
+    color: #FFFFFF;
+}
+
+.btn-danger {
+    background-color: #EF4444;
+    border-color: #EF4444;
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.btn-danger:hover {
+    background-color: #DC2626;
+    border-color: #DC2626;
     color: #FFFFFF;
 }
 
