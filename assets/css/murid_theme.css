@@ -6,7 +6,7 @@
 :root {
     --primary-color: #22C55E; /* Hijau emerald cerah (energi & pertumbuhan) */
     --secondary-color: #DCFCE7; /* Hijau muda lembut untuk background */
-    --accent-color: #3B82F6; /* Biru cerah (konsisten dengan branding utama sistem) */
+    --accent-color: #3B82F6; /* Biru cerah (konsisten dengan branding utama sistem sistem) */
     --background-color: #F9FAFB; /* Putih keabu-an */
     --text-color: #1E293B; /* Abu tua */
     --text-secondary-color: #64748B; /* Abu netral untuk subtitle/deskripsi */
@@ -23,6 +23,36 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-color);
 }
 
+/* --- FIXED LAYOUT STYLES --- */
+html, body {
+    height: 100vh;
+    overflow: hidden; /* Mencegah body dari scrolling */
+}
+
+#wrapper {
+    display: flex;
+    height: 100%;
+}
+
+#content-wrapper {
+    flex-grow: 1;
+    overflow-y: auto; /* Jadikan ini satu-satunya area scroll */
+    display: flex;
+    flex-direction: column;
+}
+
+.topbar {
+    position: sticky; /* Membuat topbar menempel di atas */
+    top: 0;
+    z-index: 1030; /* Pastikan di atas konten lain */
+}
+
+.container-fluid {
+    flex-grow: 1; /* Pastikan container mengisi sisa ruang */
+}
+/* --- END FIXED LAYOUT STYLES --- */
+
+
 /* Sidebar */
 .sidebar {
     background-color: var(--primary-color); /* Hijau emerald */
@@ -30,6 +60,7 @@ h1, h2, h3, h4, h5, h6 {
     border-top-right-radius: 15px; /* Rounded corner kanan */
     border-bottom-right-radius: 15px; /* Rounded corner kanan */
     box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.075)!important; /* Subtle shadow */
+    flex-shrink: 0; /* Mencegah sidebar menyusut */
 }
 
 /* Sidebar Brand */
@@ -66,10 +97,6 @@ h1, h2, h3, h4, h5, h6 {
     color: #FFFFFF;
     font-weight: 600;
     border-radius: 0 15px 15px 0; /* Rounded corner kanan on active */
-}
-
-.sidebar .nav-item.active .nav-link i {
-    color: #FFFFFF;
 }
 
 .sidebar .sidebar-heading {
@@ -321,17 +348,183 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-secondary-color);
 }
 
-/* Adjust container-fluid padding for wider content */
-.container-fluid {
-    padding-left: 0.75rem; /* Reduced padding */
-    padding-right: 0.75rem; /* Reduced padding */
+/*
+ * Profile Page Styles
+ */
+.profile-page-bg {
+    background-color: #F9FAFB;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
-/* Ensure main content area expands correctly */
-#content-wrapper {
-    padding-left: 0 !important;
-}
-#content {
-    padding-left: 0 !important;
+.profile-page-title {
+    color: #1E293B;
+    font-weight: 600;
 }
 
+.profile-card {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    padding: 40px;
+}
+
+.profile-card .img-profile {
+    width: 120px;
+    height: 120px;
+    border: 4px solid #22C55E; /* Accent color */
+}
+
+.profile-card .profile-name {
+    color: #1E293B;
+}
+
+.profile-card .status-badge {
+    background-color: #22C55E;
+    color: white;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+}
+
+.profile-card .btn-edit-profile {
+    background-color: #3B82F6;
+    border-color: #3B82F6;
+    font-weight: 600;
+    padding: 12px;
+}
+.profile-card .btn-edit-profile:hover {
+    background-color: #2563EB;
+    border-color: #2563EB;
+}
+
+.info-card {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.info-card .card-header {
+    background-color: white;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 20px;
+}
+
+.info-card .card-header .h5 {
+    color: #1E293B;
+}
+
+.info-card .card-body {
+    padding: 30px;
+}
+
+.info-card .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    color: #64748B;
+}
+
+.info-card .nav-tabs .nav-link.active {
+    color: #1E293B;
+    font-weight: 600;
+    border-bottom: 2px solid #3B82F6;
+    background-color: transparent;
+}
+
+.info-card .tab-content hr {
+    border-top: 1px solid #E2E8F0;
+}
+
+.stat-card {
+    border-left-width: 4px;
+    border-radius: 8px;
+}
+
+.activity-list .list-group-item {
+    border-color: #E2E8F0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Custom Accordion Styles for subject_detail.php */
+.custom-accordion .card {
+    border: none;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.custom-accordion .card-header {
+    background-color: #FFFFFF;
+    border-bottom: none;
+    padding: 0; /* Remove default padding */
+}
+
+.custom-accordion .btn-pertemuan {
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    border-radius: 12px; /* Apply to button for full header */
+    display: flex; /* Ensure flexbox for spacing */
+    justify-content: space-between; /* Space out items */
+    align-items: center; /* Vertically align items */
+    width: 100%; /* Ensure button takes full width */
+    text-align: left; /* Align text to left */
+}
+
+.custom-accordion .btn-pertemuan:hover {
+    background-color: var(--background-color); /* Light hover effect */
+    color: var(--primary-color);
+}
+
+.custom-accordion .btn-pertemuan[aria-expanded="true"] {
+    background-color: var(--primary-color); /* Active header background */
+    color: #FFFFFF;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.custom-accordion .btn-pertemuan[aria-expanded="true"] .text-primary {
+    color: #FFFFFF !important; /* Ensure text is white when active */
+}
+
+.custom-accordion .btn-pertemuan[aria-expanded="true"] .badge {
+    background-color: #FFFFFF;
+    color: var(--primary-color);
+}
+
+.custom-accordion .accordion-icon {
+    transition: transform 0.3s ease;
+    margin-left: 15px; /* Add space from badge/text */
+    font-size: 1rem; /* Adjust icon size */
+}
+
+.custom-accordion .btn-pertemuan[aria-expanded="true"] .accordion-icon {
+    transform: rotate(180deg);
+    color: #FFFFFF;
+}
+
+.custom-accordion .card-body {
+    border-top: 1px solid var(--border-color);
+    background-color: #FDFDFD; /* Slightly different background for content */
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.custom-accordion .btn-pertemuan .badge {
+    margin-left: 10px; /* Space between text and badge */
+    margin-right: 10px; /* Space between badge and icon */
+    padding: 0.4em 0.7em; /* Adjust badge padding */
+    font-size: 0.85rem;
+}
+
+/* Styling for the overall progress card in subject_detail */
+.subject-info-card .card-body {
+    padding: 20px;
+}
+
+.subject-info-card .progress {
+    margin-top: 15px;
+    margin-bottom: 0;
+}

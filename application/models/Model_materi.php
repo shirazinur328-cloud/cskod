@@ -81,6 +81,31 @@ class Model_materi extends CI_Model {
         return round(($completed_materi / $total_materi) * 100);
     }
 
+    public function get_subject_progress_details($id_mapel, $id_murid)
+    {
+        // Count total materials for the subject
+        $total_materi = $this->db->where('id_mapel', $id_mapel)->count_all_results('materi');
+
+        // Count completed materials for the student in this subject
+        $completed_materi = 0;
+        if ($total_materi > 0) {
+            $completed_materi = $this->db->from('materi_murid mm')
+                                         ->join('materi m', 'mm.id_materi = m.id_materi')
+                                         ->where('m.id_mapel', $id_mapel)
+                                         ->where('mm.id_murid', $id_murid)
+                                         ->where('mm.status', 'Selesai')
+                                         ->count_all_results();
+        }
+
+        $percentage = ($total_materi > 0) ? round(($completed_materi / $total_materi) * 100) : 100;
+
+        return [
+            'total_materi' => $total_materi,
+            'completed_materi' => $completed_materi,
+            'percentage' => $percentage
+        ];
+    }
+
     public function is_material_completed($id_materi, $id_murid)
     {
         $this->db->where('id_materi', $id_materi);

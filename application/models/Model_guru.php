@@ -24,6 +24,7 @@ class Model_guru extends CI_Model {
 
     public function single_guru($id_guru)
     {
+        $this->db->select('id_guru, nama_guru, username, email, no_telp'); // Pilih kolom yang ada
         $this->db->where('id_guru', $id_guru);
         $query = $this->db->get('guru');
         return $query->row();
@@ -84,7 +85,7 @@ class Model_guru extends CI_Model {
         return $this->db->count_all_results();
     }
 
-    public function get_mapel_kelas_by_guru($id_guru)
+    public function get_mapel_kelas_by_guru($id_guru, $tingkatan = null)
     {
         $this->db->select('
             m.id_mapel,
@@ -99,6 +100,9 @@ class Model_guru extends CI_Model {
         $this->db->join('kelas k', 'km.id_kelas = k.id_kelas');
         $this->db->where('m.id_guru', $id_guru);
         $this->db->where('m.status_aktif', 'aktif');
+        if ($tingkatan !== null) {
+            $this->db->like('k.nama_kelas', $tingkatan . '%', 'after');
+        }
         $this->db->order_by('m.nama_mapel, k.nama_kelas', 'asc');
         $query = $this->db->get();
 
@@ -153,6 +157,48 @@ class Model_guru extends CI_Model {
         $this->db->where('m.id_guru', $id_guru);
         $this->db->where('p.tanggal', date('Y-m-d')); // Filter for today's date
         $this->db->order_by('p.tanggal', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function get_student_performance_data($id_guru)
+    {
+        $this->db->select('
+            m.id_murid,
+            m.nama_murid,
+            AVG(tm.nilai) as average_nilai_siswa
+        ');
+        $this->db->from('murid m');
+        $this->db->join('tugas_murid tm', 'm.id_murid = tm.id_murid');
+        $this->db->join('tugas t', 'tm.id_tugas = t.id_tugas');
+        $this->db->join('mapel map', 't.id_mapel = map.id_mapel');
+        $this->db->where('map.id_guru', $id_guru);
+        $this->db->where('tm.nilai IS NOT NULL'); // Hanya siswa yang sudah dinilai
+        
+        $this->db->group_by('m.id_murid, m.nama_murid');
+        $this->db->order_by('m.nama_murid', 'ASC');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function total_tugas_by_guru($id_guru)
+    {
+        $this->db->select('COUNT(t.id_tugas) as total_tugas');
+        $this->db->from('tugas t');
+        $this->db->join('mapel m', 't.id_mapel = m.id_mapel');
+        $this->db->where('m.id_guru', $id_guru);
+        $query = $this->db->get();
+        return $query->row()->total_tugas;
+    }
+
+    public function get_tingkatan_kelas_by_guru($id_guru)
+    {
+        $this->db->select('DISTINCT SUBSTRING_INDEX(k.nama_kelas, " ", 1) as tingkatan_kelas');
+        $this->db->from('kelas k');
+        $this->db->join('kelas_mapel km', 'k.id_kelas = km.id_kelas');
+        $this->db->join('mapel m', 'km.id_mapel = m.id_mapel');
+        $this->db->where('m.id_guru', $id_guru);
+        $this->db->order_by('tingkatan_kelas', 'ASC');
         $query = $this->db->get();
         return $query->result();
     }

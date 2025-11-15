@@ -1,17 +1,11 @@
 <?php $this->load->view('templates/siswa/head', ['title' => 'Dashboard Siswa']); ?>
 
-<body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
 
         <?php $this->load->view('templates/siswa/navbar'); ?>
 
         <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
+ 
 
                 <?php $this->load->view('templates/siswa/topbar'); ?>
 
@@ -22,6 +16,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0" style="color: var(--text-color);">Dashboard</h1>
                     </div>
+                    <p class="mb-4" style="color: var(--text-secondary-color);">Kelas Aktif: <span class="font-weight-bold" style="color: var(--primary-color);"><?= htmlspecialchars($murid->nama_kelas ?? 'N/A') ?></span></p>
 
                     <!-- Statistic Cards Row -->
                     <div class="row">
@@ -41,14 +36,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Tugas Selesai Card (Placeholder) -->
+                        <!-- Tugas Selesai Card -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: var(--primary-color);">Tugas Selesai</div>
-                                            <div class="h5 mb-0 font-weight-bold" style="color: var(--text-color);">5</div>
+                                            <div class="h5 mb-0 font-weight-bold" style="color: var(--text-color);"><?= $tugas_selesai ?? 0 ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-check-double fa-2x" style="color: var(--secondary-color);"></i>
@@ -57,14 +52,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Sertifikat Card (Placeholder) -->
+                        <!-- Sertifikat Card -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: var(--primary-color);">Sertifikat</div>
-                                            <div class="h5 mb-0 font-weight-bold" style="color: var(--text-color);">2</div>
+                                            <div class="h5 mb-0 font-weight-bold" style="color: var(--text-color);"><?= $jumlah_sertifikat ?? 0 ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-award fa-2x" style="color: var(--secondary-color);"></i>
@@ -80,7 +75,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: var(--primary-color);">Poin XP</div>
-                                            <div class="h5 mb-0 font-weight-bold" style="color: var(--text-color);">1,250</div>
+                                            <div class="h5 mb-0 font-weight-bold" style="color: var(--text-color);"><?= $poin_xp ?? 0 ?></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-star fa-2x" style="color: var(--secondary-color);"></i>
@@ -106,13 +101,9 @@
                                         <h5 class="mt-3" style="color: var(--text-color);">Pencapaian Belajarmu</h5>
                                         <p class="small text-muted">Terus semangat belajar untuk mencapai tujuanmu!</p>
                                     </div>
-                                    <?php
-                                        // Placeholder for overall progress
-                                        $overall_progress_percentage = 75; // Example value
-                                    ?>
                                     <div class="progress mb-3" style="height: 20px;">
-                                        <div class="progress-bar progress-bar-animated-gradient" role="progressbar" style="width: <?= $overall_progress_percentage ?>%;" aria-valuenow="<?= $overall_progress_percentage ?>" aria-valuemin="0" aria-valuemax="100">
-                                            <span class="font-weight-bold text-white"><?= $overall_progress_percentage ?>% Selesai 🎉</span>
+                                        <div class="progress-bar progress-bar-animated-gradient" role="progressbar" style="width: <?= $overall_progress ?>%;" aria-valuenow="<?= $overall_progress ?>" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="font-weight-bold text-white"><?= $overall_progress ?>% Selesai 🎉</span>
                                         </div>
                                     </div>
                                     <p class="small text-right mb-0" style="color: var(--text-secondary-color);">Progres rata-rata dari semua mata pelajaran.</p>
@@ -126,20 +117,19 @@
                                 </div>
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <div class="font-weight-bold">Membuat Form Pendaftaran</div>
-                                                <div class="small" style="color: var(--text-secondary-color);">Web Lanjutan - Deadline: Besok</div>
-                                            </div>
-                                            <a href="#" class="btn btn-accent btn-sm">Kerjakan</a>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <div class="font-weight-bold">Struktur Data Array</div>
-                                                <div class="small" style="color: var(--text-secondary-color);">Algoritma & Pemrograman - Deadline: 3 hari lagi</div>
-                                            </div>
-                                            <a href="#" class="btn btn-accent btn-sm">Kerjakan</a>
-                                        </li>
+                                        <?php if (!empty($tugas_mendatang)): ?>
+                                            <?php foreach ($tugas_mendatang as $tugas): ?>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <div class="font-weight-bold"><?= htmlspecialchars($tugas->judul_tugas) ?></div>
+                                                        <div class="small" style="color: var(--text-secondary-color);"><?= htmlspecialchars($tugas->nama_mapel) ?> - Deadline: <?= date('d M Y', strtotime($tugas->deadline)) ?></div>
+                                                    </div>
+                                                    <a href="<?= site_url('murid/tugas/kerjakan/' . ($tugas->tipe_tugas ?? 'file') . '/' . $tugas->id_tugas) ?>" class="btn btn-accent btn-sm">Kerjakan</a>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <li class="list-group-item text-center" style="color: var(--text-secondary-color);">Tidak ada tugas yang akan datang. Santai sejenak!</li>
+                                        <?php endif; ?>
                                     </ul>
                                 </div>
                             </div>
@@ -189,10 +179,44 @@
                                     <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Sertifikat Terbaru</h6>
                                 </div>
                                 <div class="card-body text-center">
-                                    <i class="fas fa-award fa-3x mb-3" style="color: var(--accent-color);"></i>
-                                    <p class="font-weight-bold mb-0">Dasar Pemrograman Web</p>
-                                    <p class="small" style="color: var(--text-secondary-color);">Diraih pada 10 Nov 2025</p>
-                                    <a href="#" class="btn btn-secondary btn-sm">Lihat Semua</a>
+                                    <?php if (!empty($sertifikat_terbaru)): ?>
+                                        <i class="fas fa-award fa-3x mb-3" style="color: var(--accent-color);"></i>
+                                        <p class="font-weight-bold mb-0"><?= htmlspecialchars($sertifikat_terbaru->nama_sertifikat) ?></p>
+                                        <p class="small" style="color: var(--text-secondary-color);">Diraih pada <?= date('d M Y', strtotime($sertifikat_terbaru->tanggal_dikeluarkan)) ?></p>
+                                    <?php else: ?>
+                                        <i class="fas fa-award fa-3x mb-3 text-gray-300"></i>
+                                        <p class="small" style="color: var(--text-secondary-color);">Belum ada sertifikat yang diraih.</p>
+                                    <?php endif; ?>
+                                    <a href="#" class="btn btn-secondary btn-sm mt-2">Lihat Semua</a>
+                                </div>
+                            </div>
+
+                            <!-- Ringkasan Aktivitas Terakhir -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Aktivitas Terakhir</h6>
+                                </div>
+                                <div class="card-body">
+                                    <?php if (!empty($last_activity)): ?>
+                                        <p class="mb-2" style="color: var(--text-color);">
+                                            Kamu terakhir menyelesaikan 
+                                            <span class="font-weight-bold">
+                                                <?php 
+                                                    if ($last_activity['type'] == 'tugas') {
+                                                        echo 'Tugas: ' . htmlspecialchars($last_activity['title']);
+                                                    } else {
+                                                        echo 'Materi: ' . htmlspecialchars($last_activity['title']);
+                                                    }
+                                                ?>
+                                            </span> 
+                                            pada mapel <span class="font-weight-bold"><?= htmlspecialchars($last_activity['mapel_name']) ?></span>.
+                                        </p>
+                                        <p class="small text-muted mb-0">
+                                            Pada: <?= date('d M Y H:i', strtotime($last_activity['timestamp'])) ?>
+                                        </p>
+                                    <?php else: ?>
+                                        <p class="text-center small" style="color: var(--text-secondary-color);">Belum ada aktivitas yang tercatat.</p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -201,16 +225,10 @@
                 </div>
                 <!-- /.container-fluid -->
 
-            </div>
-            <!-- End of Main Content -->
+
 
             <?php $this->load->view('templates/siswa/footer'); ?>
 
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
 
 </body>
 

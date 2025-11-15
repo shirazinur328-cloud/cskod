@@ -61,6 +61,7 @@
                                 <div class="card-body">
                                     <?php echo form_open('murid/tugas/submit_text'); ?>
                                         <input type="hidden" name="id_tugas" value="<?= $tugas['id_tugas']; ?>">
+                                        <input type="hidden" name="id_mapel" value="<?= $tugas['id_mapel']; ?>">
                                         
                                         <div class="form-group">
                                             <label for="jawaban_teks">Jawaban Anda</label>
@@ -83,11 +84,7 @@
 
             <?php $this->load->view('templates/siswa/footer'); ?>
 
-        </div>
-        <!-- End of Content Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
 
 </body>
 

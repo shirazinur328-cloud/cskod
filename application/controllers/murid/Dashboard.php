@@ -20,23 +20,30 @@ class Dashboard extends CI_Controller {
 
     public function index()
     {
-        // Get the student ID from session (assuming student is logged in)
-        // For now, I'll use a placeholder - in real implementation, get from session
-        $id_murid = 2; // Temporarily hardcoded for testing purposes
+        // Use a hardcoded student ID for testing, as requested.
+        $id_murid = 2;
         
-        // Load the new Model_dashboard
+        // Load the main dashboard model
         $this->load->model('Model_dashboard');
+        $this->load->model('Model_notifikasi');
 
-        // Fetch all dashboard data using the new model
+        // Fetch the bulk of the dashboard data from the dedicated model method
         $data = $this->Model_dashboard->get_student_dashboard_data($id_murid);
 
-        // Also get student's info for display
+        // Fetch essential data not included in the dashboard model method
         $data['murid'] = $this->Model_murid->single_murid($id_murid);
-
-        // Fetch student's subjects for the sidebar based on their class
         $data['mapel_murid'] = $this->Model_murid->get_mapel_by_kelas($id_murid);
+        $data['notifikasi'] = $this->Model_notifikasi->get_unread_notifikasi($id_murid);
         
-        // Load the student dashboard view with data
+        // Calculate overall progress (reusing logic from Profile controller)
+        $assignment_stats = $this->Model_murid->get_assignment_completion_stats($id_murid);
+        if ($assignment_stats && $assignment_stats->total_assignments > 0) {
+            $data['overall_progress'] = round(($assignment_stats->completed_assignments / $assignment_stats->total_assignments) * 100);
+        } else {
+            $data['overall_progress'] = 0;
+        }
+        
+        // Load the student dashboard view with all the collected data
         $this->load->view('murid/dashboard', $data);
     }
 
@@ -59,7 +66,7 @@ class Dashboard extends CI_Controller {
         }
 
         // 2. Fetch overall progress for the subject
-        $data['overall_progress'] = $this->Model_materi->get_subject_progress($id_mapel, $id_murid);
+        $data['progress_details'] = $this->Model_materi->get_subject_progress_details($id_mapel, $id_murid);
 
         // 3. Fetch meetings for the subject
         $meetings = $this->Model_murid_mapel->get_meetings_by_subject($id_mapel, $id_murid);
@@ -152,7 +159,7 @@ class Dashboard extends CI_Controller {
         $data['mapel_murid'] = $this->Model_murid->get_mapel_by_kelas($id_murid); // For sidebar
 
         $this->load->view('templates/siswa/head', ['title' => 'Nilai Saya']);
-        $this->load->view('templates/siswa/navbar');
+        $this->load->view('templates/siswa/navbar', $data); // Pass $data here
         $this->load->view('templates/siswa/topbar');
         $this->load->view('murid/my_grades', $data);
         $this->load->view('templates/siswa/footer');

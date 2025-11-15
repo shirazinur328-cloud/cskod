@@ -34,5 +34,28 @@ class Model_notifikasi extends CI_Model {
         $this->db->where('id_notifikasi', $id_notifikasi);
         return $this->db->delete('notifikasi');
     }
+
+    public function insert_pengumuman_kelas($id_mapel, $id_kelas, $pesan, $link = '#')
+    {
+        $this->load->model('Model_mapel_kelas'); // Load model di sini
+        $siswa_list = $this->Model_mapel_kelas->get_siswa_by_mapel_kelas($id_mapel, $id_kelas);
+
+        if (empty($siswa_list)) {
+            return false; // Tidak ada siswa untuk dikirimi pengumuman
+        }
+
+        $batch_data = [];
+        foreach ($siswa_list as $siswa) {
+            $batch_data[] = [
+                'id_murid' => $siswa->id_murid,
+                'pesan' => $pesan,
+                'link' => $link,
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+        }
+
+        return $this->db->insert_batch('notifikasi', $batch_data);
+    }
 }
 ?>

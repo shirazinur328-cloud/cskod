@@ -30,15 +30,31 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Manajemen Pembelajaran
+                Manajemen Kelas
             </div>
 
-            <!-- Nav Item - Mapel -->
-            <li class="nav-item <?= ($segment2 == 'mapel') ? 'active' : '' ?>">
-                <a class="nav-link" href="<?= base_url('guru/mapel'); ?>">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Mapel & Kelas</span></a>
-            </li>
+            <?php if (!empty($tingkatan_kelas_list)): ?>
+                <?php foreach ($tingkatan_kelas_list as $tingkatan_obj): ?>
+                    <?php 
+                        $tingkatan = $tingkatan_obj->tingkatan_kelas;
+                        $is_active = ($this->uri->segment(2) == 'kelas' && $this->uri->segment(3) == $tingkatan);
+                    ?>
+                    <li class="nav-item <?= $is_active ? 'active' : '' ?>">
+                        <a class="nav-link" href="<?= base_url('guru/kelas/index/' . $tingkatan); ?>">
+                            <i class="fas fa-fw fa-chalkboard"></i>
+                            <span>Kelas <?= $tingkatan; ?></span>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Manajemen Pembelajaran
+            </div>
 
             <!-- Nav Item - Penilaian -->
             <li class="nav-item <?= ($segment2 == 'penilaian') ? 'active' : '' ?>">
@@ -97,6 +113,11 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="<?= base_url('guru/profile'); ?>">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profil Saya
+                                </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout

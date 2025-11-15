@@ -42,8 +42,15 @@ class Dashboard extends CI_Controller {
         // --- 4. Fetch data for "Tugas Belum Dinilai" ---
         $data['list_tugas_belum_dinilai'] = $this->Model_tugas->get_tugas_belum_dinilai($id_guru, 5); // Get top 5
 
+        // Data untuk Sidebar (Tingkatan Kelas dan Mapel/Kelas)
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+        $data['mapel_kelas_by_tingkatan'] = [];
+        foreach ($data['tingkatan_kelas_list'] as $tingkatan) {
+            $data['mapel_kelas_by_tingkatan'][$tingkatan->tingkatan_kelas] = $this->Model_guru->get_mapel_kelas_by_guru($id_guru, $tingkatan->tingkatan_kelas);
+        }
+
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data); // Pass $data to navbar
         $this->load->view('guru/dashboard', $data);
         $this->load->view('templates/guru/footer');
     }

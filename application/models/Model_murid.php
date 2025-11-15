@@ -156,4 +156,30 @@ class Model_murid extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function get_assignment_completion_stats($id_murid)
+    {
+        $this->db->select('
+            COUNT(DISTINCT t.id_tugas) as total_assignments,
+            COUNT(DISTINCT CASE WHEN tm.status = "Selesai" THEN t.id_tugas END) as completed_assignments
+        ');
+        $this->db->from('tugas t');
+        $this->db->join('mapel m', 't.id_mapel = m.id_mapel');
+        $this->db->join('kelas_mapel km', 'm.id_mapel = km.id_mapel');
+        $this->db->join('murid_kelas mk', 'km.id_kelas = mk.id_kelas');
+        $this->db->join('tugas_murid tm', 't.id_tugas = tm.id_tugas AND tm.id_murid = mk.id_murid', 'left');
+        $this->db->where('mk.id_murid', $id_murid);
+        $query = $this->db->get();
+        return $query->row();
+    }
+
+    public function get_average_grade($id_murid)
+    {
+        $this->db->select('AVG(tm.nilai) as average_grade');
+        $this->db->from('tugas_murid tm');
+        $this->db->where('tm.id_murid', $id_murid);
+        $this->db->where('tm.status', 'Dinilai'); // Only consider graded assignments
+        $query = $this->db->get();
+        return $query->row()->average_grade;
+    }
 }

@@ -107,6 +107,7 @@
                                                 <div class="card-body">
                                                     <form id="form-coding" action="<?= site_url('murid/tugas/submit_coding'); ?>" method="POST">
                                                         <input type="hidden" name="id_tugas" value="<?= $tugas['id_tugas']; ?>">
+                                                        <input type="hidden" name="id_mapel" value="<?= $tugas['id_mapel']; ?>">
                                                         <textarea id="code-editor" name="kode_jawaban"><?= html_escape($submission['kode_jawaban'] ?? ''); ?></textarea>
                                                         <div class="mt-3">
                                                             <button type="button" id="run-btn" class="btn btn-primary">
@@ -133,11 +134,6 @@
 
             <?php $this->load->view('templates/siswa/footer'); ?>
 
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
 
 </body>
 

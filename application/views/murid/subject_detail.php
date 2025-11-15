@@ -5,47 +5,60 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
-        <!-- Page Header -->
-    <div class="card shadow mb-4">
+    <!-- Page Header -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">
+            <i class="fas fa-book-open text-primary mr-2"></i><?php echo htmlspecialchars($subject['nama_mapel']); ?>
+        </h1>
+        <div>
+            <a href="javascript:history.back()" class="btn btn-secondary btn-sm shadow-sm mr-2">
+                <i class="fas fa-arrow-left fa-sm"></i> Kembali
+            </a>
+            <a href="<?= site_url('murid/dashboard/my_grades'); ?>" class="btn btn-sm btn-outline-primary shadow-sm">
+                <i class="fas fa-star fa-sm text-primary-50"></i> Lihat Nilai Saya
+            </a>
+        </div>
+    </div>
+
+    <!-- Subject Info Card -->
+    <div class="card shadow mb-4 subject-info-card">
         <div class="card-body">
-            <div class="d-sm-flex align-items-center justify-content-between">
-                <div>
-                    <h1 class="h3 mb-0 text-gray-800"><?php echo htmlspecialchars($subject['nama_mapel']); ?></h1>
-                    <p class="mb-0 text-muted">Oleh: <?php echo htmlspecialchars($subject['nama_guru']); ?></p>
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <p class="mb-2 text-muted">Oleh: <span class="font-weight-bold"><?php echo htmlspecialchars($subject['nama_guru']); ?></span></p>
+                    <hr>
+                    <h6 class="font-weight-bold text-primary mb-2">Total Progres Belajar</h6>
+                    <div class="progress" style="height: 20px;">
+                        <div class="progress-bar progress-bar-animated-gradient" role="progressbar" style="width: <?php echo $progress_details['percentage']; ?>%" aria-valuenow="<?php echo $progress_details['percentage']; ?>" aria-valuemin="0" aria-valuemax="100">
+                            <b><?php echo $progress_details['percentage']; ?>%</b>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <a href="javascript:history.back()" class="btn btn-secondary btn-sm shadow-sm mr-2">
-                        <i class="fas fa-arrow-left fa-sm"></i> Kembali
-                    </a>
-                    <a href="<?= site_url('murid/dashboard/my_grades'); ?>" class="btn btn-sm btn-outline-primary shadow-sm">
-                        <i class="fas fa-star fa-sm text-primary-50"></i> Lihat Nilai Saya
-                    </a>
-                </div>
-            </div>
-            <hr>
-            <h6 class="font-weight-bold text-primary mb-2">Total Progres Belajar</h6>
-            <div class="progress" style="height: 20px;">
-                <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: <?php echo $overall_progress; ?>%" aria-valuenow="<?php echo $overall_progress; ?>" aria-valuemin="0" aria-valuemax="100">
-                    <b><?php echo $overall_progress; ?>%</b>
+                <div class="col-lg-4 text-center mt-3 mt-lg-0">
+                    <div class="display-4 font-weight-bold"><?php echo $progress_details['completed_materi']; ?>/<?php echo $progress_details['total_materi']; ?></div>
+                    <span class="text-muted">Materi Selesai</span>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Accordion for Meetings -->
-    <div class="accordion" id="accordionPertemuan">
+    <div class="accordion custom-accordion" id="accordionPertemuan">
         <?php if (!empty($meetings)) : ?>
             <?php foreach ($meetings as $index => $meeting) : ?>
-                <div class="card shadow mb-2">
-                    <div class="card-header" id="heading-<?php echo $meeting['id_pertemuan']; ?>">
+                <div class="card shadow mb-2 custom-accordion-item">
+                    <div class="card-header custom-accordion-header" id="heading-<?php echo $meeting['id_pertemuan']; ?>">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-pertemuan btn-block text-left d-flex justify-content-between align-items-center" type="button" data-id="<?php echo $meeting['id_pertemuan']; ?>" data-toggle="collapse" data-target="#collapse-<?php echo $meeting['id_pertemuan']; ?>" aria-expanded="<?php echo $index == 0 ? 'true' : 'false'; ?>" aria-controls="collapse-<?php echo $meeting['id_pertemuan']; ?>">
+                            <button class="btn btn-link btn-pertemuan btn-block text-left d-flex justify-content-between align-items-center collapsed" type="button" data-id="<?php echo $meeting['id_pertemuan']; ?>" data-toggle="collapse" data-target="#collapse-<?php echo $meeting['id_pertemuan']; ?>" aria-expanded="<?php echo $index == 0 ? 'true' : 'false'; ?>" aria-controls="collapse-<?php echo $meeting['id_pertemuan']; ?>">
                                 <span class="font-weight-bold text-primary">Pertemuan <?php echo $index + 1; ?>: <?php echo htmlspecialchars($meeting['nama_pertemuan']); ?></span>
-                                <?php if ($meeting['status'] == 'Selesai') : ?>
-                                    <span class="badge badge-success"><i class="fas fa-check-circle"></i> Selesai</span>
-                                <?php else : ?>
-                                    <span class="badge badge-warning"><i class="fas fa-hourglass-half"></i> Belum Dikerjakan</span>
-                                <?php endif; ?>
+                                <div class="d-flex align-items-center">
+                                    <?php if ($meeting['status'] == 'Selesai') : ?>
+                                        <span class="badge badge-success mr-2"><i class="fas fa-check-circle"></i> Selesai</span>
+                                    <?php else : ?>
+                                        <span class="badge badge-warning mr-2"><i class="fas fa-hourglass-half"></i> Belum Dikerjakan</span>
+                                    <?php endif; ?>
+                                    <i class="fas fa-chevron-down accordion-icon"></i>
+                                </div>
                             </button>
                         </h2>
                     </div>

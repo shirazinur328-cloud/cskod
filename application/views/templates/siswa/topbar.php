@@ -59,37 +59,34 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">5</span>
+                                <?php if (!empty($notifikasi) && count($notifikasi) > 0): ?>
+                                    <span class="badge badge-danger badge-counter"><?= count($notifikasi) ?></span>
+                                <?php endif; ?>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Pusat Notifikasi
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 12, 2020</div>
-                                            <span class="font-weight-bold">New lesson available: Advanced JavaScript</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-check text-white"></i>
-                                        </div>
-                                        <div>
-                                            <div class="small text-gray-500">December 7, 2020</div>
-                                            Your assignment has been graded!
-                                        </div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                <?php if (!empty($notifikasi)): ?>
+                                    <?php foreach (array_slice($notifikasi, 0, 4) as $notif): // Show max 4-5 notifications ?>
+                                        <a class="dropdown-item d-flex align-items-center" href="<?= site_url($notif['link'] ?? '#') ?>">
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fas fa-info-circle text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="small text-gray-500"><?= date('d M Y', strtotime($notif['created_at'])) ?></div>
+                                                <span class="font-weight-bold"><?= htmlspecialchars($notif['pesan']) ?></span>
+                                            </div>
+                                        </a>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <a class="dropdown-item text-center small text-gray-500" href="#">Tidak ada notifikasi baru.</a>
+                                <?php endif; ?>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Tampilkan Semua Notifikasi</a>
                             </div>
                         </li>
 
@@ -108,17 +105,14 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="<?php echo base_url('murid/profile'); ?>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profil
+                                    Profil Saya
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Riwayat Belajar
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Ubah Password
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
                                 </a>
                             </div>
                         </li>

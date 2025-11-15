@@ -44,8 +44,9 @@
                         </div>
                     <?php endif; ?>
 
-                    <?php echo form_open_multipart('murid/tugas/submit_tugas'); ?>
+                    <?php echo form_open_multipart('murid/tugas/submit_file'); ?>
                         <input type="hidden" name="id_tugas" value="<?php echo $tugas['id_tugas']; ?>">
+                        <input type="hidden" name="id_mapel" value="<?php echo $tugas['id_mapel']; ?>">
                         
                         <div class="form-group">
                             <label for="file_jawaban">Upload File Jawaban</label>

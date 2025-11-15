@@ -17,11 +17,15 @@ class Penilaian extends CI_Controller {
 
         $data['title'] = 'Tugas & Penilaian';
         $data['daftar_tugas'] = $this->Model_guru->get_all_tugas_by_guru($id_guru);
-
+        foreach ($data['daftar_tugas'] as $tugas) {
+            $tugas->rata_rata_nilai = $this->Model_tugas->get_average_nilai_by_tugas($tugas->id_tugas);
+        }
+        $data['student_performance_data'] = $this->Model_guru->get_student_performance_data($id_guru);
+        
         $this->load->view('templates/guru/head', $data);
         $this->load->view('templates/guru/navbar');
         $this->load->view('guru/penilaian/list', $data);
-        $this->load->view('templates/guru/footer');
+
     }
 
     public function jawaban($id_tugas)
@@ -78,5 +82,64 @@ class Penilaian extends CI_Controller {
 
         $this->session->set_flashdata('success', 'Nilai berhasil disimpan.');
         redirect('guru/penilaian/jawaban/' . $id_tugas);
+    }
+
+    public function export_excel()
+    {
+        $id_guru = 2; // Hardcoded guru ID
+        $daftar_tugas = $this->Model_guru->get_all_tugas_by_guru($id_guru);
+
+        // Tambahkan rata-rata nilai ke setiap tugas
+        foreach ($daftar_tugas as $tugas) {
+            $tugas->rata_rata_nilai = $this->Model_tugas->get_average_nilai_by_tugas($tugas->id_tugas);
+        }
+
+        // Set header untuk file CSV
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment;filename="Laporan_Tugas_Penilaian_Guru.csv"');
+        header('Cache-Control: max-age=0');
+
+        $output = fopen('php://output', 'w');
+
+        // Header CSV
+        fputcsv($output, array('No', 'Judul Tugas', 'Mata Pelajaran', 'Kelas', 'Rata-rata Nilai'));
+
+        // Data
+        $no = 1;
+        foreach ($daftar_tugas as $tugas) {
+            fputcsv($output, array(
+                $no++,
+                $tugas->judul_tugas,
+                $tugas->nama_mapel,
+                $tugas->nama_kelas,
+                $tugas->rata_rata_nilai ?? 'Belum ada nilai'
+            ));
+        }
+
+        fclose($output);
+        exit();
+    }
+
+    public function export_pdf()
+    {
+        $this->load->library('dompdf_gen'); // Load library dompdf
+
+        $id_guru = 2; // Hardcoded guru ID
+        $data['daftar_tugas'] = $this->Model_guru->get_all_tugas_by_guru($id_guru);
+
+        // Tambahkan rata-rata nilai ke setiap tugas
+        foreach ($data['daftar_tugas'] as $tugas) {
+            $tugas->rata_rata_nilai = $this->Model_tugas->get_average_nilai_by_tugas($tugas->id_tugas);
+        }
+
+        $data['title'] = 'Laporan Tugas & Penilaian Guru';
+
+        // Load view untuk konten PDF
+        $html = $this->load->view('guru/penilaian/laporan_pdf', $data, true);
+
+        $this->dompdf_gen->load_html($html);
+        $this->dompdf_gen->render();
+        $this->dompdf_gen->stream("Laporan_Tugas_Penilaian_Guru.pdf", array("Attachment" => 0)); // Stream to browser
+        exit();
     }
 }

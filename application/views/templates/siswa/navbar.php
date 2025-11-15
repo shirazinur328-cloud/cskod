@@ -1,4 +1,4 @@
-<body id="page-top">
+<body id="page-top" class="fixed-nav">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -11,7 +11,7 @@
                             <div class="sidebar-brand-icon rotate-n-15">
                                 <i class="fas fa-graduation-cap"></i>
                             </div>
-                            <div class="sidebar-brand-text mx-3">CSKod Murid</div>
+                            <div class="sidebar-brand-text mx-3">CSKod <sup>Murid</sup></div>
                         </a>
             
                         <!-- Divider -->
@@ -50,6 +50,14 @@
                                 <span class="nav-link">Belum ada mapel.</span>
                             </li>
                         <?php endif; ?>
+
+                        <!-- Divider -->
+                        <hr class="sidebar-divider">
+            
+                        <!-- Heading -->
+                        <div class="sidebar-heading">
+                            Other
+                        </div>
             
                         <!-- Nav Item - Nilai Saya -->
                         <li class="nav-item <?php echo $this->uri->segment(3) === 'my_grades' ? 'active' : ''; ?>">
@@ -59,16 +67,8 @@
                             </a>
                         </li>
             
-                        <!-- Divider -->
-                        <hr class="sidebar-divider">
+                        
             
-                        <!-- Nav Item - Logout -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">
-                                <i class="fas fa-fw fa-sign-out-alt"></i>
-                                <span>Logout</span>
-                            </a>
-                        </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

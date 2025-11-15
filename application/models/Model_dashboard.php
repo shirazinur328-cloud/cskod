@@ -91,5 +91,124 @@ class Model_dashboard extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function get_last_activity($id_murid)
+    {
+        // Get last completed assignment
+        $this->db->select('
+            "tugas" as type,
+            t.judul_tugas as title,
+            m.nama_mapel as mapel_name,
+            tm.submitted_at as timestamp
+        ');
+        $this->db->from('tugas_murid tm');
+        $this->db->join('tugas t', 'tm.id_tugas = t.id_tugas');
+        $this->db->join('mapel m', 't.id_mapel = m.id_mapel');
+        $this->db->where('tm.id_murid', $id_murid);
+        $this->db->where('tm.status', 'Selesai'); // Assuming 'Selesai' means completed
+        $this->db->order_by('tm.submitted_at', 'DESC');
+        $this->db->limit(1);
+        $last_tugas = $this->db->get()->row_array();
+
+        // Get last completed material
+        $this->db->select('
+            "materi" as type,
+            mt.judul_materi as title,
+            m.nama_mapel as mapel_name,
+            mm.completed_at as timestamp
+        ');
+        $this->db->from('materi_murid mm');
+        $this->db->join('materi mt', 'mm.id_materi = mt.id_materi');
+        $this->db->join('mapel m', 'mt.id_mapel = m.id_mapel');
+        $this->db->where('mm.id_murid', $id_murid);
+        $this->db->where('mm.status', 'Selesai'); // Assuming 'Selesai' means completed
+        $this->db->order_by('mm.completed_at', 'DESC');
+        $this->db->limit(1);
+        $last_materi = $this->db->get()->row_array();
+
+        // Compare and return the most recent one
+        if ($last_tugas && $last_materi) {
+            return ($last_tugas['timestamp'] > $last_materi['timestamp']) ? $last_tugas : $last_materi;
+        } elseif ($last_tugas) {
+            return $last_tugas;
+        } elseif ($last_materi) {
+            return $last_materi;
+        }
+        return null;
+    }
+
+    public function get_recent_activities($id_murid, $limit = 5)
+    {
+        // Get last completed assignments
+        $this->db->select('
+            "tugas" as type,
+            t.judul_tugas as title,
+            m.nama_mapel as mapel_name,
+            tm.submitted_at as timestamp
+        ');
+        $this->db->from('tugas_murid tm');
+        $this->db->join('tugas t', 'tm.id_tugas = t.id_tugas');
+        $this->db->join('mapel m', 't.id_mapel = m.id_mapel');
+        $this->db->where('tm.id_murid', $id_murid);
+        $this->db->where('tm.status', 'Selesai');
+        $last_tugas_query = $this->db->get_compiled_select();
+
+        // Get last completed materials
+        $this->db->select('
+            "materi" as type,
+            mt.judul_materi as title,
+            m.nama_mapel as mapel_name,
+            mm.completed_at as timestamp
+        ');
+        $this->db->from('materi_murid mm');
+        $this->db->join('materi mt', 'mm.id_materi = mt.id_materi');
+        $this->db->join('mapel m', 'mt.id_mapel = m.id_mapel');
+        $this->db->where('mm.id_murid', $id_murid);
+        $this->db->where('mm.status', 'Selesai');
+        $last_materi_query = $this->db->get_compiled_select();
+
+        $query = $this->db->query($last_tugas_query . ' UNION ALL ' . $last_materi_query . ' ORDER BY timestamp DESC LIMIT ' . $limit);
+        $activities = $query->result();
+
+        // Format the activities
+        $formatted_activities = [];
+        foreach ($activities as $activity) {
+            $formatted_activity = new stdClass();
+            if ($activity->type == 'tugas') {
+                $formatted_activity->icon = 'fa-tasks';
+                $formatted_activity->icon_color = 'text-primary';
+                $formatted_activity->description = 'Mengerjakan tugas <strong>' . htmlspecialchars($activity->title) . '</strong>';
+            } else {
+                $formatted_activity->icon = 'fa-book-reader';
+                $formatted_activity->icon_color = 'text-info';
+                $formatted_activity->description = 'Membaca materi <strong>' . htmlspecialchars($activity->title) . '</strong>';
+            }
+            $formatted_activity->time_ago = $this->time_ago($activity->timestamp);
+            $formatted_activities[] = $formatted_activity;
+        }
+
+        return $formatted_activities;
+    }
+
+    private function time_ago($timestamp) {
+        $time_ago = strtotime($timestamp);
+        $current_time = time();
+        $time_difference = $current_time - $time_ago;
+        $seconds = $time_difference;
+        $minutes      = round($seconds / 60 );
+        $hours           = round($seconds / 3600);
+        $days          = round($seconds / 86400);
+        $weeks          = round($seconds / 604800);
+        $months      = round($seconds / 2629440);
+        $years          = round($seconds / 31553280);
+
+        if($seconds <= 60) return "Baru saja";
+        else if($minutes <=60) return ($minutes==1) ? "1 menit lalu" : "$minutes menit lalu";
+        else if($hours <=24) return ($hours==1) ? "1 jam lalu" : "$hours jam lalu";
+        else if($days <= 7) return ($days==1) ? "Kemarin" : "$days hari lalu";
+        else if($weeks <= 4.3) return ($weeks==1) ? "1 minggu lalu" : "$weeks minggu lalu";
+        else if($months <=12) return ($months==1) ? "1 bulan lalu" : "$months bulan lalu";
+        else return ($years==1) ? "1 tahun lalu" : "$years tahun lalu";
+    }
 }
 ?>

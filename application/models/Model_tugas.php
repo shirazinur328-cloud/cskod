@@ -94,6 +94,65 @@ class Model_tugas extends CI_Model {
         return $query->result_array();
     }
 
+    public function get_tugas_detail_for_murid($id_tugas, $id_murid) {
+        $this->db->select('t.*, tm.kode_jawaban, tm.status, tm.nilai, tm.komentar_guru');
+        $this->db->from('tugas t');
+        $this->db->join('tugas_murid tm', 't.id_tugas = tm.id_tugas AND tm.id_murid = ' . $this->db->escape($id_murid), 'left');
+        $this->db->where('t.id_tugas', $id_tugas);
+        return $this->db->get()->row_array();
+    }
+
+    public function submit_tugas_coding($data) {
+        // Check if a submission already exists
+        $this->db->where('id_tugas', $data['id_tugas']);
+        $this->db->where('id_murid', $data['id_murid']);
+        $query = $this->db->get('tugas_murid');
+
+        if ($query->num_rows() > 0) {
+            // Submission exists, so update it
+            $this->db->where('id_tugas', $data['id_tugas']);
+            $this->db->where('id_murid', $data['id_murid']);
+            return $this->db->update('tugas_murid', $data);
+        } else {
+            // No submission exists, so insert a new one
+            return $this->db->insert('tugas_murid', $data);
+        }
+    }
+
+    public function submit_tugas_file($data) {
+        // Check if a submission already exists
+        $this->db->where('id_tugas', $data['id_tugas']);
+        $this->db->where('id_murid', $data['id_murid']);
+        $query = $this->db->get('tugas_murid');
+
+        if ($query->num_rows() > 0) {
+            // Submission exists, so update it
+            $this->db->where('id_tugas', $data['id_tugas']);
+            $this->db->where('id_murid', $data['id_murid']);
+            return $this->db->update('tugas_murid', $data);
+        } else {
+            // No submission exists, so insert a new one
+            return $this->db->insert('tugas_murid', $data);
+        }
+    }
+
+    public function submit_tugas_text($data) {
+        // Check if a submission already exists
+        $this->db->where('id_tugas', $data['id_tugas']);
+        $this->db->where('id_murid', $data['id_murid']);
+        $query = $this->db->get('tugas_murid');
+
+        if ($query->num_rows() > 0) {
+            // Submission exists, so update it
+            $this->db->where('id_tugas', $data['id_tugas']);
+            $this->db->where('id_murid', $data['id_murid']);
+            return $this->db->update('tugas_murid', $data);
+        } else {
+            // No submission exists, so insert a new one
+            return $this->db->insert('tugas_murid', $data);
+        }
+    }
+
     public function get_jawaban_by_tugas($id_tugas) {
         $this->db->select('tm.id_tugas_murid, tm.submitted_at, tm.status, tm.nilai, tm.komentar_guru, m.nama_murid');
         $this->db->from('tugas_murid tm');
@@ -177,6 +236,17 @@ class Model_tugas extends CI_Model {
         $this->db->limit($limit);
         $query = $this->db->get();
         return $query->result();
+    }
+
+    public function get_average_nilai_by_tugas($id_tugas)
+    {
+        $this->db->select('AVG(nilai) as average_nilai');
+        $this->db->from('tugas_murid');
+        $this->db->where('id_tugas', $id_tugas);
+        $this->db->where('nilai IS NOT NULL'); // Hanya hitung yang sudah dinilai
+        $query = $this->db->get();
+        $result = $query->row();
+        return $result->average_nilai ? round($result->average_nilai, 2) : null;
     }
 }
 ?>
