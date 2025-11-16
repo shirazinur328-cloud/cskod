@@ -19,12 +19,12 @@
     </select>
   </div>
   <div class="form-group">
-    <label class="">Template Sertifikat (PDF)</label>
-    <input type="file" 
-           name="template_file" 
-           class="form-control-file border shadow-sm" 
-           accept=".pdf">
-    <small class="form-text text-muted">Kosongkan jika tidak ingin mengubah template. Ukuran maksimal 2MB, format PDF.</small>
+    <label class="">Template Sertifikat (PNG)</label>
+    <input type="file"
+           name="template_file"
+           class="form-control-file border shadow-sm"
+           accept=".png">
+    <small class="form-text text-muted">Kosongkan jika tidak ingin mengubah template. Ukuran maksimal 2MB, format PNG.</small>
     <?php if ($sertifikat->template_file) : ?>
         <p class="mt-2">File saat ini: <a href="<?= base_url('uploads/sertifikat_templates/' . $sertifikat->template_file); ?>" target="_blank"><?= $sertifikat->template_file; ?></a></p>
     <?php endif; ?>

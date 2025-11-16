@@ -91,5 +91,35 @@ class Model_dashboard extends CI_Model {
         $query = $this->db->get();
         return $query->result_array();
     }
+
+    public function get_weekly_submission_data()
+    {
+        // Get assignment submissions for the current week using tugas_murid table instead of submission
+        $this->db->select('WEEKDAY(submitted_at) as hari, COUNT(*) as jumlah');
+        $this->db->from('tugas_murid');
+        $this->db->where('YEARWEEK(submitted_at, 1) = YEARWEEK(CURDATE(), 1)'); // Current week
+        $this->db->where('submitted_at IS NOT NULL'); // Only count when submitted_at is not null
+        $this->db->group_by('WEEKDAY(submitted_at)');
+        $this->db->order_by('WEEKDAY(submitted_at)');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function get_top_subjects_by_activity($limit = 5)
+    {
+        $this->db->select('m.nama_mapel, COUNT(tm.id_tugas_murid) as jumlah');
+        $this->db->from('tugas_murid tm');
+        $this->db->join('tugas t', 'tm.id_tugas = t.id_tugas');
+        $this->db->join('mapel m', 't.id_mapel = m.id_mapel');
+        $this->db->where('tm.status', 'Selesai'); // Only count completed assignments
+        $this->db->where('MONTH(tm.submitted_at)', date('m')); // Current month
+        $this->db->where('YEAR(tm.submitted_at)', date('Y')); // Current year
+        $this->db->where('tm.submitted_at IS NOT NULL'); // Only count where submitted_at is not null
+        $this->db->group_by('m.id_mapel, m.nama_mapel');
+        $this->db->order_by('jumlah', 'DESC');
+        $this->db->limit($limit);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
 ?>

@@ -74,6 +74,19 @@ class Dashboard extends CI_Controller {
         // 5. Get recent teacher absences
         $data['recent_absensi_guru'] = $this->Model_dashboard->get_recent_absensi_guru(5);
 
+        // 6. Get weekly submission data for chart
+        $weekly_data = $this->Model_dashboard->get_weekly_submission_data();
+        $data['weekly_submissions'] = [];
+        for($i = 0; $i < 7; $i++) {
+            $data['weekly_submissions'][$i] = 0;
+        }
+        foreach($weekly_data as $day_data) {
+            $data['weekly_submissions'][(int)$day_data['hari']] = (int)$day_data['jumlah'];
+        }
+
+        // 7. Get top subjects by activity
+        $data['top_subjects_by_activity'] = $this->Model_dashboard->get_top_subjects_by_activity(5);
+
         // Load view through template
         $this->load->view('templates/admin/head', $data);
         $this->load->view('templates/admin/navbar', $data);

@@ -1,290 +1,566 @@
-/*
-================================================
-CUSTOM THEME FOR ADMIN PANEL
-================================================
-*/
+/* Fresh Blue Modern Admin UI - SET 4 */
 
-/*------------------------------------------------
-  1. GLOBAL & TYPOGRAPHY
-------------------------------------------------*/
-body {
-    background-color: #F8F9FA;
-    color: #343A40;
-    font-family: 'Nunito', sans-serif;
+/* Updated color palette */
+:root {
+  --primary: #2563eb;
+  --primary-light: #60a5fa;
+  --primary-dark: #1e40af;
+  --background: #f3f6fc;
+  --text: #1e293b;
+  --white: #ffffff;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --info: #0ea5e9;
+  --border-radius: 12px;
+  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 10px 15px -3px rgba(37, 99, 235, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-h1, h2, h3, h4, h5, h6 {
-    color: #0F172A;
+/* Secondary Color: #1B2A41 - Dark Elegant Blue */
+:root {
+  --secondary: #1B2A41;
+  --secondary-light: #24344E;
+  --secondary-lighter: #2F3E58;
 }
 
-/*------------------------------------------------
-  2. SIDEBAR
-------------------------------------------------*/
+/* Base Light Color: #F5F9FF - Soft Blue-White */
+:root {
+  --base-light: #F5F9FF;
+  --base-lighter: #EDF4FF;
+  --white: #FFFFFF;
+}
+
+/* Accent Color: #2BBF82 - Mint Green */
+:root {
+  --accent: #2BBF82;
+  --accent-dark: #24A56F;
+  --accent-light: #3DE3A4;
+}
+
+/* Updated styles for sidebar */
 .sidebar {
-    background-color: #1E293B !important;
-    background-image: none !important; /* Ensure no gradient overrides */
+  background: var(--secondary) !important;
+  color: var(--white);
 }
 
-.sidebar .sidebar-brand .sidebar-brand-text {
-    color: #FFFFFF;
+.sidebar .nav-item {
+  margin: 0.25rem 0;
 }
 
-/* Default state for sidebar links */
 .sidebar .nav-item .nav-link {
-    color: #E2E8F0;
-    transition: background-color 0.2s ease, color 0.2s ease;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin: 0 0.5rem;
+  transition: all 0.3s;
+}
+
+.sidebar .nav-item .nav-link:hover {
+  background: var(--secondary-light);
+  color: var(--white);
+}
+
+.sidebar .nav-item .nav-link.active {
+  background: var(--secondary-light);
+  color: var(--white);
+  border-left: 3px solid var(--primary);
 }
 
 .sidebar .nav-item .nav-link i {
-    color: #94A3B8;
+  color: var(--primary);
+  margin-right: 0.75rem;
 }
 
-/* Hover state for sidebar links (subtle) */
-.sidebar .nav-item:hover .nav-link {
-    background-color: #334155;
-    color: #FFFFFF;
-}
-.sidebar .nav-item:hover .nav-link i {
-    color: #FFFFFF;
+.sidebar .sidebar-brand {
+  background: var(--secondary-light);
+  color: var(--white) !important;
 }
 
-/* Active state for sidebar links */
-.sidebar .nav-item.active .nav-link {
-    background-color: #2563EB;
-    color: #FFFFFF;
-    font-weight: 600;
-    border-left: 3px solid #FACC15;
-}
-
-.sidebar .nav-item.active .nav-link i {
-    color: #FFFFFF;
+.sidebar .sidebar-brand .sidebar-brand-text {
+  font-weight: 600;
 }
 
 .sidebar .sidebar-heading {
-    color: #64748B;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.1rem;
 }
 
-/*------------------------------------------------
-  3. TOPBAR
-------------------------------------------------*/
+/* Updated styles for topbar */
 .topbar {
-    background-color: #FFFFFF;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  background: var(--white);
+  border-bottom: 1px solid #e3e6f0;
+  padding: 0.75rem 1rem;
+}
+
+.topbar .topbar-divider {
+  border-right: 1px solid #e3e6f0;
 }
 
 .topbar .nav-item .nav-link {
-    color: #0F172A;
+  color: #6e707e;
 }
 
-.topbar .nav-item .nav-link:hover {
-    color: #2563EB;
+.topbar .dropdown-list {
+  border: none;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
 }
 
-.topbar .badge-counter {
-    background-color: #FACC15;
-    color: #1E293B;
+/* Main content background */
+#content {
+  background-color: var(--base-light);
 }
 
-/*------------------------------------------------
-  4. BUTTONS
-------------------------------------------------*/
-.btn {
-    border-radius: 0.35rem;
-    transition: all 0.2s ease-in-out;
+/* Card styling */
+.card {
+  border: none;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.05);
+  border-radius: 8px;
+  transition: all 0.3s;
+  background: var(--white);
 }
 
-/* Primary Button (Add/Save) */
+.card .card-header {
+  background: var(--white);
+  border: none;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card .card-body {
+  padding: 1.5rem;
+}
+
+/* Dashboard cards with accent border */
+.border-left-primary {
+  border-left: 4px solid var(--primary) !important;
+}
+
+.border-left-success {
+  border-left: 4px solid var(--accent) !important;
+}
+
+.border-left-info {
+  border-left: 4px solid var(--primary-light) !important;
+}
+
+.border-left-warning {
+  border-left: 4px solid var(--accent-light) !important;
+}
+
+/* Button styles */
 .btn-primary {
-    background-color: #2563EB;
-    border-color: #2563EB;
-    color: #FFFFFF;
-    box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
-}
-.btn-primary:hover {
-    background-color: #1D4ED8;
-    border-color: #1D4ED8;
-    color: #FFFFFF;
-    transform: translateY(-2px);
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
-/* Accent Button (Important) */
-.btn-accent {
-    background-color: #FACC15;
-    border-color: #FACC15;
-    color: #1E293B;
-}
-.btn-accent:hover {
-    background-color: #EAB308;
-    border-color: #EAB308;
-    color: #1E293B;
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
 }
 
-/* Success Button */
+.btn-outline-primary {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+}
+
 .btn-success {
-    background-color: #22C55E;
-    border-color: #22C55E;
-    color: #FFFFFF;
-}
-.btn-success:hover {
-    background-color: #16A34A;
-    border-color: #16A34A;
-    color: #FFFFFF;
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
-/* Danger Button (Delete) */
-.btn-danger {
-    background-color: #EF4444;
-    border-color: #EF4444;
-    color: #FFFFFF;
-}
-.btn-danger:hover {
-    background-color: #DC2626;
-    border-color: #DC2626;
-    color: #FFFFFF;
-}
-
-/* Secondary Button (Cancel) */
-.btn-secondary {
-    background-color: #E2E8F0;
-    border-color: #E2E8F0;
-    color: #1E293B;
-}
-.btn-secondary:hover {
-    background-color: #CBD5E1;
-    border-color: #CBD5E1;
-    color: #1E293B;
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
 }
 
 /* Table Action Buttons */
 .btn-action {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
-}
-.btn-action-edit { background-color: #2563EB; color: white; }
-.btn-action-edit:hover { background-color: #1D4ED8; color: white; }
-.btn-action-delete { background-color: #EF4444; color: white; }
-.btn-action-delete:hover { background-color: #DC2626; color: white; }
-.btn-action-detail { background-color: #FACC15; color: #1E293B; }
-.btn-action-detail:hover { background-color: #EAB308; color: #1E293B; }
-
-
-/*------------------------------------------------
-  5. CARDS
-------------------------------------------------*/
-/* General Card Style */
-.card {
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    border: none;
-    margin-bottom: 1.5rem;
-    transition: all 0.2s ease-in-out;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
 }
 
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+.btn-action-edit {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+}
+.btn-action-edit:hover {
+  background-color: var(--primary-dark);
+  color: white;
 }
 
-.card-header {
-    background-color: #1E293B; /* Match sidebar color */
-    border-bottom: 1px solid #E2E8F0;
-    color: #FFFFFF; /* White text for contrast */
-    font-weight: 600;
+.btn-action-delete {
+  background-color: #EB5757;
+  color: white;
+  border: none;
+}
+.btn-action-delete:hover {
+  background-color: #DC2626;
+  color: white;
 }
 
-.card-header .text-primary {
-    color: #FFFFFF !important; /* Ensure text is white */
+.btn-action-detail {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+}
+.btn-action-detail:hover {
+  background-color: var(--accent-dark);
+  color: white;
 }
 
-.card-body .text-xs {
-    color: #475569 !important;
+/* Secondary Button */
+.btn-secondary {
+  background-color: var(--secondary);
+  border-color: var(--secondary);
+  color: var(--white);
+}
+.btn-secondary:hover {
+  background-color: var(--secondary-light);
+  border-color: var(--secondary-light);
+  color: var(--white);
 }
 
-/* Dashboard Statistic Card Specifics */
-.card-statistic {
-    border-left: 5px solid #2563EB;
-    box-shadow: 0 2px 8px rgba(37,99,235,0.1); /* Initial shadow is slightly different */
+/* Outline Secondary Button */
+.btn-outline-secondary {
+  color: var(--secondary);
+  border-color: var(--secondary);
 }
-.card-statistic .card-body .h5 {
-    color: #2563EB;
-}
-.card-statistic .card-body i {
-    color: #FACC15;
+.btn-outline-secondary:hover {
+  background: var(--secondary);
+  color: var(--white);
 }
 
-/*------------------------------------------------
-  6. TABLES
-------------------------------------------------*/
+/* Table styles */
+.table {
+  margin-bottom: 0;
+}
+
 .table thead th {
-    background-color: #2563EB;
-    color: #FFFFFF;
-    font-weight: 600;
-    border-bottom: 0;
-}
-
-.table tbody tr {
-    border-bottom: 1px solid #E2E8F0;
-    transition: all 0.2s ease-in-out;
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 0.75rem 1rem;
+  border: none;
 }
 
 .table tbody tr:nth-of-type(even) {
-    background-color: #F8FAFC;
+  background-color: var(--base-light);
 }
 
-.table tbody tr:hover {
-    background-color: #E0E7FF;
-    transform: scale(1.01);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    z-index: 10;
-    position: relative;
+.table td {
+  padding: 0.75rem 1rem;
 }
 
-.table td, .table th {
-    border-top: none;
-    color: #0F172A;
+/* Table header with Bootstrap classes */
+.thead-primary th {
+  background-color: var(--primary) !important;
+  color: var(--white) !important;
 }
 
-/*------------------------------------------------
-  7. BADGES
-------------------------------------------------*/
-.badge-info { background-color: #2563EB; color: white; }
-.badge-success { background-color: #22C55E; color: white; }
-.badge-warning { background-color: #FACC15; color: #1E293B; }
-.badge-danger { background-color: #EF4444; color: white; }
-
-/* Status Badges for Tables */
-.badge-status-aktif { background-color: #22C55E; color: white; }
-.badge-status-nonaktif { background-color: #EF4444; color: white; }
-.badge-status-pending { background-color: #FACC15; color: #1E293B; }
-
-/*------------------------------------------------
-  8. TOASTR NOTIFICATIONS
-------------------------------------------------*/
-#toast-container > .toast-success { background-color: #22C55E; color: #FFFFFF; }
-#toast-container > .toast-warning { background-color: #FACC15; color: #1E293B; }
-#toast-container > .toast-info { background-color: #2563EB; color: #FFFFFF; }
-#toast-container > .toast-error { background-color: #EF4444; color: #FFFFFF; }
-
-/*------------------------------------------------
-  9. CHARTS (via Chart.js)
-------------------------------------------------*/
-/* This is mostly configured in JS, but we can set some defaults */
-.chart-area, .chart-bar, .chart-pie {
-    /* You can add container styles here if needed */
-}
-/* Tooltip styles are usually handled via JS callbacks */
-
-/*------------------------------------------------
-  10. MODAL OPTIMIZATION
-------------------------------------------------*/
-.modal.fade .modal-dialog {
-    transition: none !important;
-}
-.modal.fade .modal-backdrop {
-    transition: none !important;
-}
-.modal.fade {
-    transition: none !important;
+/* Form elements */
+.form-control {
+  border-color: #d1d3e2;
+  padding: 0.5rem 1rem;
 }
 
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(47, 128, 237, 0.25);
+}
 
+/* Badge styles */
+.badge-primary {
+  background: var(--primary);
+}
+
+.badge-success {
+  background: var(--accent);
+}
+
+.badge-info {
+  background: var(--primary-light);
+}
+
+.badge-warning {
+  background: var(--accent-light);
+}
+
+/* Progress bars */
+.progress {
+  background-color: var(--base-light);
+}
+
+.progress-bar {
+  background-color: var(--primary);
+}
+
+.progress-bar.bg-success {
+  background-color: var(--accent) !important;
+}
+
+.progress-bar.bg-warning {
+  background-color: #F2994A !important;
+}
+
+.progress-bar.bg-info {
+  background-color: var(--primary-light) !important;
+}
+
+.progress-bar.bg-danger {
+  background-color: #EB5757 !important;
+}
+
+/* List group */
+.list-group-item {
+  border: 1px solid #e3e6f0;
+  background: var(--white);
+}
+
+/* Dropdown */
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+}
+
+/* Alerts */
+.alert-primary {
+  background: rgba(47, 128, 237, 0.1);
+  border-left: 0.25rem solid var(--primary);
+  color: var(--primary);
+}
+
+/* Page heading */
+h1.h3, h1, h2, h3 {
+  color: var(--secondary);
+}
+
+.text-gray-800 {
+  color: var(--secondary) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-success {
+  color: var(--accent) !important;
+}
+
+/* Murid View Enhancements */
+.murid-filter-section {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+
+.murid-filter-section .form-group {
+  margin-bottom: 0.5rem;
+}
+
+.murid-filter-section label {
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.murid-data-table {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.murid-data-table .card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.murid-data-table .card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.murid-data-table .table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.murid-data-table .table th {
+  background-color: var(--primary);
+  color: var(--white);
+  font-weight: 600;
+  border: none;
+  padding: 0.75rem 1rem;
+}
+
+.murid-data-table .table td {
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+}
+
+.murid-data-table .table tr:nth-of-type(even) {
+  background-color: var(--base-light);
+}
+
+.murid-data-table .table tr:hover {
+  background-color: rgba(37, 99, 235, 0.05);
+}
+
+.murid-data-table .status-badge {
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.murid-data-table .status-aktif {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #047857;
+}
+
+.murid-data-table .status-lulus {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+}
+
+.murid-data-table .btn-action-group .btn {
+  margin: 0 0.125rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+/* Kelas View Enhancements */
+.kelas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.kelas-card {
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  border: none;
+  height: 100%;
+  background: var(--white);
+}
+
+.kelas-card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-4px);
+}
+
+.kelas-card .card-body {
+  padding: 1.5rem;
+}
+
+.kelas-card .kelas-icon {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.kelas-card .kelas-title {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.kelas-card .kelas-detail {
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.kelas-card .kelas-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--base-light);
+}
+
+.kelas-card .kelas-btn {
+  background: linear-gradient(90deg, var(--primary), var(--primary-light));
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: var(--white);
+  font-weight: 500;
+  width: 100%;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.kelas-card .kelas-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* Kelas Detail View */
+.kelas-detail-header {
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.kelas-detail-tabs {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  margin-bottom: 1.5rem;
+}
+
+.kelas-detail-tabs .nav-link {
+  color: var(--text);
+  padding: 1rem;
+}
+
+.kelas-detail-tabs .nav-link.active {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.kelas-section-content {
+  background: var(--white);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  #wrapper {
+    flex-direction: row;
+  }
+
+  .kelas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+
+@media (min-width: 992px) {
+  .kelas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  }
+}

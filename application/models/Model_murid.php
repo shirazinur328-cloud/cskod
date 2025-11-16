@@ -156,4 +156,31 @@ class Model_murid extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
+
+    public function list_murid_filtered($filter_kelas = null, $search_nama = null, $filter_status = null)
+    {
+        $this->db->select(
+            'murid.*, kelas.nama_kelas, '
+            . '(SELECT COUNT(DISTINCT t.id_tugas) FROM tugas t JOIN murid_mapel mm ON t.id_mapel = mm.id_mapel WHERE mm.id_murid = murid.id_murid) as total_tugas, '
+            . '(SELECT COUNT(DISTINCT tm.id_tugas) FROM tugas_murid tm WHERE tm.id_murid = murid.id_murid AND tm.status = "Selesai") as completed_tugas'
+        );
+        $this->db->from('murid');
+        $this->db->join('murid_kelas', 'murid_kelas.id_murid = murid.id_murid', 'left');
+        $this->db->join('kelas', 'kelas.id_kelas = murid_kelas.id_kelas', 'left');
+
+        // Apply filters
+        if ($filter_kelas) {
+            $this->db->where('kelas.id_kelas', $filter_kelas);
+        }
+        if ($search_nama) {
+            $this->db->like('murid.nama_murid', $search_nama);
+        }
+        if ($filter_status) {
+            $this->db->where('murid.status', $filter_status);
+        }
+
+        $this->db->order_by('murid.id_murid', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

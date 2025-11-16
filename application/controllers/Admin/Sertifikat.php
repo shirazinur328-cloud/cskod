@@ -46,9 +46,9 @@ class Sertifikat extends CI_Controller {
             $row['nama_sertifikat'] = isset($sertifikat->nama_sertifikat) ? $sertifikat->nama_sertifikat : '';
             $row['nama_mapel'] = isset($sertifikat->nama_mapel) ? $sertifikat->nama_mapel : '-';
             $row['jumlah_keluar'] = isset($sertifikat->jumlah_keluar) ? $sertifikat->jumlah_keluar : 0;
-            $row['aksi'] = '<button class="btn btn-info btn-sm btn-sertifikat-detail" data-id="'.$id_sertifikat.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
-                           <button class="btn btn-warning btn-sm btn-sertifikat-edit" data-id="'.$id_sertifikat.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
-                           <button class="btn btn-danger btn-sm btn-sertifikat-hapus" data-id="'.$id_sertifikat.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
+            $row['aksi'] = '<button class="btn btn-sm btn-detail rounded" style="background-color: #3B82F6; border-color: #3B82F6; color: white; margin: 0 2px;" data-id="'.$id_sertifikat.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
+                           <button class="btn btn-sm btn-edit rounded" style="background-color: #F59E0B; border-color: #F59E0B; color: white; margin: 0 2px;" data-id="'.$id_sertifikat.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
+                           <button class="btn btn-sm btn-hapus rounded" style="background-color: #EF4444; border-color: #EF4444; color: white; margin: 0 2px;" data-id="'.$id_sertifikat.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
             $data[] = $row;
         }
 
@@ -64,10 +64,17 @@ class Sertifikat extends CI_Controller {
 
     public function sertifikat_addsave()
     {
-        $config['upload_path'] = './uploads/sertifikat_templates/';
-        $config['allowed_types'] = 'pdf';
+        // Ensure upload directory exists
+        $upload_dir = './uploads/sertifikat_templates/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+
+        $config['upload_path'] = $upload_dir;
+        $config['allowed_types'] = 'png|PNG';
         $config['max_size'] = 2048; // 2MB
         $config['encrypt_name'] = TRUE;
+        $config['detect_mime'] = TRUE; // Additional security to validate file type
 
         $this->upload->initialize($config);
 
@@ -122,10 +129,17 @@ class Sertifikat extends CI_Controller {
 
         // Handle template file update if a new one is uploaded
         if (!empty($_FILES['template_file']['name'])) {
-            $config['upload_path'] = './uploads/sertifikat_templates/';
-            $config['allowed_types'] = 'pdf';
+            // Ensure upload directory exists
+            $upload_dir = './uploads/sertifikat_templates/';
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0755, true);
+            }
+
+            $config['upload_path'] = $upload_dir;
+            $config['allowed_types'] = 'png|PNG';
             $config['max_size'] = 2048; // 2MB
             $config['encrypt_name'] = TRUE;
+            $config['detect_mime'] = TRUE; // Additional security to validate file type
 
             $this->upload->initialize($config);
 
