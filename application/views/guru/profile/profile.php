@@ -8,7 +8,7 @@
         <div class="col-lg-4">
             <div class="card shadow mb-4">
                 <div class="card-body text-center">
-                    <img class="img-profile rounded-circle mb-3" src="<?= base_url('assets/img/undraw_profile.svg'); ?>" alt="Foto Profil" style="width: 150px; height: 150px; object-fit: cover;">
+                    <img class="img-profile avatar-guru mb-3" src="<?= base_url('assets/img/undraw_profile.svg'); ?>" alt="Foto Profil" style="width: 150px; height: 150px; object-fit: cover;">
                     <h5 class="card-title"><?= htmlspecialchars($guru->nama_guru); ?></h5>
                     <p class="card-text text-muted">Guru</p>
                     <a href="#" class="btn btn-primary btn-sm mr-2">Edit Profil</a>

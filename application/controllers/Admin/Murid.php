@@ -33,7 +33,11 @@ class Murid extends CI_Controller {
 
     public function murid_daftar()
     {
-        $list = $this->Model_murid->list_murid();
+        $filter_kelas = $this->input->get('filter_kelas');
+        $search_nama = $this->input->get('search_nama');
+        $filter_status = $this->input->get('filter_status');
+
+        $list = $this->Model_murid->list_murid_filtered($filter_kelas, $search_nama, $filter_status);
         $data = array();
         $no = 1;
         foreach ($list as $murid) {
@@ -48,12 +52,11 @@ class Murid extends CI_Controller {
 
             // Status
             $status_value = isset($murid->status) ? $murid->status : 'aktif'; // Default to 'aktif' if status column doesn't exist
-            $status = ($status_value == 'aktif') ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-info">Lulus</span>';
-            $row['status'] = $status;
+            $row['status'] = $status_value;
 
-            $row['aksi'] = '<button class="btn btn-info btn-sm btn-murid-detail" data-id="'.$id_murid.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
-                           <button class="btn btn-warning btn-sm btn-murid-edit" data-id="'.$id_murid.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
-                           <button class="btn btn-danger btn-sm btn-murid-hapus" data-id="'.$id_murid.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
+            $row['aksi'] = '<button class="btn btn-sm btn-detail rounded" style="background-color: #3B82F6; border-color: #3B82F6; color: white; margin: 0 2px;" data-id="'.$id_murid.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
+                           <button class="btn btn-sm btn-edit rounded" style="background-color: #F59E0B; border-color: #F59E0B; color: white; margin: 0 2px;" data-id="'.$id_murid.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
+                           <button class="btn btn-sm btn-hapus rounded" style="background-color: #EF4444; border-color: #EF4444; color: white; margin: 0 2px;" data-id="'.$id_murid.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
             $data[] = $row;
         }
 
@@ -225,5 +228,11 @@ class Murid extends CI_Controller {
         header('Content-Disposition: attachment;filename="data_murid.doc"');
         header('Cache-Control: max-age=0');
         $this->load->view('admin/murid/export_word', $data);
+    }
+
+    public function get_kelas_list()
+    {
+        $kelas_list = $this->Model_kelas->list_kelas();
+        $this->set_output($kelas_list);
     }
 }

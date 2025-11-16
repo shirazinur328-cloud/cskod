@@ -16,8 +16,15 @@ class Pertemuan extends CI_Controller {
         $data['materi_list'] = $this->Model_mapel_kelas->get_materi_by_pertemuan($id_pertemuan);
         $data['tugas_list'] = $this->Model_mapel_kelas->get_tugas_by_pertemuan($id_pertemuan);
         
+        // --- Data for Sidebar and Active State ---
+        $id_guru = 2; // Hardcoded for now
+        $this->load->model('Model_guru');
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+        $kelas = $this->Model_mapel_kelas->get_kelas_by_id($data['pertemuan']->id_kelas);
+        $data['active_tingkatan'] = $kelas->tingkatan_kelas;
+
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/pertemuan/detail', $data);
         $this->load->view('templates/guru/footer');
     }
@@ -69,8 +76,15 @@ class Pertemuan extends CI_Controller {
         $data['id_pertemuan'] = $id_pertemuan;
         $data['pertemuan'] = $this->Model_mapel_kelas->get_pertemuan_by_id($id_pertemuan);
         
+        // --- Data for Sidebar and Active State ---
+        $id_guru = 2; // Hardcoded for now
+        $this->load->model('Model_guru');
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+        $kelas = $this->Model_mapel_kelas->get_kelas_by_id($data['pertemuan']->id_kelas);
+        $data['active_tingkatan'] = $kelas->tingkatan_kelas;
+
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/pertemuan/add_materi', $data);
         $this->load->view('templates/guru/footer');
     }
@@ -101,8 +115,15 @@ class Pertemuan extends CI_Controller {
         $data['id_pertemuan'] = $id_pertemuan;
         $data['pertemuan'] = $this->Model_mapel_kelas->get_pertemuan_by_id($id_pertemuan);
         
+        // --- Data for Sidebar and Active State ---
+        $id_guru = 2; // Hardcoded for now
+        $this->load->model('Model_guru');
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+        $kelas = $this->Model_mapel_kelas->get_kelas_by_id($data['pertemuan']->id_kelas);
+        $data['active_tingkatan'] = $kelas->tingkatan_kelas;
+
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/pertemuan/add_tugas', $data);
         $this->load->view('templates/guru/footer');
     }

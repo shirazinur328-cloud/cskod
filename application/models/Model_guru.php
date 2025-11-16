@@ -191,15 +191,60 @@ class Model_guru extends CI_Model {
         return $query->row()->total_tugas;
     }
 
-    public function get_tingkatan_kelas_by_guru($id_guru)
-    {
-        $this->db->select('DISTINCT SUBSTRING_INDEX(k.nama_kelas, " ", 1) as tingkatan_kelas');
-        $this->db->from('kelas k');
-        $this->db->join('kelas_mapel km', 'k.id_kelas = km.id_kelas');
-        $this->db->join('mapel m', 'km.id_mapel = m.id_mapel');
-        $this->db->where('m.id_guru', $id_guru);
-        $this->db->order_by('tingkatan_kelas', 'ASC');
-        $query = $this->db->get();
-        return $query->result();
+        public function get_tingkatan_kelas_by_guru($id_guru)
+
+        {
+
+            $this->db->select('DISTINCT SUBSTRING_INDEX(k.nama_kelas, " ", 1) as tingkatan_kelas');
+
+            $this->db->from('kelas k');
+
+            $this->db->join('kelas_mapel km', 'k.id_kelas = km.id_kelas');
+
+            $this->db->join('mapel m', 'km.id_mapel = m.id_mapel');
+
+            $this->db->where('m.id_guru', $id_guru);
+
+            $this->db->order_by('tingkatan_kelas', 'ASC');
+
+            $query = $this->db->get();
+
+            return $query->result();
+
+        }
+
+    
+
+        public function get_progres_kelas($id_guru)
+
+        {
+
+            $this->db->select('k.nama_kelas, ROUND(AVG(tm.nilai), 0) as progress');
+
+            $this->db->from('kelas k');
+
+            $this->db->join('kelas_mapel km', 'k.id_kelas = km.id_kelas');
+
+            $this->db->join('mapel m', 'km.id_mapel = m.id_mapel');
+
+            $this->db->join('tugas t', 'm.id_mapel = t.id_mapel');
+
+            $this->db->join('tugas_murid tm', 't.id_tugas = tm.id_tugas');
+
+            $this->db->where('m.id_guru', $id_guru);
+
+            $this->db->where('tm.nilai IS NOT NULL');
+
+            $this->db->group_by('k.id_kelas, k.nama_kelas');
+
+            $this->db->order_by('k.nama_kelas', 'ASC');
+
+            $query = $this->db->get();
+
+            return $query->result();
+
+        }
+
     }
-}
+
+    

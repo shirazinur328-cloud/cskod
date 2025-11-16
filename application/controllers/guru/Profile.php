@@ -22,11 +22,14 @@ class Profile extends CI_Controller {
         
         // Data untuk Tab Aktivitas Mengajar
         $data['total_kelas_diajar'] = $this->Model_guru->total_kelas_by_guru($id_guru);
-        $data['total_tugas_dibuat'] = $this->Model_guru->total_tugas_by_guru($id_guru); // Perlu method baru
-        $data['statistik_nilai_siswa'] = $this->Model_guru->get_performa_kelas($id_guru); // Sudah ada
+        $data['total_tugas_dibuat'] = $this->Model_guru->total_tugas_by_guru($id_guru);
+        $data['statistik_nilai_siswa'] = $this->Model_guru->get_performa_kelas($id_guru);
+
+        // Data untuk Sidebar
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
 
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/profile/profile', $data);
         $this->load->view('templates/guru/footer');
     }

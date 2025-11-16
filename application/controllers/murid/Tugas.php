@@ -13,6 +13,7 @@ class Tugas extends CI_Controller {
         $this->load->model('Model_tugas');
         $this->load->model('Model_murid');
         $this->load->model('Model_notifikasi');
+        $this->load->library('user_agent');
     }
 
     public function kerjakan($tipe = 'file', $id_tugas = 0)
@@ -133,7 +134,7 @@ class Tugas extends CI_Controller {
         $id_tugas = $this->input->post('id_tugas');
         $id_murid = 2; // Temporarily hardcoded for testing purposes
         $id_mapel = $this->input->post('id_mapel');
-        $text_jawaban = $this->input->post('text_jawaban');
+        $text_jawaban = $this->input->post('jawaban_teks');
 
         if (empty($id_tugas) || empty($id_mapel) || empty($text_jawaban)) {
             $this->session->set_flashdata('error', 'Gagal mengirimkan tugas. Data tidak lengkap.');
@@ -143,7 +144,7 @@ class Tugas extends CI_Controller {
         $submission_data = [
             'id_tugas' => $id_tugas,
             'id_murid' => $id_murid,
-            'text_jawaban' => $text_jawaban,
+            'kode_jawaban' => $text_jawaban,
             'submitted_at' => date('Y-m-d H:i:s'),
             'status' => 'Terkirim'
         ];

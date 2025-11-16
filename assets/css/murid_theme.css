@@ -50,6 +50,10 @@ html, body {
 .container-fluid {
     flex-grow: 1; /* Pastikan container mengisi sisa ruang */
 }
+
+#content {
+    flex: 1 0 auto;
+}
 /* --- END FIXED LAYOUT STYLES --- */
 
 
@@ -61,6 +65,10 @@ html, body {
     border-bottom-right-radius: 15px; /* Rounded corner kanan */
     box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.075)!important; /* Subtle shadow */
     flex-shrink: 0; /* Mencegah sidebar menyusut */
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto; /* Make sidebar content scrollable */
 }
 
 /* Sidebar Brand */

@@ -35,6 +35,7 @@ class Mapel extends CI_Controller {
     {
         $id_guru = 2; // Hardcoded for now
         $data['title'] = 'Daftar Mata Pelajaran Kelas ' . $tingkatan;
+        $data['active_tingkatan'] = $tingkatan; // Set active tingkatan for sidebar
         $data['mapel_kelas_list'] = $this->Model_guru->get_mapel_kelas_by_guru($id_guru, $tingkatan);
 
         // Data untuk Sidebar (Tingkatan Kelas dan Mapel/Kelas)
@@ -62,6 +63,7 @@ class Mapel extends CI_Controller {
         }
 
         $data['kelas'] = $this->Model_mapel_kelas->get_kelas_by_id($id_kelas);
+        $data['active_tingkatan'] = $data['kelas']->tingkatan_kelas; // Set active tingkatan for sidebar
         $data['pertemuan_list'] = $this->Model_mapel_kelas->get_pertemuan_by_mapel_kelas($id_mapel, $id_kelas);
         $data['siswa_list'] = $this->Model_mapel_kelas->get_siswa_by_mapel_kelas($id_mapel, $id_kelas);
         
@@ -100,9 +102,15 @@ class Mapel extends CI_Controller {
         $data['title'] = 'Buat Pertemuan Baru';
         $data['id_mapel'] = $id_mapel;
         $data['id_kelas'] = $id_kelas;
+
+        // --- Data for Sidebar and Active State ---
+        $id_guru = 2; // Hardcoded for now
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+        $kelas = $this->Model_mapel_kelas->get_kelas_by_id($id_kelas);
+        $data['active_tingkatan'] = $kelas->tingkatan_kelas;
         
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/mapel/create_pertemuan', $data);
         $this->load->view('templates/guru/footer');
     }
@@ -117,8 +125,13 @@ class Mapel extends CI_Controller {
         
         $data['siswa_list'] = $this->Model_mapel_kelas->get_siswa_by_mapel_kelas($id_mapel, $id_kelas);
 
+        // --- Data for Sidebar and Active State ---
+        $id_guru = 2; // Hardcoded for now
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+        $data['active_tingkatan'] = $data['kelas']->tingkatan_kelas;
+
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/mapel/list_siswa', $data);
         $this->load->view('templates/guru/footer');
     }
@@ -131,8 +144,13 @@ class Mapel extends CI_Controller {
         $data['mapel'] = $this->Model_mapel_kelas->get_mapel_by_id($id_mapel);
         $data['kelas'] = $this->Model_mapel_kelas->get_kelas_by_id($id_kelas);
 
+        // --- Data for Sidebar and Active State ---
+        $id_guru = 2; // Hardcoded for now
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+        $data['active_tingkatan'] = $data['kelas']->tingkatan_kelas;
+
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/mapel/form_pengumuman', $data);
         $this->load->view('templates/guru/footer');
     }

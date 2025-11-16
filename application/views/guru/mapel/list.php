@@ -17,9 +17,9 @@
         <?php else: ?>
             <?php foreach($mapel_kelas_list as $mk): ?>
             <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-info shadow h-100 py-2">
+                <div class="card border-left-info shadow card-mapel">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
+                        <div class="row no-gutters align-items-start">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                     <?= $mk->nama_mapel ?></div>

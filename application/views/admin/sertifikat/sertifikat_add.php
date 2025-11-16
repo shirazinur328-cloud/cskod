@@ -17,13 +17,13 @@
     </select>
   </div>
   <div class="form-group">
-    <label class="">Template Sertifikat (PDF)</label>
-    <input type="file" 
-           name="template_file" 
-           class="form-control-file border shadow-sm" 
-           accept=".pdf" 
+    <label class="">Template Sertifikat (PNG)</label>
+    <input type="file"
+           name="template_file"
+           class="form-control-file border shadow-sm"
+           accept=".png"
            required>
-    <small class="form-text text-muted">Ukuran maksimal 2MB, format PDF.</small>
+    <small class="form-text text-muted">Ukuran maksimal 2MB, format PNG.</small>
   </div>
 
   <div class="modal-footer bg-light">

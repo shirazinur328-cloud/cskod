@@ -31,13 +31,8 @@ class Dashboard extends CI_Controller {
         $data['jumlah_jadwal_hari_ini'] = count($data['jadwal_hari_ini']);
 
         // --- 3. Fetch data for "Progres Siswa" ---
-        // This is complex, using placeholder data for now.
         // This would likely involve getting all classes, then for each class, calculating the average progress.
-        $data['progres_siswa'] = [
-            ['nama_kelas' => 'XI RPL 1', 'progress' => 75],
-            ['nama_kelas' => 'XI RPL 2', 'progress' => 60],
-            ['nama_kelas' => 'XII TKJ 1', 'progress' => 85],
-        ];
+        $data['progres_siswa'] = $this->Model_guru->get_progres_kelas($id_guru);
 
         // --- 4. Fetch data for "Tugas Belum Dinilai" ---
         $data['list_tugas_belum_dinilai'] = $this->Model_tugas->get_tugas_belum_dinilai($id_guru, 5); // Get top 5

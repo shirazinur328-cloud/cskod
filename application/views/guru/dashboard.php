@@ -123,9 +123,9 @@
                 <div class="card-body">
                     <?php if (!empty($progres_siswa)): ?>
                         <?php foreach ($progres_siswa as $progres): ?>
-                            <h4 class="small font-weight-bold"><?= $progres['nama_kelas'] ?> <span class="float-right"><?= $progres['progress'] ?>%</span></h4>
+                            <h4 class="small font-weight-bold"><?= $progres->nama_kelas ?> <span class="float-right"><?= $progres->progress ?>%</span></h4>
                             <div class="progress mb-4">
-                                <div class="progress-bar" role="progressbar" style="width: <?= $progres['progress'] ?>%; background-color: #0EA5E9;" aria-valuenow="<?= $progres['progress'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar" role="progressbar" style="width: <?= $progres->progress ?>%; background-color: #0EA5E9;" aria-valuenow="<?= $progres->progress ?>" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         <?php endforeach; ?>
                     <?php else: ?>

@@ -22,8 +22,11 @@ class Penilaian extends CI_Controller {
         }
         $data['student_performance_data'] = $this->Model_guru->get_student_performance_data($id_guru);
         
+        // --- Data for Sidebar ---
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/penilaian/list', $data);
 
     }
@@ -39,8 +42,13 @@ class Penilaian extends CI_Controller {
         $data['title'] = 'Jawaban Tugas: ' . $data['tugas']['judul_tugas'];
         $data['daftar_jawaban'] = $this->Model_tugas->get_jawaban_by_tugas($id_tugas);
 
+        // --- Data for Sidebar and Active State ---
+        $id_guru = 2; // Hardcoded for now
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+        $data['active_tingkatan'] = $this->Model_tugas->get_tingkatan_by_tugas($id_tugas);
+
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/penilaian/jawaban_list', $data);
         $this->load->view('templates/guru/footer');
     }
@@ -55,8 +63,13 @@ class Penilaian extends CI_Controller {
 
         $data['title'] = 'Beri Nilai: ' . $data['jawaban']->judul_tugas;
 
+        // --- Data for Sidebar and Active State ---
+        $id_guru = 2; // Hardcoded for now
+        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
+        $data['active_tingkatan'] = $this->Model_tugas->get_tingkatan_by_tugas($data['jawaban']->id_tugas);
+
         $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar');
+        $this->load->view('templates/guru/navbar', $data);
         $this->load->view('guru/penilaian/beri_nilai', $data);
         $this->load->view('templates/guru/footer');
     }

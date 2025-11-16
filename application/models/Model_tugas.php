@@ -248,5 +248,17 @@ class Model_tugas extends CI_Model {
         $result = $query->row();
         return $result->average_nilai ? round($result->average_nilai, 2) : null;
     }
+
+    public function get_tingkatan_by_tugas($id_tugas)
+    {
+        $this->db->select('SUBSTRING_INDEX(k.nama_kelas, " ", 1) as tingkatan_kelas');
+        $this->db->from('tugas t');
+        $this->db->join('pertemuan p', 't.id_pertemuan = p.id_pertemuan');
+        $this->db->join('kelas k', 'p.id_kelas = k.id_kelas');
+        $this->db->where('t.id_tugas', $id_tugas);
+        $query = $this->db->get();
+        $result = $query->row();
+        return $result ? $result->tingkatan_kelas : null;
+    }
 }
 ?>

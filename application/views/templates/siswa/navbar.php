@@ -11,7 +11,7 @@
                             <div class="sidebar-brand-icon rotate-n-15">
                                 <i class="fas fa-graduation-cap"></i>
                             </div>
-                            <div class="sidebar-brand-text mx-3">CSKod <sup>Murid</sup></div>
+                            <div class="sidebar-brand-text mx-3">LMS <sup>Murid</sup></div>
                         </a>
             
                         <!-- Divider -->

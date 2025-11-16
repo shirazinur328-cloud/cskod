@@ -30,65 +30,7 @@
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for subjects, lessons..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <?php if (!empty($notifikasi) && count($notifikasi) > 0): ?>
-                                    <span class="badge badge-danger badge-counter"><?= count($notifikasi) ?></span>
-                                <?php endif; ?>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Pusat Notifikasi
-                                </h6>
-                                <?php if (!empty($notifikasi)): ?>
-                                    <?php foreach (array_slice($notifikasi, 0, 4) as $notif): // Show max 4-5 notifications ?>
-                                        <a class="dropdown-item d-flex align-items-center" href="<?= site_url($notif['link'] ?? '#') ?>">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-primary">
-                                                    <i class="fas fa-info-circle text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500"><?= date('d M Y', strtotime($notif['created_at'])) ?></div>
-                                                <span class="font-weight-bold"><?= htmlspecialchars($notif['pesan']) ?></span>
-                                            </div>
-                                        </a>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <a class="dropdown-item text-center small text-gray-500" href="#">Tidak ada notifikasi baru.</a>
-                                <?php endif; ?>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Tampilkan Semua Notifikasi</a>
-                            </div>
-                        </li>
+                        
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 

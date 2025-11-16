@@ -25,15 +25,15 @@
     <p class="mb-4 text-muted">Kelola data mata pelajaran.</p>
 
     <div class="card shadow mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+        <div class="card-header d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold">Daftar Mata Pelajaran</h6>
             <div>
-                <button class="btn btn-light btn-sm text-primary" id="btnTambah" data-toggle="modal" data-target="#modal_frame">
+                <button class="btn btn-primary btn-sm rounded" style="background-color: #2563EB; border-color: #2563EB; color: white;" id="btnTambah">
                     <i class="fas fa-plus"></i> <span class="d-none d-md-inline">Tambah Mapel</span>
                 </button>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-file-export"></i> Export
+                    <button type="button" class="btn btn-success btn-sm dropdown-toggle rounded" style="background-color: #16A34A; border-color: #16A34A; color: white;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-file-export"></i> <span class="d-none d-md-inline">Export</span>
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="<?= base_url('admin/mapel/export_pdf'); ?>">PDF</a>
@@ -46,7 +46,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped" id="mapel" width="100%" cellspacing="0">
-                    <thead class="bg-primary text-white">
+                    <thead class="thead-primary">
                         <tr>
                             <th>No</th>
                             <th>Nama Mata Pelajaran</th>
@@ -61,18 +61,7 @@
                 </table>
             </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="modal_frame" tabindex="-1">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title">Mata Pelajaran</h5>
-                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                  </div>
-                  <div class="modal-body" id="modal_content"></div>
-                </div>
-              </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -102,27 +91,6 @@ $(document).ready(function() {
     ]
   });
 
-  // Tambah
-  $('#btnTambah').click(function() {
-    $('#modal_content').load("<?= site_url('admin/mapel/mapel_add'); ?>");
-  });
-
-  // Detail
-  $(document).on("click", ".btn-mapel-detail", function() {
-    var id = $(this).data('id');
-    $('#modal_content').load("<?= site_url('admin/mapel/mapel_detail/'); ?>" + id, function() {
-      $('#modal_frame').modal('show');
-    });
-  });
-
-  // Edit
-  $(document).on("click", ".btn-mapel-edit", function() {
-    var id = $(this).data('id');
-    $('#modal_content').load("<?= site_url('admin/mapel/mapel_edit/'); ?>" + id, function() {
-      $('#modal_frame').modal('show');
-    });
-  });
-
   // Hapus
   $(document).on("click", ".btn-mapel-hapus", function() {
     var id_mapel = $(this).data("id");
@@ -149,21 +117,94 @@ $(document).ready(function() {
     });
   });
 
-  // Submit form Add/Edit
+  // Dynamic modal creation and handling
+  function loadModalContent(url, title) {
+    // Remove any existing modals to prevent conflicts
+    $('.dynamic-modal').remove();
+
+    // Create modal HTML
+    var modalHtml = `
+      <div class="modal fade dynamic-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+              <h5 class="modal-title">${title}</h5>
+              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="text-center p-4">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p>Loading...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Add modal to body
+    $('body').append(modalHtml);
+
+    // Get reference to the newly created modal
+    var $modal = $('.dynamic-modal').last();
+
+    // Load content into modal body
+    $modal.find('.modal-body').load(url, function(response, status, xhr) {
+      if (status === "error") {
+        $modal.find('.modal-body').html('<div class="alert alert-danger">Error loading content.</div>');
+      }
+    });
+
+    // Show the modal
+    $modal.modal('show');
+
+    // Clean up when modal is closed
+    $modal.on('hidden.bs.modal', function() {
+      $(this).remove(); // Remove modal from DOM when closed
+    });
+  }
+
+  // Tambah
+  $('#btnTambah').click(function() {
+    loadModalContent("<?= site_url('admin/mapel/mapel_add'); ?>", "Tambah Mapel");
+  });
+
+  // Detail
+  $(document).on("click", ".btn-mapel-detail", function() {
+    var id = $(this).data('id');
+    loadModalContent("<?= site_url('admin/mapel/mapel_detail/'); ?>" + id, "Detail Mapel");
+  });
+
+  // Edit
+  $(document).on("click", ".btn-mapel-edit", function() {
+    var id = $(this).data('id');
+    loadModalContent("<?= site_url('admin/mapel/mapel_edit/'); ?>" + id, "Edit Mapel");
+  });
+
+  // Submit form Add/Edit with AJAX
   $(document).on("submit", "#formMapel", function(e) {
     e.preventDefault();
     var form = $(this);
+    var submitButton = form.find('button[type="submit"]');
+    var modal = form.closest('.modal');
+
+    // Disable submit button to prevent multiple submissions
+    submitButton.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> Processing...');
+
     $.post(form.attr('action'), form.serialize(), function(res) {
       if(res.status === 'sukses') {
-        $('#modal_frame').modal('hide');
-        $('.modal-backdrop').remove();
-        $('body').removeClass('modal-open');
+        modal.modal('hide');
         toastr.success(res.pesan);
         table_mapel.ajax.reload(null, false);
       } else {
         toastr.error("Gagal menyimpan data");
       }
-    }, 'json');
+    }, 'json').always(function() {
+      // Re-enable submit button
+      submitButton.prop('disabled', false).html('<i class="fas fa-save"></i> <span class="d-none d-md-inline">Simpan</span>');
+    });
   });
 });
 </script>

@@ -131,4 +131,19 @@ class Model_kelas extends CI_Model {
         $this->db->trans_complete();
         return $this->db->trans_status();
     }
+
+    public function list_kelas_with_details()
+    {
+        $this->db->select(
+            'kelas.id_kelas, kelas.nama_kelas, kelas.tahun_ajaran, '
+            . 'guru.nama_guru as nama_guru_wali, '
+            . '(SELECT COUNT(mk.id_murid) FROM murid_kelas mk WHERE mk.id_kelas = kelas.id_kelas) as jumlah_murid, '
+            . '(SELECT COUNT(km.id_mapel) FROM kelas_mapel km WHERE km.id_kelas = kelas.id_kelas) as jumlah_mapel'
+        );
+        $this->db->from('kelas');
+        $this->db->join('guru', 'guru.id_guru = kelas.id_guru_wali', 'left');
+        $this->db->order_by('kelas.id_kelas', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
 }

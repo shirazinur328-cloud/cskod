@@ -27,6 +27,7 @@ class Kelas extends CI_Controller {
 
         // Data for the view
         $data['tingkat'] = $tingkat;
+        $data['active_tingkatan'] = $tingkat; // Pass the active tingkatan to the view
         $data['mapel_list'] = $this->Model_mapel_kelas->get_mapel_kelas_by_guru_and_tingkat($id_guru, $tingkat);
 
         // Data for the sidebar (to keep it consistent)

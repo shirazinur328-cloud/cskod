@@ -13,7 +13,10 @@ class Model_mapel_kelas extends CI_Model {
     
     public function get_kelas_by_id($id_kelas)
     {
-        $query = $this->db->get_where('kelas', array('id_kelas' => $id_kelas));
+        $this->db->select('*, SUBSTRING_INDEX(nama_kelas, " ", 1) as tingkatan_kelas');
+        $this->db->from('kelas');
+        $this->db->where('id_kelas', $id_kelas);
+        $query = $this->db->get();
         return $query->row();
     }
     

@@ -9,10 +9,10 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('guru'); ?>">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">CSkod</div>
+                <div class="sidebar-brand-text mx-3">LMS <sup>Guru</sup></div>
             </a>
 
             <!-- Divider -->
@@ -37,7 +37,9 @@
                 <?php foreach ($tingkatan_kelas_list as $tingkatan_obj): ?>
                     <?php 
                         $tingkatan = $tingkatan_obj->tingkatan_kelas;
-                        $is_active = ($this->uri->segment(2) == 'kelas' && $this->uri->segment(3) == $tingkatan);
+                        // New logic: Check for a controller-passed active_tingkatan, fallback to URL segment
+                        $is_active = (isset($active_tingkatan) && $active_tingkatan == $tingkatan) || 
+                                     ($this->uri->segment(2) == 'kelas' && $this->uri->segment(3) == $tingkatan);
                     ?>
                     <li class="nav-item <?= $is_active ? 'active' : '' ?>">
                         <a class="nav-link" href="<?= base_url('guru/kelas/index/' . $tingkatan); ?>">
@@ -59,7 +61,7 @@
             <!-- Nav Item - Penilaian -->
             <li class="nav-item <?= ($segment2 == 'penilaian') ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= base_url('guru/penilaian'); ?>">
-                    <i class="fas fa-fw fa-edit"></i>
+                    <i class="fas fa-fw fa-tasks"></i>
                     <span>Tugas & Penilaian</span></a>
             </li>
 
@@ -107,7 +109,7 @@
                                     }
                                     ?>
                                 </span>
-                                <img class="img-profile rounded-circle"
+                                <img class="img-profile avatar-guru"
                                     src="<?= base_url('assets/img/undraw_profile.svg'); ?>">
                             </a>
                             <!-- Dropdown - User Information -->
