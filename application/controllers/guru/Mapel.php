@@ -15,9 +15,7 @@ class Mapel extends CI_Controller {
 
     public function index()
     {
-        // sementara pakai id_guru = 1
-        $id_guru = 2;
-        // $id_guru = $this->session->userdata('id_guru');
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $data['title'] = 'Daftar Mata Pelajaran';
         $data['mapel_kelas_list'] = $this->Model_guru->get_mapel_kelas_by_guru($id_guru); // Pastikan ini dipanggil
         
@@ -36,7 +34,7 @@ class Mapel extends CI_Controller {
 
     public function list_by_tingkatan($tingkatan)
     {
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $data['title'] = 'Daftar Mata Pelajaran Kelas ' . $tingkatan;
         $data['active_tingkatan'] = $tingkatan; // Set active tingkatan for sidebar
         $data['mapel_kelas_list'] = $this->Model_guru->get_mapel_kelas_by_guru($id_guru, $tingkatan);
@@ -71,7 +69,7 @@ class Mapel extends CI_Controller {
         $data['siswa_list'] = $this->Model_mapel_kelas->get_siswa_by_mapel_kelas($id_mapel, $id_kelas);
         
         // Data untuk Sidebar (Tingkatan Kelas dan Mapel/Kelas)
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
         $data['mapel_kelas_by_tingkatan'] = [];
         foreach ($data['tingkatan_kelas_list'] as $tingkatan) {
@@ -107,7 +105,7 @@ class Mapel extends CI_Controller {
         $data['id_kelas'] = $id_kelas;
 
         // --- Data for Sidebar and Active State ---
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
         $kelas = $this->Model_mapel_kelas->get_kelas_by_id($id_kelas);
         $data['active_tingkatan'] = $kelas->tingkatan_kelas;
@@ -129,7 +127,7 @@ class Mapel extends CI_Controller {
         $data['siswa_list'] = $this->Model_mapel_kelas->get_siswa_by_mapel_kelas($id_mapel, $id_kelas);
 
         // --- Data for Sidebar and Active State ---
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
         $data['active_tingkatan'] = $data['kelas']->tingkatan_kelas;
 
@@ -148,7 +146,7 @@ class Mapel extends CI_Controller {
         $data['kelas'] = $this->Model_mapel_kelas->get_kelas_by_id($id_kelas);
 
         // --- Data for Sidebar and Active State ---
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
         $data['active_tingkatan'] = $data['kelas']->tingkatan_kelas;
 

@@ -21,7 +21,7 @@
                     <!-- Statistic Cards Row -->
                     <div class="row">
                         <!-- Total Mapel Card -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <!-- Tugas Selesai Card -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -52,24 +52,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Sertifikat Card -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: var(--primary-color);">Sertifikat</div>
-                                            <div class="h5 mb-0 font-weight-bold" style="color: var(--text-color);"><?= $jumlah_sertifikat ?? 0 ?></div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-award fa-2x" style="color: var(--secondary-color);"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <!-- Poin/XP Card (Placeholder) -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -170,24 +154,6 @@
                                     <?php else: ?>
                                         <p class="text-center small" style="color: var(--text-secondary-color);">Belum ada mata pelajaran yang diikuti.</p>
                                     <?php endif; ?>
-                                </div>
-                            </div>
-
-                            <!-- Sertifikat Terbaru -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Sertifikat Terbaru</h6>
-                                </div>
-                                <div class="card-body text-center">
-                                    <?php if (!empty($sertifikat_terbaru)): ?>
-                                        <i class="fas fa-award fa-3x mb-3" style="color: var(--accent-color);"></i>
-                                        <p class="font-weight-bold mb-0"><?= htmlspecialchars($sertifikat_terbaru->nama_sertifikat) ?></p>
-                                        <p class="small" style="color: var(--text-secondary-color);">Diraih pada <?= date('d M Y', strtotime($sertifikat_terbaru->tanggal_dikeluarkan)) ?></p>
-                                    <?php else: ?>
-                                        <i class="fas fa-award fa-3x mb-3 text-gray-300"></i>
-                                        <p class="small" style="color: var(--text-secondary-color);">Belum ada sertifikat yang diraih.</p>
-                                    <?php endif; ?>
-                                    <a href="#" class="btn btn-secondary btn-sm mt-2">Lihat Semua</a>
                                 </div>
                             </div>
 

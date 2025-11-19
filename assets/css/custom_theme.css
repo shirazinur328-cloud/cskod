@@ -42,6 +42,7 @@
 .sidebar {
   background: var(--secondary) !important;
   color: var(--white);
+  border-radius: var(--border-radius); /* Add rounded corners to the main sidebar */
 }
 
 .sidebar .nav-item {

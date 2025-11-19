@@ -136,12 +136,7 @@
 
     <hr class="mt-4">
 
-    <h6 class="mt-4 font-weight-bold text-primary">Akses ke Pengaturan Sertifikat</h6>
-    <p><a href="<?= site_url('admin/sertifikat?id_mapel=' . $mapel->id_mapel); ?>" class="btn btn-primary btn-sm">Kelola Sertifikat</a></p>
 
-<?php else : ?>
-    <p>Data mata pelajaran tidak ditemukan.</p>
-<?php endif; ?>
 
 <div class="modal-footer bg-light">
     <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">

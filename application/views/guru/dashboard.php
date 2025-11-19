@@ -96,13 +96,12 @@
                                 <tbody>
                                     <?php foreach ($jadwal_hari_ini as $jadwal): ?>
                                         <tr>
-                                            <td class="align-middle"><span class="badge" style="background-color: #E0F2FE; color: #0EA5E9;"><?= date('H:i', strtotime($jadwal->waktu_mulai)) ?></span></td>
                                             <td class="align-middle">
                                                 <div class="font-weight-bold" style="color: #1E293B;"><?= $jadwal->judul_pertemuan ?></div>
                                                 <div class="small" style="color: #64748B;"><?= $jadwal->nama_mapel ?> - <?= $jadwal->nama_kelas ?></div>
                                             </td>
                                             <td class="text-right align-middle">
-                                                <a href="<?= base_url('guru/pertemuan/masuk_kelas/' . $jadwal->id_pertemuan) ?>" class="btn btn-primary btn-sm">Masuk Kelas</a>
+                                                <a href="<?= base_url('guru/pertemuan/detail/' . $jadwal->id_pertemuan) ?>" class="btn btn-primary btn-sm">Masuk Kelas</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

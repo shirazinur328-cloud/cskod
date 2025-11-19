@@ -12,7 +12,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">CSkod</div>
+                <div class="sidebar-brand-text mx-3">LMS</div>
             </a>
 
             <!-- Divider -->
@@ -62,22 +62,22 @@
             </li>
 
             <!-- Nav Item - Sertifikat -->
-            <li class="nav-item <?= ($segment2 == 'sertifikat') ? 'active' : '' ?>">
+            <!-- <li class="nav-item <?= ($segment2 == 'sertifikat') ? 'active' : '' ?>">
                 <a class="nav-link" href="<?= base_url('admin/sertifikat'); ?>">
                     <i class="fas fa-fw fa-certificate"></i>
                     <span>Sertifikat</span></a>
-            </li>
+            </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <!-- <div class="sidebar-heading">
                 Laporan
-            </div>
+            </div> -->
 
             <!-- Nav Item - Absensi -->
-            <li class="nav-item <?= ($segment2 == 'absensi') ? 'active' : '' ?>">
+            <!-- <li class="nav-item <?= ($segment2 == 'absensi') ? 'active' : '' ?>">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAbsensi" aria-expanded="true" aria-controls="collapseAbsensi">
                     <i class="fas fa-fw fa-calendar-check"></i>
                     <span>Absensi Guru</span>
@@ -89,7 +89,7 @@
                         <a class="collapse-item" href="<?= base_url('admin/absensi/statistik'); ?>">Statistik Absensi</a>
                     </div>
                 </div>
-            </li>
+            </li> -->
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">

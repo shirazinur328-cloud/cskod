@@ -7,19 +7,20 @@ class Profile extends CI_Controller {
     {
         parent::__construct();
         // Pastikan murid sudah login
-        // if ($this->session->userdata('role') != 'murid') {
-        //     redirect('auth/login');
-        // }
+        if (!$this->session->userdata('murid')) {
+            redirect('auth');
+        }
         $this->load->model('Model_murid');
         $this->load->model('Model_tugas');
         $this->load->model('Model_dashboard');
         $this->load->model('Model_notifikasi');
+        $this->load->library('form_validation');
     }
 
     public function index()
     {
         // Ambil data murid dari session
-        $id_murid = 2; // Temporarily hardcoded for testing purposes
+        $id_murid = $this->session->userdata('murid')->id_murid;
         
         // Data utama murid
         $data['murid'] = $this->Model_murid->single_murid($id_murid);
@@ -56,5 +57,33 @@ class Profile extends CI_Controller {
         $this->load->view('templates/siswa/topbar', $data);
         $this->load->view('murid/profile', $data);
         $this->load->view('templates/siswa/footer');
+    }
+
+    public function update_profile()
+    {
+        $id_murid = $this->session->userdata('murid')->id_murid;
+
+        $this->form_validation->set_rules('nama_murid', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('error', 'Gagal memperbarui profil. Periksa kembali data yang Anda masukkan.');
+            redirect('murid/profile');
+        } else {
+            $data = [
+                'nama_murid' => $this->input->post('nama_murid'),
+                'email' => $this->input->post('email'),
+                'no_telp' => $this->input->post('no_telp'),
+                'username' => $this->input->post('username'),
+            ];
+
+            if ($this->Model_murid->update_profile($id_murid, $data)) {
+                $this->session->set_flashdata('success', 'Profil berhasil diperbarui.');
+            } else {
+                $this->session->set_flashdata('error', 'Gagal memperbarui profil.');
+            }
+            redirect('murid/profile');
+        }
     }
 }

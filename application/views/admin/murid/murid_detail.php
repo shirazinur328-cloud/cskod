@@ -101,31 +101,7 @@
 
     <hr class="mt-4">
 
-    <h6 class="mt-4 font-weight-bold text-primary">Sertifikat yang Diperoleh</h6>
-    <?php if (!empty($sertifikat_murid)) : ?>
-        <div class="table-responsive">
-            <table class="table table-bordered table-sm">
-                <thead class="bg-primary text-white">
-                    <tr>
-                        <th>Nama Sertifikat</th>
-                        <th>Tanggal Diterbitkan</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($sertifikat_murid as $sertifikat) : ?>
-                        <tr>
-                            <td><?= $sertifikat->nama_sertifikat; ?></td>
-                            <td><?= date('d M Y', strtotime($sertifikat->tanggal_dikeluarkan)); ?></td>
-                            <td><?= $sertifikat->status_validasi == 'valid' ? '<span class="badge badge-success">Valid</span>' : '<span class="badge badge-warning">Invalid</span>'; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    <?php else : ?>
-        <p>Belum ada sertifikat yang diperoleh murid ini.</p>
-    <?php endif; ?>
+    
 
 <?php else : ?>
     <p>Data murid tidak ditemukan.</p>

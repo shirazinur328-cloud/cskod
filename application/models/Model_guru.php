@@ -50,6 +50,18 @@ class Model_guru extends CI_Model {
         $this->db->reset_query();
     }
 
+    public function update_profile($id_guru, $data)
+    {
+        $this->db->where('id_guru', $id_guru);
+        return $this->db->update('guru', $data);
+    }
+
+    public function update_password($id_guru, $new_password)
+    {
+        $this->db->where('id_guru', $id_guru);
+        return $this->db->update('guru', ['password' => $new_password]);
+    }
+
     public function get_all_guru()
     {
         $this->db->where('status', 'aktif');
@@ -145,7 +157,7 @@ class Model_guru extends CI_Model {
     {
         $this->db->select('
             p.id_pertemuan,
-            p.nama_pertemuan,
+            p.nama_pertemuan as judul_pertemuan,
             p.tanggal,
             k.nama_kelas,
             m.nama_mapel

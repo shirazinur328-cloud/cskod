@@ -79,6 +79,12 @@ class Model_murid extends CI_Model {
         return $this->db->trans_status();
     }
 
+    public function update_profile($id_murid, $data)
+    {
+        $this->db->where('id_murid', $id_murid);
+        return $this->db->update('murid', $data);
+    }
+
     public function get_progress_per_mapel($id_murid)
     {
         $this->db->select(
@@ -120,14 +126,18 @@ class Model_murid extends CI_Model {
 
     public function get_mapel_by_kelas($id_murid)
     {
+        if (empty($id_murid)) {
+            return [];
+        }
+
         $this->db->select('map.id_mapel, map.nama_mapel, map.status_aktif, g.nama_guru, COUNT(m.id_materi) as total_materi, SUM(CASE WHEN mm.status = "Selesai" THEN 1 ELSE 0 END) as materi_selesai');
         $this->db->from('murid_kelas mk');
         $this->db->join('kelas_mapel km', 'mk.id_kelas = km.id_kelas');
         $this->db->join('mapel map', 'km.id_mapel = map.id_mapel');
         $this->db->join('guru g', 'map.id_guru = g.id_guru', 'left');
         $this->db->join('materi m', 'map.id_mapel = m.id_mapel', 'left');
-        $this->db->join('materi_murid mm', 'm.id_materi = mm.id_materi AND mm.id_murid = ' . $id_murid, 'left');
-        $this->db->where('mk.id_murid', $id_murid);
+        $this->db->join('materi_murid mm', 'm.id_materi = mm.id_materi AND mm.id_murid = ' . (int)$id_murid, 'left');
+        $this->db->where('mk.id_murid', (int)$id_murid);
         $this->db->where('map.status_aktif', 'aktif'); // Filter for active subjects
         $this->db->group_by('map.id_mapel, map.nama_mapel, map.status_aktif, g.nama_guru');
         $query = $this->db->get();

@@ -6,67 +6,58 @@ class Profile extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        if (!$this->session->userdata('guru')) {
-        	redirect('auth');
+        if (!$this->session->userdata('admin')) {
+            redirect('auth');
         }
-        $this->load->model('Model_guru');
-        $this->load->model('Model_mapel'); // Mungkin diperlukan untuk statistik
-        $this->load->model('Model_tugas'); // Mungkin diperlukan untuk statistik
+        $this->load->model('Model_admin');
         $this->load->library('form_validation');
     }
 
     public function index()
     {
-        $id_guru = $this->session->userdata('guru')->id_guru;
+        $id_admin = $this->session->userdata('admin')->id_admin;
 
-        $data['title'] = 'Profil Guru';
-        $data['guru'] = $this->Model_guru->single_guru($id_guru);
-        
-        // Data untuk Tab Aktivitas Mengajar
-        $data['total_kelas_diajar'] = $this->Model_guru->total_kelas_by_guru($id_guru);
-        $data['total_tugas_dibuat'] = $this->Model_guru->total_tugas_by_guru($id_guru);
-        $data['statistik_nilai_siswa'] = $this->Model_guru->get_performa_kelas($id_guru);
+        $data['title'] = 'Profil Admin';
+        $data['admin'] = $this->Model_admin->single_admin($id_admin);
 
-        // Data untuk Sidebar
-        $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
-
-        $this->load->view('templates/guru/head', $data);
-        $this->load->view('templates/guru/navbar', $data);
-        $this->load->view('guru/profile/profile', $data);
-        $this->load->view('templates/guru/footer');
+        $this->load->view('templates/admin/head', $data);
+        $this->load->view('templates/admin/navbar', $data);
+        $this->load->view('templates/admin/topbar', $data);
+        $this->load->view('admin/profile', $data);
+        $this->load->view('templates/admin/footer');
     }
 
     public function update_profile()
     {
-        $id_guru = $this->session->userdata('guru')->id_guru;
+        $id_admin = $this->session->userdata('admin')->id_admin;
 
-        $this->form_validation->set_rules('nama_guru', 'Nama Lengkap', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
 
         if ($this->form_validation->run() == FALSE) {
             $this->session->set_flashdata('error', 'Gagal memperbarui profil. Periksa kembali data yang Anda masukkan.');
-            redirect('guru/profile');
+            redirect('admin/profile');
         } else {
             $data = [
-                'nama_guru' => $this->input->post('nama_guru'),
-                'email' => $this->input->post('email'),
-                'no_telp' => $this->input->post('no_telp'),
                 'username' => $this->input->post('username'),
             ];
 
-            if ($this->Model_guru->update_profile($id_guru, $data)) {
+            if ($this->Model_admin->update_profile($id_admin, $data)) {
+                // Update session data if username is changed
+                $admin_session_data = $this->session->userdata('admin');
+                $admin_session_data->username = $this->input->post('username');
+                $this->session->set_userdata('admin', $admin_session_data);
+
                 $this->session->set_flashdata('success', 'Profil berhasil diperbarui.');
             } else {
                 $this->session->set_flashdata('error', 'Gagal memperbarui profil.');
             }
-            redirect('guru/profile');
+            redirect('admin/profile');
         }
     }
 
     public function ubah_password()
     {
-        $id_guru = $this->session->userdata('guru')->id_guru;
+        $id_admin = $this->session->userdata('admin')->id_admin;
 
         $this->form_validation->set_rules('current_password', 'Password Lama', 'required|trim');
         $this->form_validation->set_rules(
@@ -84,12 +75,12 @@ class Profile extends CI_Controller {
             $current_password = $this->input->post('current_password');
             $new_password = $this->input->post('new_password');
 
-            $guru = $this->Model_guru->single_guru($id_guru);
+            $admin = $this->Model_admin->single_admin($id_admin);
 
-            if (password_verify($current_password, $guru->password)) {
+            if (password_verify($current_password, $admin->password)) {
                 $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT);
                 
-                if ($this->Model_guru->update_password($id_guru, $hashed_new_password)) {
+                if ($this->Model_admin->update_password($id_admin, $hashed_new_password)) {
                     $this->session->set_flashdata('success', 'Password berhasil diubah.');
                 } else {
                     $this->session->set_flashdata('error', 'Gagal mengubah password.');
@@ -97,7 +88,7 @@ class Profile extends CI_Controller {
             } else {
                 $this->session->set_flashdata('error', 'Password lama yang Anda masukkan salah.');
             }
-            redirect('guru/profile');
+            redirect('admin/profile');
         }
     }
 }

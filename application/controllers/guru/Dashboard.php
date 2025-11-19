@@ -19,8 +19,7 @@ class Dashboard extends CI_Controller {
     public function index()
     {
         $data['title'] = 'Dashboard Guru';
-        $id_guru = 2; // Hardcoded for now
-        // $id_guru = $this->session->userdata('id_guru');
+        $id_guru = $this->session->userdata('guru')->id_guru;
 
         // --- 1. Fetch data for Statistic Cards ---
         $data['jumlah_kelas'] = $this->Model_guru->total_kelas_by_guru($id_guru);

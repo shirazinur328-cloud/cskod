@@ -25,8 +25,7 @@ class Kelas extends CI_Controller {
         }
 
         $data['title'] = 'Kelas ' . $tingkat;
-        $id_guru = 2; // Hardcoded for now, replace with session data
-        // $id_guru = $this->session->userdata('id_guru');
+        $id_guru = $this->session->userdata('guru')->id_guru;
 
         // Data for the view
         $data['tingkat'] = $tingkat;

@@ -17,7 +17,7 @@
                     <i class="fas fa-check-circle mr-1"></i> <?php echo ucfirst(htmlspecialchars($murid->status)); ?>
                 </span>
                 <hr class="my-4">
-                <a href="#" class="btn btn-primary btn-edit-profile btn-block">
+                <a href="#" class="btn btn-primary btn-edit-profile btn-block" data-toggle="modal" data-target="#editProfileModal">
                     <i class="fas fa-edit mr-2"></i>Edit Profil
                 </a>
             </div>
@@ -155,3 +155,41 @@
     </div>
 </div>
 <!-- /.container-fluid -->
+
+<!-- Modal Edit Profil -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Edit Profil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('murid/profile/update_profile'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nama_murid">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="nama_murid" name="nama_murid" value="<?= htmlspecialchars($murid->nama_murid); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($murid->email); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_telp">No. HP</label>
+                        <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= htmlspecialchars($murid->no_telp); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($murid->username); ?>" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -11,8 +11,8 @@
                     <img class="img-profile avatar-guru mb-3" src="<?= base_url('assets/img/undraw_profile.svg'); ?>" alt="Foto Profil" style="width: 150px; height: 150px; object-fit: cover;">
                     <h5 class="card-title"><?= htmlspecialchars($guru->nama_guru); ?></h5>
                     <p class="card-text text-muted">Guru</p>
-                    <a href="#" class="btn btn-primary btn-sm mr-2">Edit Profil</a>
-                    <a href="#" class="btn btn-secondary btn-sm">Ganti Password</a>
+                    <a href="#" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#editProfileModal">Edit Profil</a>
+                    <a href="#" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#changePasswordModal">Ganti Password</a>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4"><strong>Password:</strong></div>
-                                <div class="col-md-8">******** <a href="#" class="btn btn-link btn-sm">Ganti Password</a></div>
+                                <div class="col-md-8">******** <a href="#" class="btn btn-link btn-sm" data-toggle="modal" data-target="#changePasswordModal">Ganti Password</a></div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-4"><strong>Verifikasi 2 Langkah:</strong></div>
@@ -105,3 +105,76 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<!-- Modal Edit Profil -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Edit Profil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('guru/profile/update_profile'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nama_guru">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="nama_guru" name="nama_guru" value="<?= htmlspecialchars($guru->nama_guru); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($guru->email); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_telp">No. HP</label>
+                        <input type="text" class="form-control" id="no_telp" name="no_telp" value="<?= htmlspecialchars($guru->no_telp); ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($guru->username); ?>" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ganti Password -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Ganti Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('guru/profile/ubah_password'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="current_password">Password Lama</label>
+                        <input type="password" class="form-control" id="current_password" name="current_password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new_password">Password Baru</label>
+                        <input type="password" class="form-control" id="new_password" name="new_password" required>
+                        <div class="text-danger small"><?= form_error('new_password'); ?></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Konfirmasi Password Baru</label>
+                        <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
