@@ -6,6 +6,9 @@ class Guru extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        if (!$this->session->userdata('admin')) {
+        	redirect('auth');
+        }
         $this->load->model('Model_guru');
         $this->load->model('Model_mapel');
     }
@@ -55,9 +58,9 @@ class Guru extends CI_Controller {
             $status = ($status_value == 'aktif') ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-danger">Nonaktif</span>';
             $row['status'] = $status;
 
-            $row['aksi'] = '<button class="btn btn-sm btn-detail rounded" style="background-color: #3B82F6; border-color: #3B82F6; color: white; margin: 0 2px;" data-id="'.$id_guru.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
-                           <button class="btn btn-sm btn-edit rounded" style="background-color: #F59E0B; border-color: #F59E0B; color: white; margin: 0 2px;" data-id="'.$id_guru.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
-                           <button class="btn btn-sm btn-hapus rounded" style="background-color: #EF4444; border-color: #EF4444; color: white; margin: 0 2px;" data-id="'.$id_guru.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
+            $row['aksi'] = '<button class="btn btn-sm btn-guru-detail rounded" style="background-color: #3B82F6; border-color: #3B82F6; color: white; margin: 0 2px;" data-id="'.$id_guru.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
+                           <button class="btn btn-sm btn-guru-edit rounded" style="background-color: #F59E0B; border-color: #F59E0B; color: white; margin: 0 2px;" data-id="'.$id_guru.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
+                           <button class="btn btn-sm btn-guru-hapus rounded" style="background-color: #EF4444; border-color: #EF4444; color: white; margin: 0 2px;" data-id="'.$id_guru.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
             $data[] = $row;
         }
 

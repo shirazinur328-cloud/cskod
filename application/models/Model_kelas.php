@@ -66,19 +66,32 @@ class Model_kelas extends CI_Model {
     public function get_mapel_with_avg_progress($id_kelas)
     {
         $this->db->select(
-            'm.id_mapel,'
-            . 'm.nama_mapel,'
-            . 'COUNT(DISTINCT tugas.id_tugas) as total_tugas_mapel,'
-            . 'COUNT(DISTINCT tm.id_tugas_murid) as completed_tugas_mapel,'
-            . 'COUNT(DISTINCT mk.id_murid) as total_murid_in_mapel'
+            'm.id_mapel, m.nama_mapel, ' .
+            // Menghitung total tugas unik untuk mata pelajaran ini
+            'COUNT(DISTINCT t.id_tugas) as total_tugas_mapel, ' .
+            // Menghitung tugas yang selesai dikerjakan oleh murid di kelas ini
+            'COUNT(DISTINCT CASE WHEN tm.status = "Selesai" THEN tm.id_tugas_murid ELSE NULL END) as completed_tugas_mapel, ' .
+            // Menghitung total murid di kelas ini (subquery agar tidak terpengaruh JOIN)
+            '(SELECT COUNT(id_murid) FROM murid_kelas WHERE id_kelas = ' . $this->db->escape($id_kelas) . ') as total_murid_in_class'
         );
-        $this->db->from('mapel m');
+        // Mulai dari tabel relasi kelas dan mapel, ini adalah sumber kebenaran
+        $this->db->from('kelas_mapel km');
+        // Join untuk mendapatkan nama mapel
+        $this->db->join('mapel m', 'km.id_mapel = m.id_mapel', 'left');
+        // Join untuk mendapatkan semua tugas yang terkait dengan mapel
         $this->db->join('tugas t', 't.id_mapel = m.id_mapel', 'left');
-        $this->db->join('murid_mapel mm', 'mm.id_mapel = m.id_mapel', 'left');
-        $this->db->join('murid_kelas mk', 'mk.id_murid = mm.id_murid AND mk.id_kelas = ' . $id_kelas, 'left');
-        $this->db->join('tugas_murid tm', 'tm.id_tugas = t.id_tugas AND tm.id_murid = mm.id_murid AND tm.status = "Selesai" AND mk.id_kelas = ' . $id_kelas, 'left');
-        $this->db->where('mk.id_kelas', $id_kelas); // Ensure we only consider students from this class
+        
+        // Join untuk mendapatkan semua murid di kelas ini
+        $this->db->join('murid_kelas mk', 'mk.id_kelas = km.id_kelas', 'left');
+        
+        // Join untuk mendapatkan status pengerjaan tugas oleh murid-murid tersebut
+        $this->db->join('tugas_murid tm', 'tm.id_tugas = t.id_tugas AND tm.id_murid = mk.id_murid', 'left');
+
+        // Filter utama berdasarkan ID kelas
+        $this->db->where('km.id_kelas', $id_kelas);
+        // Grouping hasil berdasarkan mapel
         $this->db->group_by('m.id_mapel, m.nama_mapel');
+        
         $query = $this->db->get();
         return $query->result();
     }

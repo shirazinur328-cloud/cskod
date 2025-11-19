@@ -6,6 +6,9 @@ class Murid extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        if (!$this->session->userdata('admin')) {
+        	redirect('auth');
+        }
         $this->load->model('Model_murid');
         $this->load->model('Model_kelas'); // Load Model_kelas to get list of classes
     }
@@ -54,9 +57,9 @@ class Murid extends CI_Controller {
             $status_value = isset($murid->status) ? $murid->status : 'aktif'; // Default to 'aktif' if status column doesn't exist
             $row['status'] = $status_value;
 
-            $row['aksi'] = '<button class="btn btn-sm btn-detail rounded" style="background-color: #3B82F6; border-color: #3B82F6; color: white; margin: 0 2px;" data-id="'.$id_murid.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
-                           <button class="btn btn-sm btn-edit rounded" style="background-color: #F59E0B; border-color: #F59E0B; color: white; margin: 0 2px;" data-id="'.$id_murid.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
-                           <button class="btn btn-sm btn-hapus rounded" style="background-color: #EF4444; border-color: #EF4444; color: white; margin: 0 2px;" data-id="'.$id_murid.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
+            $row['aksi'] = '<button class="btn btn-sm btn-murid-detail rounded" style="background-color: #3B82F6; border-color: #3B82F6; color: white; margin: 0 2px;" data-id="'.$id_murid.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
+                           <button class="btn btn-sm btn-murid-edit rounded" style="background-color: #F59E0B; border-color: #F59E0B; color: white; margin: 0 2px;" data-id="'.$id_murid.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
+                           <button class="btn btn-sm btn-murid-hapus rounded" style="background-color: #EF4444; border-color: #EF4444; color: white; margin: 0 2px;" data-id="'.$id_murid.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
             $data[] = $row;
         }
 

@@ -6,7 +6,9 @@ class Profile extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        // Load models, helpers, etc.
+        if (!$this->session->userdata('guru')) {
+        	redirect('auth');
+        }
         $this->load->model('Model_guru');
         $this->load->model('Model_mapel'); // Mungkin diperlukan untuk statistik
         $this->load->model('Model_tugas'); // Mungkin diperlukan untuk statistik

@@ -24,7 +24,7 @@ class Model_guru extends CI_Model {
 
     public function single_guru($id_guru)
     {
-        $this->db->select('id_guru, nama_guru, username, email, no_telp'); // Pilih kolom yang ada
+        $this->db->select('*'); // Pilih kolom yang ada
         $this->db->where('id_guru', $id_guru);
         $query = $this->db->get('guru');
         return $query->row();

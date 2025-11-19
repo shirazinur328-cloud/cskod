@@ -6,6 +6,9 @@ class Kelas extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        if (!$this->session->userdata('guru')) {
+        	redirect('auth');
+        }
         $this->load->model('Model_guru');
         $this->load->model('Model_mapel_kelas');
         // Ensure teacher is logged in

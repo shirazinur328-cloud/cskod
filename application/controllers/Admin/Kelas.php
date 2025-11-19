@@ -6,6 +6,9 @@ class Kelas extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        if (!$this->session->userdata('admin')) {
+        	redirect('auth');
+        }
         $this->load->model('Model_kelas');
         $this->load->model('Model_guru');
         $this->load->model('Model_mapel');
@@ -47,9 +50,9 @@ class Kelas extends CI_Controller {
             $row['tahun_ajaran'] = isset($kelas->tahun_ajaran) ? $kelas->tahun_ajaran : '';
             $row['jumlah_murid'] = isset($kelas->jumlah_murid) ? $kelas->jumlah_murid : 0;
             $row['guru_wali'] = isset($kelas->guru_wali) ? $kelas->guru_wali : 'Belum Ditentukan';
-            $row['aksi'] = '<button class="btn btn-sm btn-detail rounded" style="background-color: #3B82F6; border-color: #3B82F6; color: white; margin: 0 2px;" data-id="'.$id_kelas.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
-                           <button class="btn btn-sm btn-edit rounded" style="background-color: #F59E0B; border-color: #F59E0B; color: white; margin: 0 2px;" data-id="'.$id_kelas.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
-                           <button class="btn btn-sm btn-hapus rounded" style="background-color: #EF4444; border-color: #EF4444; color: white; margin: 0 2px;" data-id="'.$id_kelas.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
+            $row['aksi'] = '<button class="btn btn-sm btn-kelas-detail rounded" style="background-color: #3B82F6; border-color: #3B82F6; color: white; margin: 0 2px;" data-id="'.$id_kelas.'"><i class="fas fa-eye"></i> <span class="d-none d-md-inline">Detail</span></button>
+                           <button class="btn btn-sm btn-kelas-edit rounded" style="background-color: #F59E0B; border-color: #F59E0B; color: white; margin: 0 2px;" data-id="'.$id_kelas.'"><i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span></button>
+                           <button class="btn btn-sm btn-kelas-hapus rounded" style="background-color: #EF4444; border-color: #EF4444; color: white; margin: 0 2px;" data-id="'.$id_kelas.'"><i class="fas fa-trash"></i> <span class="d-none d-md-inline">Hapus</span></button>';
             $data[] = $row;
         }
 
