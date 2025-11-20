@@ -70,6 +70,8 @@ html, body {
     position: sticky;
     top: 0;
     overflow-y: auto; /* Make sidebar content scrollable */
+    width: 14rem !important; /* Standard width for sidebar */
+    transition: width 0.3s ease;
 }
 
 /* Sidebar Brand */
@@ -631,4 +633,28 @@ html, body {
 .btn:hover {
     transform: scale(1.03);
     box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* Sidebar Hover Effect */
+#accordionSidebar:not(:hover) {
+    width: 6.5rem !important; /* Collapsed width */
+}
+
+#accordionSidebar:not(:hover) .nav-item .nav-link span,
+#accordionSidebar:not(:hover) .sidebar-brand-text,
+#accordionSidebar:not(:hover) .sidebar-heading,
+#accordionSidebar:not(:hover) .nav-item .collapse {
+    display: none;
+}
+
+#accordionSidebar:not(:hover) .sidebar-brand {
+    justify-content: center;
+}
+
+#accordionSidebar:not(:hover) .sidebar-brand .sidebar-brand-icon {
+    transform: rotate(0deg); /* prevent icon rotation */
+}
+
+#accordionSidebar:hover .sidebar-brand-text {
+    display: inline;
 }

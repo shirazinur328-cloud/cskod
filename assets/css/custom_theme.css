@@ -44,14 +44,33 @@ body {
   z-index: 1030 !important;
   padding-top: 0.75rem !important;
   margin: 0 !important;
+  transition: width 0.3s ease;
 }
 
-.sidebar.toggled {
-  /* Override the toggled behavior to keep it fixed but minimized */
-  width: 6.5rem !important;
-  transition: all 0.3s;
-  overflow-y: auto;
+/* Sidebar Hover Effect */
+#accordionSidebar:not(:hover) {
+    width: 6.5rem !important; /* Collapsed width */
 }
+
+#accordionSidebar:not(:hover) .nav-item .nav-link span,
+#accordionSidebar:not(:hover) .sidebar-brand-text,
+#accordionSidebar:not(:hover) .sidebar-heading,
+#accordionSidebar:not(:hover) .nav-item .collapse {
+    display: none;
+}
+
+#accordionSidebar:not(:hover) .sidebar-brand {
+    justify-content: center;
+}
+
+#accordionSidebar:not(:hover) .sidebar-brand .sidebar-brand-icon {
+    transform: rotate(0deg); /* prevent icon rotation */
+}
+
+#accordionSidebar:hover .sidebar-brand-text {
+    display: inline;
+}
+
 
 .sidebar .nav-item {
   margin: 0.25rem 0;
