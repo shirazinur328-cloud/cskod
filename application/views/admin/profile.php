@@ -30,13 +30,48 @@
 
         <div class="col-lg-8">
             <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Informasi Akun</h6>
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <ul class="nav nav-pills" id="profileTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Info Pribadi</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="akun-tab" data-toggle="tab" href="#akun" role="tab" aria-controls="akun" aria-selected="false">Akun & Keamanan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="aktivitas-tab" data-toggle="tab" href="#aktivitas" role="tab" aria-controls="aktivitas" aria-selected="false">Aktivitas Mengajar</a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="card-body">
-                    <div class="row mb-2">
-                        <div class="col-md-4"><strong>Username:</strong></div>
-                        <div class="col-md-8"><?= htmlspecialchars($admin->username); ?></div>
+                    <div class="tab-content" id="profileTabsContent">
+                        <!-- Tab Info Pribadi -->
+                        <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                            <h5 class="mb-3">Informasi Pribadi</h5>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Nama Lengkap:</strong></div>
+                                <div class="col-md-8"><?= htmlspecialchars($admin->username ?? 'Admin'); ?></div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Akun & Keamanan -->
+                        <div class="tab-pane fade" id="akun" role="tabpanel" aria-labelledby="akun-tab">
+                            <h5 class="mb-3">Pengaturan Akun & Keamanan</h5>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Username:</strong></div>
+                                <div class="col-md-8"><?= htmlspecialchars($admin->username); ?></div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4"><strong>Password:</strong></div>
+                                <div class="col-md-8">******** <a href="#" class="btn btn-link btn-sm" data-toggle="modal" data-target="#changePasswordModal">Ganti Password</a></div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Aktivitas Mengajar -->
+                        <div class="tab-pane fade" id="aktivitas" role="tabpanel" aria-labelledby="aktivitas-tab">
+                            <h5 class="mb-3">Statistik Aktivitas Mengajar</h5>
+                            <p class="text-muted">Tidak tersedia untuk administrator</p>
+                        </div>
                     </div>
                 </div>
             </div>

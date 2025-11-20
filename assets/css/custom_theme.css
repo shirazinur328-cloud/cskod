@@ -15,33 +15,42 @@
   --border-radius: 12px;
   --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --card-shadow-hover: 0 10px 15px -3px rgba(37, 99, 235, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-/* Secondary Color: #1B2A41 - Dark Elegant Blue */
-:root {
   --secondary: #1B2A41;
   --secondary-light: #24344E;
   --secondary-lighter: #2F3E58;
-}
-
-/* Base Light Color: #F5F9FF - Soft Blue-White */
-:root {
   --base-light: #F5F9FF;
   --base-lighter: #EDF4FF;
-  --white: #FFFFFF;
-}
-
-/* Accent Color: #2BBF82 - Mint Green */
-:root {
   --accent: #2BBF82;
   --accent-dark: #24A56F;
   --accent-light: #3DE3A4;
 }
 
-/* Updated styles for sidebar */
+/* Body scroll is now enabled to allow the main page to scroll */
+body {
+  /* overflow: hidden; */ /* This was preventing the page from scrolling */
+}
+
+/* Updated styles for sidebar - Fixed position to stay in place during scroll */
 .sidebar {
   background: var(--secondary) !important;
   color: var(--white);
+  border-radius: var(--border-radius); /* Add rounded corners to the main sidebar */
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 100vh !important;
+  width: 14rem !important; /* Standard width for sidebar */
+  overflow-y: auto !important;
+  z-index: 1030 !important;
+  padding-top: 0.75rem !important;
+  margin: 0 !important;
+}
+
+.sidebar.toggled {
+  /* Override the toggled behavior to keep it fixed but minimized */
+  width: 6.5rem !important;
+  transition: all 0.3s;
+  overflow-y: auto;
 }
 
 .sidebar .nav-item {
@@ -67,14 +76,16 @@
   border-left: 3px solid var(--primary);
 }
 
-.sidebar .nav-item .nav-link i {
+#accordionSidebar.sidebar .nav-item .nav-link i {
   color: var(--primary);
   margin-right: 0.75rem;
+  font-size: 22px !important; /* Match guru/murid icon size */
 }
 
 .sidebar .sidebar-brand {
   background: var(--secondary-light);
   color: var(--white) !important;
+  padding: 1rem 1rem;
 }
 
 .sidebar .sidebar-brand .sidebar-brand-text {
@@ -94,6 +105,13 @@
   background: var(--white);
   border-bottom: 1px solid #e3e6f0;
   padding: 0.75rem 1rem;
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  left: 14rem; /* Account for sidebar width */
+  z-index: 1029;
+  width: calc(100% - 14rem) !important;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.1) !important;
 }
 
 .topbar .topbar-divider {
@@ -110,8 +128,20 @@
 }
 
 /* Main content background */
+#content-wrapper {
+  background-color: var(--base-light);
+  margin-left: 14rem; /* Width of the sidebar */
+  padding-top: 4.375rem; /* Height of the topbar */
+  width: calc(100% - 14rem); /* Account for sidebar width */
+  position: relative;
+  min-height: 100vh; /* cukup ini saja */
+}
+
+
 #content {
   background-color: var(--base-light);
+  padding: 1.875rem; /* Maintain original padding */
+  width: 100%;
 }
 
 /* Card styling */
@@ -467,6 +497,10 @@ h1.h3, h1, h2, h3 {
   transform: translateY(-4px);
 }
 
+.kelas-card .card-body {
+  padding: 1.5rem;
+}
+
 .kelas-card .kelas-icon {
   font-size: 3rem;
   color: var(--primary);
@@ -489,7 +523,7 @@ h1.h3, h1, h2, h3 {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
-  padding-top: 1.5rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--base-light);
 }
 
@@ -544,6 +578,22 @@ h1.h3, h1, h2, h3 {
   box-shadow: var(--card-shadow);
 }
 
+/* Tab styling for profile view - yellow background with white text when active */
+.nav-pills .nav-link {
+    color: #000000; /* Black text for inactive tabs */
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: #FACC15; /* Yellow background */
+    color: #FFFFFF !important; /* White text */
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
 @media (min-width: 768px) {
   #wrapper {
     flex-direction: row;
@@ -558,37 +608,4 @@ h1.h3, h1, h2, h3 {
   .kelas-grid {
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   }
-}
-
-/* Custom styles for accordion to span full width within container-fluid */
-.custom-accordion {
-  margin-left: -15px; /* Counteract container-fluid's left padding */
-  margin-right: -15px; /* Counteract container-fluid's right padding */
-  width: calc(100% + 30px); /* 100% + (15px left + 15px right) */
-}
-
-/* Custom styles for animated gradient progress bar */
-.progress-bar-animated-gradient {
-  background-color: var(--primary); /* Use primary color for the gradient */
-  background-image: linear-gradient(
-    to right,
-    var(--primary),
-    var(--primary-light)
-  );
-  animation: progress-bar-stripes 1s linear infinite;
-  background-size: 1rem 1rem;
-}
-
-@keyframes progress-bar-stripes {
-  from { background-position: 1rem 0; }
-  to { background-position: 0 0; }
-}
-
-/* Custom styles for h2 inside custom-accordion-header to span full width */
-.custom-accordion-header h2 {
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: -1.25rem; /* Counteract .card-header's left padding */
-  margin-right: -1.25rem; /* Counteract .card-header's right padding */
-  width: calc(100% + 2.5rem); /* 100% + (1.25rem left + 1.25rem right) */
 }

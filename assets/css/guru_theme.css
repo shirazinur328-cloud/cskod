@@ -1,521 +1,634 @@
 /*
- * ===================================================================
- *  CUSTOM GURU THEME: "Soft Warm" (Detailed with specific component styles)
- * ===================================================================
- *  Palette Utama
- *  Primary (kuning lembut): #FACC15
- *  Primary Hover: #EAB308
- *  Secondary (paste kuning muda): #FEF9C3
- *  Background: #FFFFFF
- *  Surface/Card: #F3F4F6
- *  Text utama: #1F2937
- *  Text Light: #6B7280
- *  Border: #D1D5DB
- *  Shadow soft: 0 4px 12px rgba(0, 0, 0, 0.05)
- * ===================================================================
+ * Learn & Grow - Teacher Theme
+ * Tema: cerah, semangat, fun tapi tetap fokus.
  */
 
-/* === KEYFRAMES FOR ANIMATIONS === */
-@keyframes modal-open-animation {
-    from {
-        transform: scale(0.92);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes tooltip-fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-
-/* === GENERAL BODY & BACKGROUND === */
-html, body {
-    height: 100vh;
-    overflow: hidden; /* Prevent body from scrolling */
+:root {
+    --primary-color: #FACC15; /* Kuning cerah */
+    --secondary-color: #FEF9C3; /* Kuning muda lembut untuk background */
+    --accent-color: #3B82F6; /* Biru cerah (konsisten dengan branding utama sistem) */
+    --background-color: #F9FAFB; /* Putih keabu-an */
+    --text-color: #1E293B; /* Abu tua */
+    --text-secondary-color: #64748B; /* Abu netral untuk subtitle/deskripsi */
+    --border-color: #E2E8F0; /* Pembatas halus antar komponen */
 }
 
 body {
-    background-color: #FFFFFF; /* Background utama */
-    color: #1F2937; /* Text utama */
+    font-family: 'Nunito', sans-serif; /* Assuming Nunito is used elsewhere */
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    color: #1F2937; /* Text utama for headings */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-color);
 }
 
-/* === SIDEBAR === */
-.sidebar {
-    flex-basis: 14rem; /* Revert to previous width */
-    flex-shrink: 0; /* Prevent shrinking */
-    background-color: #F5F8FF; /* Very light blue background */
-    border-right: 1px solid #D1D5DB; /* Add separator */
-    box-shadow: none; /* Minimal look, no shadow */
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
-    overflow-y: auto; /* Make sidebar content scrollable */
+/* --- FIXED LAYOUT STYLES --- */
+html, body {
+    height: 100vh;
+    overflow: hidden; /* Mencegah body dari scrolling */
 }
 
-.sidebar.toggled {
-    flex-basis: 6.5rem; /* Explicitly set toggled flex-basis */
-}
-
-/* Remove dark gradient */
-.bg-gradient-primary {
-    background-color: #F5F8FF !important;
-    background-image: none !important;
-}
-
-/* Sidebar Brand */
-.sidebar .sidebar-brand {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background-color: #F5F8FF; /* Match sidebar background */
-}
-
-.sidebar .sidebar-brand, .sidebar .sidebar-brand .sidebar-brand-text {
-    color: #1F2937; /* Text utama */
-}
-
-/* Sidebar Headings */
-.sidebar .sidebar-heading {
-    color: #6B7280; /* Text Light */
-}
-
-/* Nav Links */
-.sidebar .nav-item .nav-link {
-    color: #1F2937; /* Text utama */
-    padding: 12px 1rem; /* Spacing: padding menu 12px */
-    transition: all 0.25s ease;
-    font-size: 1rem; /* Match student theme */
-}
-
-.sidebar .nav-item .nav-link i {
-    color: #6B7280; /* Text Light */
-    font-size: 22px; /* Match student theme */
-    margin-right: 10px; /* Match student theme */
-}
-
-/* Hover State */
-.sidebar .nav-item .nav-link:hover {
-    background-color: #FEF9C3; /* Sidebar Hover */
-    color: #1F2937;
-    border-radius: 8px; /* Rounded: 8px di item */
-}
-.sidebar .nav-item .nav-link:hover i {
-    color: #1F2937;
-}
-
-/* Active State */
-.sidebar .nav-item.active .nav-link {
-    background-color: #FACC15; /* Active menu background */
-    color: #1F2937; /* Active menu text */
-    font-weight: bold; /* Active menu weight */
-    border-radius: 8px; /* Rounded: 8px di item */
-}
-
-.sidebar .nav-item.active .nav-link i {
-    color: #1F2937; /* Active menu text */
-}
-
-/* Divider */
-.sidebar-dark .sidebar-divider, .sidebar-light .sidebar-divider {
-    border-top: 1px solid #D1D5DB; /* Border */
-}
-
-/* Toggler */
-.sidebar .text-center {
-    position: sticky;
-    bottom: 0;
-    z-index: 1;
-    background-color: #F5F8FF; /* Match sidebar background */
-    padding: 0.5rem 0;
-}
-
-#sidebarToggle {
-    background-color: #FEF9C3 !important; /* Secondary yellow */
-    border: 1px solid #FACC15 !important; /* Primary yellow border */
-}
-
-#sidebarToggle::after {
-    color: #1F2937; /* Main text color for the arrow icon */
-}
-
-/* Ensure toggler is visible when sidebar is collapsed */
-.sidebar.toggled .text-center {
-    display: block !important;
-}
-
-/* Ensure toggler icon remains black when sidebar is collapsed */
-.sidebar.toggled #sidebarToggle::after {
-    color: #1F2937 !important;
-}
-
-#sidebarToggle, .sidebar-dark #sidebarToggle::after, .sidebar-light #sidebarToggle::after {
-    color: #1F2937;
-}
-
-/* === TOPBAR / NAVBAR === */
-.navbar.topbar {
-    height: 64px; /* Navbar Guru Height */
-    background-color: #F5F8FF; /* Very light blue background */
-    border-bottom: 1px solid #E5E7EB; /* Navbar Guru Border-bottom */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.04); /* Add separator shadow */
-    transition: all 0.25s ease; /* Navbar Transition */
-}
-
-.topbar .nav-item .nav-link {
-    color: #1F2937; /* Navbar Guru Text */
-    transition: all 0.25s ease; /* Navbar Transition */
-}
-
-.topbar .nav-item .nav-link i {
-    color: #EAB308; /* Navbar Guru Icon */
-    transition: all 0.25s ease; /* Navbar Transition */
-}
-
-.topbar .nav-item .nav-link:hover {
-    background-color: #FEF9C3; /* Navbar Hover item */
-    color: #1F2937;
-    border-radius: 0; /* Rounded: none */
-}
-
-.topbar .nav-item .nav-link:hover i {
-    color: #1F2937;
-}
-
-.topbar .topbar-divider {
-    border-right: 1px solid #D1D5DB; /* Border */
-}
-
-/* Notification Badge */
-.badge-counter {
-    background-color: #FACC15; /* Primary */
-    color: #1F2937; /* Text utama */
-    border: 1px solid #FEF9C3; /* Secondary */
-}
-
-/* === CARDS === */
-.card {
-    background-color: #FFFFFF; /* Card Background */
-    padding: 20px; /* Card Padding */
-    border-radius: 16px; /* Card Rounded */
-    border: 1px solid #E5E7EB; /* Card Border */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Card Shadow */
-    transition: 0.25s ease; /* Card Hover animation transition */
-}
-
-.card:hover {
-    transform: translateY(-2px); /* Card Hover animation transform */
-    box-shadow: 0 6px 16px rgba(0,0,0,0.08); /* Card Hover animation box-shadow */
-}
-
-.card-body {
-    padding: 0; /* Resetting default padding as card has 20px */
-}
-
-.card-header {
-    background-color: transparent;
-    border-bottom: 1px solid #D1D5DB; /* Border */
-    padding: 0 0 15px 0; /* Adjust header padding */
-    margin-bottom: 15px; /* Space below header */
-}
-
-.card-header h6 {
-    color: #1F2937; /* Card Title */
-    font-weight: 600; /* Card Title font-weight */
-}
-
-/* Specific card from dashboard */
-.card-statistic {
-    background-color: #FFFFFF; /* White for contrast */
-    border: 1px solid #D1D5DB;
-    padding: 20px; /* Ensure padding is applied */
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: 0.25s ease;
-}
-.card-statistic:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-.card-statistic .text-uppercase {
-    color: #FEF9C3 !important; /* Secondary yellow for the label */
-}
-.card-statistic .font-weight-bold {
-    color: #1F2937 !important; /* Text utama - black/dark gray */
-}
-.card-statistic .fa-2x {
-    color: #FEF9C3; /* Secondary - very light yellow */
-}
-
-/* Custom style for subject list cards to be independent */
-.card-mapel {
-    background-color: #FFFFFF;
-    padding: 20px;
-    border-radius: 16px;
-    border: 1px solid #E5E7EB;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: 0.25s ease;
-    min-height: 250px !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.card-mapel:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-}
-
-.card-mapel .card-body {
-    padding: 0; /* The parent .card-mapel already has padding */
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-
-/* === BUTTONS === */
-.btn {
-    border-radius: 0.375rem; /* 6px */
-    font-weight: 600;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* Subtle shadow for buttons */
-}
-
-.btn-primary {
-    background-color: #FACC15; /* Primary */
-    border-color: #FACC15;
-    color: #1F2937; /* Text utama */
-}
-
-.btn-primary:hover {
-    background-color: #EAB308; /* Primary Hover */
-    border-color: #EAB308;
-    color: #1F2937;
-}
-
-.btn-secondary {
-    background-color: #D1D5DB; /* Border */
-    border-color: #D1D5DB;
-    color: #1F2937;
-}
-
-.btn-secondary:hover {
-    background-color: #9ca3af;
-    border-color: #9ca3af;
-}
-
-/* === FORMS / INPUT FIELDS === */
-.form-control {
-    background: #FFFFFF;
-    border: 1px solid #D1D5DB;
-    border-radius: 12px;
-    padding: 10px 14px;
-    color: #1F2937;
-    transition: 0.25s ease;
-}
-
-.form-control:focus {
-    border: 1px solid #FACC15;
-    box-shadow: 0 0 0 3px rgba(250,204,21,0.25);
-}
-
-/* === TABLES === */
-.table-responsive {
-    border: 1px solid #E5E7EB;
-    border-radius: 12px; /* Rounded corners for the table wrapper */
-}
-
-.table {
-    border-collapse: separate; /* Allows for spacing and rounded corners */
-    border-spacing: 0;
-}
-
-.table thead th {
-    background-color: #FEF9C3; /* Header Background */
-    color: #1F2937; /* Header Text */
-    font-weight: bold; /* Header Text bold */
-    border-bottom: 1px solid #E5E7EB;
-}
-
-.table thead th:first-child {
-    border-top-left-radius: 12px; /* Rounded top-left */
-}
-
-.table thead th:last-child {
-    border-top-right-radius: 12px; /* Rounded top-right */
-}
-
-.table tbody tr {
-    background-color: #FFFFFF; /* Row Background */
-}
-
-.table-hover tbody tr:hover {
-    background-color: #FFFDE7; /* Row Hover */
-}
-
-.table td, .table th {
-    border-top: 1px solid #E5E7EB; /* Border */
-}
-
-/* === BADGES === */
-.badge {
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-weight: 600;
-}
-
-.badge-status-aktif, .badge-primary {
-    background-color: #FACC15;
-    color: #1F2937;
-}
-
-.badge-status-pending, .badge-warning {
-    background-color: #FEF3C7;
-    color: #B45309;
-}
-
-.badge-status-danger, .badge-danger {
-    background-color: #FEE2E2;
-    color: #B91C1C;
-}
-
-/* === MODALS === */
-.modal-content {
-    background-color: #FFFFFF;
-    padding: 24px;
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    border: none;
-}
-
-.modal.fade .modal-dialog {
-    animation: modal-open-animation 0.25s ease;
-}
-
-.modal-header {
-    color: #1F2937;
-    border-bottom: none;
-    padding: 0;
-}
-
-.modal-title {
-    color: #1F2937;
-    font-weight: 600;
-}
-
-.modal-body {
-    padding: 20px 0;
-}
-
-.modal-footer {
-    border-top: none;
-    padding: 0;
-}
-
-/* === TOOLTIPS === */
-.tooltip-inner {
-    background-color: #1F2937;
-    color: white;
-    padding: 6px 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Soft shadow */
-}
-
-.tooltip.bs-tooltip-auto[x-placement^=top] .arrow::before, 
-.tooltip.bs-tooltip-top .arrow::before {
-    border-top-color: #1F2937;
-}
-/* Add other directions as needed */
-
-/* === AVATAR GURU === */
-.avatar-guru {
-    border-radius: 50%;
-    border: 3px solid #FACC15;
-    box-shadow: 0 0 15px rgba(250, 204, 21, 0.6); /* Soft glow kuning */
-}
-
-
-/* === CHART DEFAULTS (CSS Variables) === */
-:root {
-    --chart-primary-line: #FACC15;
-    --chart-primary-fill: rgba(250,204,21,0.25);
-    --chart-grid-color: #E5E7EB;
-    --chart-axis-text: #1F2937;
-}
-
-
-/* === PROGRESS BARS === */
-.progress {
-    background-color: #D1D5DB; /* Border */
-}
-
-.progress-bar {
-    background-color: #FACC15; /* Primary */
-}
-
-/* === TEXT & LINKS === */
-a {
-    color: #EAB308; /* Primary Hover for links */
-}
-
-a:hover {
-    color: #ca8a04; /* A slightly darker shade for link hover */
-}
-
-.text-gray-800 {
-    color: #1F2937 !important; /* Text utama */
-}
-.text-gray-600 {
-    color: #374151 !important; /* Slightly darker than Text Light */
-}
-.text-xs {
-    color: #6B7280 !important; /* Text Light */
-}
-.small {
-    color: #6B7280 !important; /* Text Light */
-}
-.text-muted {
-    color: #6B7280 !important; /* Text Light */
-}
-.text-primary {
-    color: #FACC15 !important; /* Primary */
-}
-
-/* === LAYOUT === */
-/* Fixed/Sticky Sidebar and Topbar */
 #wrapper {
     display: flex;
+    height: 100%;
 }
 
 #content-wrapper {
+    flex-grow: 1;
+    overflow-y: auto; /* Jadikan ini satu-satunya area scroll */
     display: flex;
     flex-direction: column;
-    width: 100%;
-    overflow-x: hidden;
-    height: 100vh;
-    overflow-y: auto;
+}
+
+.topbar {
+    position: sticky; /* Membuat topbar menempel di atas */
+    top: 0;
+    z-index: 1030; /* Pastikan di atas konten lain */
+}
+
+.container-fluid {
+    flex-grow: 1; /* Pastikan container mengisi sisa ruang */
 }
 
 #content {
     flex: 1 0 auto;
 }
+/* --- END FIXED LAYOUT STYLES --- */
 
+
+/* Sidebar */
 .sidebar {
+    background-color: #FFFFFF; /* Putih */
+    background-image: none;
+    border-top-right-radius: 15px; /* Rounded corner kanan */
+    border-bottom-right-radius: 15px; /* Rounded corner kanan */
+    box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.075); /* Subtle shadow without glowing effect */
+    border-right: 1px solid rgba(0,0,0,0.08); /* Thin right border with soft grey */
+    flex-shrink: 0; /* Mencegah sidebar menyusut */
     height: 100vh;
     position: sticky;
     top: 0;
+    overflow-y: auto; /* Make sidebar content scrollable */
 }
 
+/* Sidebar Brand */
+.sidebar .sidebar-brand {
+    color: #1E293B;
+}
+
+/* Sidebar Text & Icons */
+.sidebar .nav-item .nav-link {
+    color: #1E293B; /* Abu tua */
+    transition: all 0.2s ease-in-out;
+    font-size: 1rem; /* Medium text */
+}
+
+.sidebar .nav-item .nav-link i {
+    color: #1E293B; /* Abu tua */
+    font-size: 22px; /* Large icons (20-24px) */
+    margin-right: 10px;
+}
+
+/* Sidebar Hover/Active Item */
+.sidebar .nav-item .nav-link:hover {
+    background-color: #FEF9C3; /* Kuning muda */
+    color: #FACC15; /* Kuning terang */
+    border-radius: 0 15px 15px 0; /* Rounded corner kanan on hover */
+}
+
+.sidebar .nav-item .nav-link:hover i {
+    color: #FACC15; /* Kuning terang */
+}
+
+.sidebar .nav-item.active .nav-link {
+    background-color: #FACC15; /* Kuning terang */
+    color: #FFFFFF; /* Putih saat aktif */
+    font-weight: 600;
+    border-radius: 0 15px 15px 0; /* Rounded corner kanan on active */
+}
+
+.sidebar .sidebar-heading {
+    color: #FACC15; /* Bright yellow for headings */
+    font-weight: bold; /* Bold text */
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1rem;
+}
+
+/* Sidebar divider */
+.sidebar-divider {
+    border-top: 1px solid #000000; /* Black divider */
+    margin: 0.5rem 1rem; /* Adjust spacing as needed */
+}
+
+/* Topbar */
 .topbar {
-    position: sticky;
+    background-color: #FFFFFF; /* Putih */
+    box-shadow: 0 0.125rem 0.25rem 0 rgba(0,0,0,.075)!important; /* Shadow halus */
+    border-bottom: 3px solid var(--primary-color); /* Accent line */
+}
+
+/* Topbar Text */
+.topbar .nav-item .nav-link {
+    color: var(--text-color); /* #1E293B */
+}
+
+.topbar .nav-item .nav-link:hover {
+    color: var(--primary-color); /* Primary color on hover */
+}
+
+/* Topbar Search Bar */
+.topbar .navbar-search input {
+    background-color: var(--background-color); /* Putih keabu-an */
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.topbar .navbar-search input::placeholder {
+    color: var(--text-secondary-color);
+}
+
+/* Topbar Profile Picture */
+.topbar .img-profile {
+    height: 2.5rem; /* Adjust as needed */
+    width: 2.5rem; /* Adjust as needed */
+    border-radius: 50%; /* Bundar */
+    object-fit: cover;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color); /* #FACC15 */
+    border-color: var(--primary-color);
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.btn-primary:hover {
+    background-color: #EAB308; /* New hover color */
+    border-color: #EAB308; /* New hover color */
+    color: #FFFFFF;
+}
+
+.btn-secondary { /* Formerly btn-accent */
+    background-color: var(--accent-color); /* #3B82F6 */
+    border-color: var(--accent-color);
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.btn-secondary:hover {
+    background-color: #2563EB; /* New hover color */
+    border-color: #2563EB; /* New hover color */
+    color: #FFFFFF;
+}
+
+.btn-danger {
+    background-color: #EF4444;
+    border-color: #EF4444;
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.btn-danger:hover {
+    background-color: #DC2626;
+    border-color: #DC2626;
+    color: #FFFFFF;
+}
+
+.btn-warning-custom {
+    background-color: #F59E0B;
+    border-color: #F59E0B;
+    color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.btn-warning-custom:hover {
+    background-color: #D97706; /* Slightly darker for hover */
+    border-color: #D97706;
+    color: #FFFFFF;
+}
+
+/* Cards */
+.card {
+    background-color: #FFFFFF; /* White for card background */
+    border: 1px solid var(--border-color); /* E2E8F0 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md equivalent */
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+.card:hover {
+    transform: translateY(-3px) scale(1.02); /* Slight lift and scale */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* slightly more pronounced shadow on hover */
+}
+.card-mapel-header-text {
+    color: var(--primary-color); /* Yellow text as requested for card header */
+}
+.card-mapel-header-icon {
+    color: #3B82F6; /* Icon color as requested for card header */
+}
+.card-header {
+    background-color: #FFFFFF; /* Keep header background white */
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.75rem 1.25rem; /* Standard Bootstrap padding */
+    margin-bottom: 0;
+    border-top-left-radius: calc(8px - 1px);
+    border-top-right-radius: calc(8px - 1px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.card-body h6.card-title { /* For specific card titles */
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Forms */
+.form-control {
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    background-color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
+}
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(250, 204, 21, 0.25); /* Primary color with transparency */
+}
+.form-control::placeholder {
+    color: var(--text-secondary-color);
+    opacity: 1;
+}
+
+/* Tables */
+.table thead th {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-color);
+}
+.table tbody tr:nth-of-type(odd) {
+    background-color: #FFFFFF;
+}
+.table tbody tr:nth-of-type(even) {
+    background-color: var(--background-color);
+}
+.table tbody tr:hover {
+    background-color: var(--secondary-color);
+    cursor: pointer;
+}
+
+/* Progress Bars */
+.progress {
+    background-color: #E5E7EB; /* Track color */
+    border-radius: 999px; /* Pill style */
+}
+.progress-bar {
+    background-color: var(--primary-color);
+    border-radius: 999px; /* Pill style */
+}
+
+/* Animated Gradient Progress Bar for Card Progress */
+.progress-bar-animated-gradient {
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color)); /* Yellow to Blue */
+    background-size: 200% 100%;
+    animation: progress-gradient-animation 2s linear infinite;
+}
+
+@keyframes progress-gradient-animation {
+    0% {
+        background-position: 100% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
+
+/* Badges */
+.badge-primary {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+}
+.badge-secondary {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+}
+.badge-accent {
+    background-color: var(--accent-color);
+    color: #FFFFFF;
+}
+
+/* Notification Cards */
+.notification-card {
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    transition: all 0.2s ease-in-out;
+}
+.notification-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+.notification-card .notification-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+    margin-right: 15px;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+.notification-card .notification-icon-success {
+    background-color: var(--primary-color); /* Yellow */
+}
+.notification-card .notification-icon-warning {
+    background-color: #FACC15; /* Yellow */
+}
+.notification-card .notification-icon-info {
+    background-color: var(--accent-color); /* Blue */
+}
+.notification-card .notification-content {
+    flex-grow: 1;
+}
+.notification-card .notification-content .title {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 2px;
+}
+.notification-card .notification-content .message {
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+}
+
+/* Dashboard statistic cards - icons and text styling */
+.card-statistic .col-auto i {
+    color: #FEF9C3; /* Faded yellow for icons */
+}
+
+.card-statistic .text-xs {
+    color: #FACC15 !important; /* Yellow for text */
+    font-weight: 700; /* Make text bold */
+}
+
+/*
+ * Profile Page Styles
+ */
+.profile-page-bg {
+    background-color: #F9FAFB;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-page-title {
+    color: #1E293B;
+    font-weight: 600;
+}
+
+.profile-card {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    padding: 40px;
+}
+
+.profile-card .img-profile {
+    width: 120px;
+    height: 120px;
+    border: 4px solid var(--primary-color); /* Accent color */
+}
+
+.profile-card .profile-name {
+    color: #1E293B;
+}
+
+.profile-card .status-badge {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+}
+
+.profile-card .btn-edit-profile {
+    background-color: #3B82F6;
+    border-color: #3B82F6;
+    font-weight: 600;
+    padding: 12px;
+}
+.profile-card .btn-edit-profile:hover {
+    background-color: #2563EB;
+    border-color: #2563EB;
+}
+
+.info-card {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.info-card .card-header {
+    background-color: white;
+    border-bottom: 1px solid #E2E8F0;
+    padding: 20px;
+}
+
+.info-card .card-header .h5 {
+    color: #1E293B;
+}
+
+.info-card .card-body {
+    padding: 30px;
+}
+
+.info-card .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    color: #64748B;
+}
+
+.info-card .nav-tabs .nav-link.active {
+    color: #1E293B;
+    font-weight: 600;
+    border-bottom: 2px solid #3B82F6;
+    background-color: transparent;
+}
+
+.info-card .tab-content hr {
+    border-top: 1px solid #E2E8F0;
+}
+
+.stat-card {
+    border-left-width: 4px;
+    border-radius: 8px;
+}
+
+.activity-list .list-group-item {
+    border-color: #E2E8F0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+/* Custom Accordion Styles for subject_detail.php */
+.custom-accordion .card {
+    border: none;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.custom-accordion .card-header {
+    background-color: #FFFFFF;
+    border-bottom: none;
+    padding: 0; /* Remove default padding */
+}
+
+.custom-accordion .btn-pertemuan {
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    border-radius: 12px; /* Apply to button for full header */
+    display: flex; /* Ensure flexbox for spacing */
+    justify-content: space-between; /* Space out items */
+    align-items: center; /* Vertically align items */
+    width: 100%; /* Ensure button takes full width */
+    text-align: left; /* Align text to left */
+}
+
+.custom-accordion .btn-pertemuan:hover {
+    background-color: var(--background-color); /* Light hover effect */
+    color: var(--primary-color);
+}
+
+.custom-accordion .btn-pertemuan[aria-expanded="true"] {
+    background-color: var(--primary-color); /* Active header background */
+    color: #FFFFFF;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.custom-accordion .btn-pertemuan[aria-expanded="true"] .text-primary {
+    color: #FFFFFF !important; /* Ensure text is white when active */
+}
+
+.custom-accordion .btn-pertemuan[aria-expanded="true"] .badge {
+    background-color: #FFFFFF;
+    color: var(--primary-color);
+}
+
+.custom-accordion .accordion-icon {
+    transition: transform 0.3s ease;
+    margin-left: 15px; /* Add space from badge/text */
+    font-size: 1rem; /* Adjust icon size */
+}
+
+.custom-accordion .btn-pertemuan[aria-expanded="true"] .accordion-icon {
+    transform: rotate(180deg);
+    color: #FFFFFF;
+}
+
+.custom-accordion .card-body {
+    border-top: 1px solid var(--border-color);
+    background-color: #FDFDFD; /* Slightly different background for content */
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.custom-accordion .btn-pertemuan .badge {
+    margin-left: 10px; /* Space between text and badge */
+    margin-right: 10px; /* Space between badge and icon */
+    padding: 0.4em 0.7em; /* Adjust badge padding */
+    font-size: 0.85rem;
+}
+
+/* Styling for the overall progress card in subject_detail */
+.subject-info-card .card-body {
+    padding: 20px;
+}
+
+.subject-info-card .progress {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+/* Hover effect for clickable cards */
+.card:hover {
+    cursor: pointer;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Custom card style for_kelasview with yellow accent */
+.card-kelas {
+    background-color: #FFFFFF; /* Clean white background */
+    border: 1px solid #F2C94C; /* Thin yellow border */
+    border-radius: 20px; /* Rounded corners */
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+/* Vertical yellow accent bar */
+.card-kelas::before {
+    content: "";
+    position: absolute;
     top: 0;
-    z-index: 999;
+    left: 0;
+    width: 8px; /* Width of the accent bar */
+    height: 100%;
+    background-color: #F2C94C; /* Yellow accent color */
+    transition: background-color 0.3s ease;
+}
+
+.card-kelas:hover::before {
+    background-color: #F5C000; /* Darker yellow on hover */
+}
+
+/* Hover effect for_kelascard */
+.card-kelas:hover {
+    background-color: #FFF6D1; /* Soft yellow background on hover */
+    transform: translateY(-5px); /* Elevation effect */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08); /* Soft shadow */
+}
+
+/* Custom badge styling */
+.badge-warning-custom {
+    background-color: #FEF3C7; /* Light yellow background */
+    color: #92400E; /* Darker yellow text */
+    padding: 0.5em 0.75em;
+    border-radius: 8px;
+    font-size: 0.75rem;
+}
+
+/* Animations for profile tab transitions */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(10px); }
+    to { transform: translateX(0); }
+}
+
+/* Modern profile card styles */
+.card {
+    border-radius: 24px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+/* Modern pill button styles with hover effects */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }

@@ -12,31 +12,27 @@
         <?php if (!empty($mapel_list)): ?>
             <?php foreach ($mapel_list as $mapel): ?>
                 <div class="col-xl-4 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        <?= htmlspecialchars($mapel->nama_kelas); ?>
+                    <a href="<?= base_url('guru/mapel/classroom/' . $mapel->id_mapel . '/' . $mapel->id_kelas); ?>" class="text-decoration-none" style="color: inherit;">
+                        <div class="card card-kelas border-0 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <div class="d-flex flex-column h-100">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <span class="badge badge-warning-custom text-dark text-xs font-weight-bold mb-2">
+                                                <?= htmlspecialchars($mapel->nama_kelas); ?>
+                                            </span>
+                                            <h5 class="card-title font-weight-bold text-gray-900 mb-3">
+                                                <?= htmlspecialchars($mapel->nama_mapel); ?>
+                                            </h5>
+                                        </div>
+                                        <div class="text-right">
+                                            <i class="fas fa-chalkboard-teacher fa-lg text-gray-400"></i>
+                                        </div>
                                     </div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                        <?= htmlspecialchars($mapel->nama_mapel); ?>
-                                    </div>
-                                </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <a href="<?= base_url('guru/mapel/classroom/' . $mapel->id_mapel . '/' . $mapel->id_kelas); ?>" class="btn btn-sm btn-primary btn-icon-split">
-                                <span class="icon text-white-50">
-                                    <i class="fas fa-arrow-right"></i>
-                                </span>
-                                <span class="text">Masuk Kelas</span>
-                            </a>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
