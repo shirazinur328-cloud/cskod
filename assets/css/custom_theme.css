@@ -42,7 +42,6 @@
 .sidebar {
   background: var(--secondary) !important;
   color: var(--white);
-  border-radius: var(--border-radius); /* Add rounded corners to the main sidebar */
 }
 
 .sidebar .nav-item {
@@ -468,10 +467,6 @@ h1.h3, h1, h2, h3 {
   transform: translateY(-4px);
 }
 
-.kelas-card .card-body {
-  padding: 1.5rem;
-}
-
 .kelas-card .kelas-icon {
   font-size: 3rem;
   color: var(--primary);
@@ -494,7 +489,7 @@ h1.h3, h1, h2, h3 {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   border-top: 1px solid var(--base-light);
 }
 
@@ -549,7 +544,6 @@ h1.h3, h1, h2, h3 {
   box-shadow: var(--card-shadow);
 }
 
-/* Responsive adjustments */
 @media (min-width: 768px) {
   #wrapper {
     flex-direction: row;
@@ -564,4 +558,37 @@ h1.h3, h1, h2, h3 {
   .kelas-grid {
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   }
+}
+
+/* Custom styles for accordion to span full width within container-fluid */
+.custom-accordion {
+  margin-left: -15px; /* Counteract container-fluid's left padding */
+  margin-right: -15px; /* Counteract container-fluid's right padding */
+  width: calc(100% + 30px); /* 100% + (15px left + 15px right) */
+}
+
+/* Custom styles for animated gradient progress bar */
+.progress-bar-animated-gradient {
+  background-color: var(--primary); /* Use primary color for the gradient */
+  background-image: linear-gradient(
+    to right,
+    var(--primary),
+    var(--primary-light)
+  );
+  animation: progress-bar-stripes 1s linear infinite;
+  background-size: 1rem 1rem;
+}
+
+@keyframes progress-bar-stripes {
+  from { background-position: 1rem 0; }
+  to { background-position: 0 0; }
+}
+
+/* Custom styles for h2 inside custom-accordion-header to span full width */
+.custom-accordion-header h2 {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: -1.25rem; /* Counteract .card-header's left padding */
+  margin-right: -1.25rem; /* Counteract .card-header's right padding */
+  width: calc(100% + 2.5rem); /* 100% + (1.25rem left + 1.25rem right) */
 }

@@ -2,6 +2,7 @@
 <?php $this->load->view('templates/siswa/navbar'); ?>
 <?php $this->load->view('templates/siswa/topbar'); ?>
 
+
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -25,7 +26,7 @@
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-lg-8">
-                    <p class="mb-2 text-muted">Oleh: <span class="font-weight-bold"><?php echo htmlspecialchars($subject['nama_guru']); ?></span></p>
+                    <p class="mb-2 text-muted">Guru: <span class="font-weight-bold"><?php echo htmlspecialchars($subject['nama_guru']); ?></span></p>
                     <hr>
                     <h6 class="font-weight-bold text-primary mb-2">Total Progres Belajar</h6>
                     <div class="progress" style="height: 20px;">
@@ -48,8 +49,8 @@
             <?php foreach ($meetings as $index => $meeting) : ?>
                 <div class="card shadow mb-2 custom-accordion-item">
                     <div class="card-header custom-accordion-header" id="heading-<?php echo $meeting['id_pertemuan']; ?>">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link btn-pertemuan btn-block text-left d-flex justify-content-between align-items-center collapsed" type="button" data-id="<?php echo $meeting['id_pertemuan']; ?>" data-toggle="collapse" data-target="#collapse-<?php echo $meeting['id_pertemuan']; ?>" aria-expanded="<?php echo $index == 0 ? 'true' : 'false'; ?>" aria-controls="collapse-<?php echo $meeting['id_pertemuan']; ?>">
+                        <h2 class="mb-0 container-fluid">
+                            <button class="btn btn-link btn-pertemuan btn-block d-flex justify-content-between align-items-center collapsed" type="button" data-id="<?php echo $meeting['id_pertemuan']; ?>" data-toggle="collapse" data-target="#collapse-<?php echo $meeting['id_pertemuan']; ?>" aria-expanded="<?php echo $index == 0 ? 'true' : 'false'; ?>" aria-controls="collapse-<?php echo $meeting['id_pertemuan']; ?>">
                                 <span class="font-weight-bold text-primary">Pertemuan <?php echo $index + 1; ?>: <?php echo htmlspecialchars($meeting['nama_pertemuan']); ?></span>
                                 <div class="d-flex align-items-center">
                                     <?php if ($meeting['status'] == 'Selesai') : ?>

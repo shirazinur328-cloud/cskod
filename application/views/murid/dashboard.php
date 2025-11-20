@@ -94,27 +94,32 @@
                                 </div>
                             </div>
 
-                            <!-- Tugas Mendatang -->
+                            <!-- Ringkasan Aktivitas Terakhir -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Tugas Mendatang</h6>
+                                    <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Aktivitas Terakhir</h6>
                                 </div>
                                 <div class="card-body">
-                                    <ul class="list-group list-group-flush">
-                                        <?php if (!empty($tugas_mendatang)): ?>
-                                            <?php foreach ($tugas_mendatang as $tugas): ?>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <div class="font-weight-bold"><?= htmlspecialchars($tugas->judul_tugas) ?></div>
-                                                        <div class="small" style="color: var(--text-secondary-color);"><?= htmlspecialchars($tugas->nama_mapel) ?> - Deadline: <?= date('d M Y', strtotime($tugas->deadline)) ?></div>
-                                                    </div>
-                                                    <a href="<?= site_url('murid/tugas/kerjakan/' . ($tugas->tipe_tugas ?? 'file') . '/' . $tugas->id_tugas) ?>" class="btn btn-accent btn-sm">Kerjakan</a>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        <?php else: ?>
-                                            <li class="list-group-item text-center" style="color: var(--text-secondary-color);">Tidak ada tugas yang akan datang. Santai sejenak!</li>
-                                        <?php endif; ?>
-                                    </ul>
+                                    <?php if (!empty($last_activity)): ?>
+                                        <p class="mb-2" style="color: var(--text-color);">
+                                            Kamu terakhir menyelesaikan 
+                                            <span class="font-weight-bold">
+                                                <?php 
+                                                    if ($last_activity['type'] == 'tugas') {
+                                                        echo 'Tugas: ' . htmlspecialchars($last_activity['title']);
+                                                    } else {
+                                                        echo 'Materi: ' . htmlspecialchars($last_activity['title']);
+                                                    }
+                                                ?>
+                                            </span> 
+                                            pada mapel <span class="font-weight-bold"><?= htmlspecialchars($last_activity['mapel_name']) ?></span>.
+                                        </p>
+                                        <p class="small text-muted mb-0">
+                                            Pada: <?= date('d M Y H:i', strtotime($last_activity['timestamp'])) ?>
+                                        </p>
+                                    <?php else: ?>
+                                        <p class="text-center small" style="color: var(--text-secondary-color);">Belum ada aktivitas yang tercatat.</p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -153,35 +158,6 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <p class="text-center small" style="color: var(--text-secondary-color);">Belum ada mata pelajaran yang diikuti.</p>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-
-                            <!-- Ringkasan Aktivitas Terakhir -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold" style="color: var(--text-color);">Aktivitas Terakhir</h6>
-                                </div>
-                                <div class="card-body">
-                                    <?php if (!empty($last_activity)): ?>
-                                        <p class="mb-2" style="color: var(--text-color);">
-                                            Kamu terakhir menyelesaikan 
-                                            <span class="font-weight-bold">
-                                                <?php 
-                                                    if ($last_activity['type'] == 'tugas') {
-                                                        echo 'Tugas: ' . htmlspecialchars($last_activity['title']);
-                                                    } else {
-                                                        echo 'Materi: ' . htmlspecialchars($last_activity['title']);
-                                                    }
-                                                ?>
-                                            </span> 
-                                            pada mapel <span class="font-weight-bold"><?= htmlspecialchars($last_activity['mapel_name']) ?></span>.
-                                        </p>
-                                        <p class="small text-muted mb-0">
-                                            Pada: <?= date('d M Y H:i', strtotime($last_activity['timestamp'])) ?>
-                                        </p>
-                                    <?php else: ?>
-                                        <p class="text-center small" style="color: var(--text-secondary-color);">Belum ada aktivitas yang tercatat.</p>
                                     <?php endif; ?>
                                 </div>
                             </div>

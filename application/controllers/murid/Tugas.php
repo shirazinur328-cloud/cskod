@@ -23,7 +23,8 @@ class Tugas extends CI_Controller {
             return;
         }
 
-        $id_murid = 2; // Temporarily hardcoded for testing purposes
+                $id_murid = $this->session->userdata('murid')->id_murid;
+ // Temporarily hardcoded for testing purposes
         $data['tugas'] = $this->Model_tugas->get_tugas_detail_for_murid($id_tugas, $id_murid);
 
         if (empty($data['tugas'])) {
@@ -61,7 +62,8 @@ class Tugas extends CI_Controller {
     public function submit_coding()
     {
         $id_tugas = $this->input->post('id_tugas');
-        $id_murid = 2; // Temporarily hardcoded for testing purposes
+                $id_murid = $this->session->userdata('murid')->id_murid;
+ // Temporarily hardcoded for testing purposes
         $kode_jawaban = $this->input->post('kode_jawaban');
         if (empty($id_tugas) || empty($kode_jawaban)) {
             $this->session->set_flashdata('error', 'Gagal mengirimkan tugas. Data tidak lengkap.');
@@ -87,7 +89,8 @@ class Tugas extends CI_Controller {
     public function submit_file()
     {
         $id_tugas = $this->input->post('id_tugas');
-        $id_murid = 2; // Temporarily hardcoded for testing purposes
+                $id_murid = $this->session->userdata('murid')->id_murid;
+ // Temporarily hardcoded for testing purposes
         $id_mapel = $this->input->post('id_mapel');
 
         if (empty($id_tugas) || empty($id_mapel)) {
@@ -132,7 +135,8 @@ class Tugas extends CI_Controller {
     public function submit_text()
     {
         $id_tugas = $this->input->post('id_tugas');
-        $id_murid = 2; // Temporarily hardcoded for testing purposes
+                $id_murid = $this->session->userdata('murid')->id_murid;
+ // Temporarily hardcoded for testing purposes
         $id_mapel = $this->input->post('id_mapel');
         $text_jawaban = $this->input->post('jawaban_teks');
 

@@ -101,7 +101,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <div class="card stat-card border-left-info h-100 py-2">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
@@ -110,19 +110,6 @@
                                                     <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo number_format($stats['nilai_rata_rata'] ?? 0, 1); ?></div>
                                                 </div>
                                                 <div class="col-auto"><i class="fas fa-star-half-alt fa-2x text-gray-300"></i></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="card stat-card border-left-warning h-100 py-2">
-                                        <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2">
-                                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Sertifikat Diperoleh</div>
-                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $stats['sertifikat']; ?></div>
-                                                </div>
-                                                <div class="col-auto"><i class="fas fa-award fa-2x text-gray-300"></i></div>
                                             </div>
                                         </div>
                                     </div>

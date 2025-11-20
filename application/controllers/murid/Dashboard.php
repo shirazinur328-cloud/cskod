@@ -21,7 +21,8 @@ class Dashboard extends CI_Controller {
     public function index()
     {
         // Use a hardcoded student ID for testing, as requested.
-        $id_murid = 2;
+                $id_murid = $this->session->userdata('murid')->id_murid;
+
         
         // Load the main dashboard model
         $this->load->model('Model_dashboard');
@@ -42,6 +43,9 @@ class Dashboard extends CI_Controller {
         } else {
             $data['overall_progress'] = 0;
         }
+
+        // Fetch last activity for the dashboard view
+        $data['last_activity'] = $this->Model_dashboard->get_last_activity($id_murid);
         
         // Load the student dashboard view with all the collected data
         $this->load->view('murid/dashboard', $data);
@@ -53,7 +57,8 @@ class Dashboard extends CI_Controller {
     public function subject_detail($id_mapel = NULL)
     {
         // For testing, hardcode student ID. In production, use session.
-        $id_murid = 2; // Temporarily hardcoded for testing purposes
+                $id_murid = $this->session->userdata('murid')->id_murid;
+ // Temporarily hardcoded for testing purposes
 
         if ($id_mapel === NULL) {
             show_404();
@@ -104,7 +109,8 @@ class Dashboard extends CI_Controller {
         }
 
         // For testing, hardcode student ID. In production, use session.
-        $id_murid = 2; // Temporarily hardcoded for testing purposes
+                $id_murid = $this->session->userdata('murid')->id_murid;
+ // Temporarily hardcoded for testing purposes
 
         // 1. Fetch material details
         $data['materi'] = $this->Model_materi->get_materi_by_id($id_materi);
@@ -123,7 +129,8 @@ class Dashboard extends CI_Controller {
 
     public function detail_pertemuan($id_pertemuan)
     {
-        $id_murid = 2; // Hardcoded student ID for now
+                $id_murid = $this->session->userdata('murid')->id_murid;
+ // Hardcoded student ID for now
 
         $data['materi'] = $this->Model_materi->get_materi_by_pertemuan($id_pertemuan);
         $data['tugas'] = $this->Model_tugas->get_tugas_by_pertemuan($id_pertemuan, $id_murid); // Pass id_murid to get submission status
@@ -133,7 +140,7 @@ class Dashboard extends CI_Controller {
     public function mark_materi_complete()
     {
         $id_materi = $this->input->post('id_materi');
-        $id_murid = 2; // Hardcoded student ID for now
+        $id_murid = $this->session->userdata('murid')->id_murid;
 
         if ($id_materi) {
             $this->load->model('Model_materi');
@@ -153,7 +160,7 @@ class Dashboard extends CI_Controller {
         $this->load->model('Model_murid'); // For sidebar mapel and grades
         // $this->load->model('Model_nilai'); // No longer needed for this function
 
-        $id_murid = 2; // Hardcoded student ID for now
+        $id_murid = $this->session->userdata('murid')->id_murid;
 
         $data['daftar_nilai'] = $this->Model_murid->get_all_grades_by_murid($id_murid);
         $data['mapel_murid'] = $this->Model_murid->get_mapel_by_kelas($id_murid); // For sidebar

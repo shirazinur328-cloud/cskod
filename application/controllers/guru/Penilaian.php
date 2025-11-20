@@ -15,8 +15,7 @@ class Penilaian extends CI_Controller {
 
     public function index()
     {
-        // Hardcoded guru ID for now, replace with session data in a real app
-        $id_guru = 2; 
+        $id_guru = $this->session->userdata('guru')->id_guru; 
 
         $data['title'] = 'Tugas & Penilaian';
         $data['daftar_tugas'] = $this->Model_guru->get_all_tugas_by_guru($id_guru);
@@ -46,7 +45,7 @@ class Penilaian extends CI_Controller {
         $data['daftar_jawaban'] = $this->Model_tugas->get_jawaban_by_tugas($id_tugas);
 
         // --- Data for Sidebar and Active State ---
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
         $data['active_tingkatan'] = $this->Model_tugas->get_tingkatan_by_tugas($id_tugas);
 
@@ -67,7 +66,7 @@ class Penilaian extends CI_Controller {
         $data['title'] = 'Beri Nilai: ' . $data['jawaban']->judul_tugas;
 
         // --- Data for Sidebar and Active State ---
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
         $data['active_tingkatan'] = $this->Model_tugas->get_tingkatan_by_tugas($data['jawaban']->id_tugas);
 
@@ -102,7 +101,7 @@ class Penilaian extends CI_Controller {
 
     public function export_excel()
     {
-        $id_guru = 2; // Hardcoded guru ID
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $daftar_tugas = $this->Model_guru->get_all_tugas_by_guru($id_guru);
 
         // Tambahkan rata-rata nilai ke setiap tugas
@@ -140,7 +139,7 @@ class Penilaian extends CI_Controller {
     {
         $this->load->library('dompdf_gen'); // Load library dompdf
 
-        $id_guru = 2; // Hardcoded guru ID
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $data['daftar_tugas'] = $this->Model_guru->get_all_tugas_by_guru($id_guru);
 
         // Tambahkan rata-rata nilai ke setiap tugas

@@ -163,11 +163,12 @@ class Model_guru extends CI_Model {
             m.nama_mapel
         ');
         $this->db->from('pertemuan p');
-        $this->db->join('kelas k', 'p.id_kelas = k.id_kelas');
-        $this->db->join('kelas_mapel km', 'k.id_kelas = km.id_kelas');
-        $this->db->join('mapel m', 'km.id_mapel = m.id_mapel');
+        $this->db->join('mapel m', 'p.id_mapel = m.id_mapel'); // Direct join from pertemuan to mapel
+        $this->db->join('kelas_mapel km', 'm.id_mapel = km.id_mapel'); // Join mapel to kelas_mapel
+        $this->db->join('kelas k', 'km.id_kelas = k.id_kelas'); // Join kelas_mapel to kelas
         $this->db->where('m.id_guru', $id_guru);
         $this->db->where('p.tanggal', date('Y-m-d')); // Filter for today's date
+        $this->db->group_by('p.id_pertemuan, p.nama_pertemuan, p.tanggal, k.nama_kelas, m.nama_mapel'); // Group to avoid duplicate rows if a mapel is in multiple classes
         $this->db->order_by('p.tanggal', 'ASC');
         $query = $this->db->get();
         return $query->result();

@@ -20,7 +20,7 @@ class Pertemuan extends CI_Controller {
         $data['tugas_list'] = $this->Model_mapel_kelas->get_tugas_by_pertemuan($id_pertemuan);
         
         // --- Data for Sidebar and Active State ---
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $this->load->model('Model_guru');
         $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
         $kelas = $this->Model_mapel_kelas->get_kelas_by_id($data['pertemuan']->id_kelas);
@@ -80,7 +80,7 @@ class Pertemuan extends CI_Controller {
         $data['pertemuan'] = $this->Model_mapel_kelas->get_pertemuan_by_id($id_pertemuan);
         
         // --- Data for Sidebar and Active State ---
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $this->load->model('Model_guru');
         $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
         $kelas = $this->Model_mapel_kelas->get_kelas_by_id($data['pertemuan']->id_kelas);
@@ -119,7 +119,7 @@ class Pertemuan extends CI_Controller {
         $data['pertemuan'] = $this->Model_mapel_kelas->get_pertemuan_by_id($id_pertemuan);
         
         // --- Data for Sidebar and Active State ---
-        $id_guru = 2; // Hardcoded for now
+        $id_guru = $this->session->userdata('guru')->id_guru;
         $this->load->model('Model_guru');
         $data['tingkatan_kelas_list'] = $this->Model_guru->get_tingkatan_kelas_by_guru($id_guru);
         $kelas = $this->Model_mapel_kelas->get_kelas_by_id($data['pertemuan']->id_kelas);
